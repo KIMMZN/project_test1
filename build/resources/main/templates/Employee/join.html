@@ -1,0 +1,572 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>사원가입</title>-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
+<!--</head>-->
+<!--<style>-->
+<!--    body{-->
+<!--        background-color: pink;-->
+<!--        display: flex;-->
+<!--        justify-content: center;-->
+<!--        align-items: center;-->
+<!--        margin-top: 100px;-->
+<!--    }-->
+<!--    .container{-->
+<!--        display: flex;-->
+<!--        width: 1000px;-->
+<!--        height: 700px;-->
+<!--        background-color: #FFFFFF;-->
+<!--        border-radius: 30px;-->
+<!--        box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);-->
+<!--    }-->
+
+<!--    .loginBase{-->
+<!--        background-color: #FF416C;-->
+<!--        width: 400px;-->
+<!--        height: 900px;-->
+<!--        margin-top: 100px;-->
+<!--        border-radius: 30px;-->
+<!--        margin-left: 300px;-->
+<!--    }-->
+
+<!--    /* 뒤로가기 버튼 */-->
+<!--    .back_btn{              -->
+<!--        text-align: left;-->
+<!--        margin-left: 10px;-->
+<!--    }-->
+
+<!--    /* -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; */-->
+<!--    /* 회원가입 */-->
+<!--    .content_set{-->
+<!--        width: 100%;-->
+<!--        height: 70%;-->
+<!--        margin-top: 10px;-->
+<!-- -->
+<!--    }-->
+
+<!--    .content_set div{-->
+<!--        margin-top: 15px;-->
+<!--        padding-top: 15px;-->
+<!--    }-->
+
+<!--    /* 뒤로가기 버튼 */-->
+<!--    #backBtn{-->
+<!--        width: 50px;-->
+<!--        height: 50px;-->
+<!--        font-size: 25px;-->
+<!--        border-radius: 50px;-->
+<!--        margin-top: 10px;-->
+<!--    }-->
+
+<!--    /* 입력 내용의 label */-->
+<!--    .content_set .text_label {-->
+<!--        font-size: 15px;-->
+<!--        width: 300px;-->
+<!--        margin-left: 60px;-->
+<!--    }-->
+
+<!--    .content_set .text_input{-->
+<!--        margin-left: 50px;-->
+<!--    }-->
+
+<!--    /* 입력창 */-->
+<!--    .content_set .text_input input{-->
+<!--        width: 300px;-->
+<!--        height: 50px;-->
+<!--        margin-top: 5px;-->
+<!--        padding-left: 10px;-->
+<!--        border-style: none;-->
+<!--    }-->
+
+<!--    /* 주민번호 입력창 */-->
+<!--    #resident_num{-->
+<!--        border-radius: 50px;-->
+<!--    }-->
+
+<!--    /* 아이디 입력창 */-->
+<!--    #emp_id{-->
+<!--        border-radius: 50px;-->
+<!--    }-->
+
+<!--    /* 비밀번호 입력창 */-->
+<!--    #emp_pass{-->
+<!--        border-radius: 50px;-->
+<!--    }-->
+
+<!--    /* "사원가입" 버튼 */-->
+<!--    #join_btn{-->
+<!--        width: 200px;-->
+<!--        height: 50px;-->
+<!--        font-size: 25px;-->
+<!--        border-radius: 50px;-->
+<!--        margin-left: 100px;-->
+<!--    }-->
+
+
+<!--</style>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        &lt;!&ndash; 사원가입 &ndash;&gt;-->
+<!--        <form action="employee_join" method="post">-->
+<!--            <div id="loginForm">-->
+<!--                <div class="loginBase">-->
+<!--                    <div class="back_btn">-->
+<!--                        <button id="backBtn"><i class="fa-solid fa-arrow-left" ></i></button>-->
+<!--                    </div>-->
+<!--                    <div class="content_set"> -->
+<!--                        &lt;!&ndash; 주민등록번호 &ndash;&gt;-->
+<!--                        <div>-->
+<!--                            <span class="text_label">-->
+<!--                                <label for="resident_num" >주민등록번호</label><br/>-->
+<!--                            </span>-->
+<!--                            <span class="text_input">-->
+<!--                                <input type="text" name="resident_num" id="resident_num" required><br/>-->
+<!--                            </span>      -->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; 아이디 &ndash;&gt;-->
+<!--                        <div>-->
+<!--                            <span class="text_label">-->
+<!--                                <label for="emp_id" >아이디</label><br/>-->
+<!--                            </span>         -->
+<!--                            <span class="text_input">-->
+<!--                                <input type="text" name="emp_id" id="emp_id" required><br/>-->
+<!--                            </span>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; 비밀번호 &ndash;&gt;-->
+<!--                        <div>-->
+<!--                            <span class="text_label">-->
+<!--                                <label for="emp_pass" >비밀번호</label><br/>-->
+<!--                            </span>-->
+<!--                            <span class="text_input">-->
+<!--                                <input type="password" name="emp_pass" id="emp_pass" required><br/>-->
+<!--                            </span>-->
+<!--                        </div>-->
+
+
+
+<!--                        <div>-->
+<!--                            <span class="text_label">-->
+<!--                                <label for="emp_pass" >비밀번호</label><br/>-->
+<!--                            </span>-->
+<!--                            <span class="text_input">-->
+<!--                                <input type="password" name="emp_pass" id="emp_pass" required><br/>-->
+<!--                            </span>-->
+<!--                            <span class="text_input">-->
+<!--                                <input type="password" name="emp_pass" id="emp_pass" required><br/>-->
+<!--                            </span>-->
+<!--                            <span class="text_input">-->
+<!--                                <input type="password" name="emp_pass" id="emp_pass" required><br/>-->
+<!--                            </span>-->
+<!--                        </div>-->
+
+
+
+
+
+
+
+<!--                    </div>-->
+<!--                    <div class="check_join">-->
+<!--                        <input type="submit" value="사원가입" id="join_btn">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+
+<!--    </div>-->
+<!--</body>-->
+
+
+<!--<script>-->
+<!--    // 뒤로가기 버튼 클릭.-->
+<!--    document.getElementById('backBtn').addEventListener("click",()=>{-->
+<!--        // alert('뒤로가기 클릭!');-->
+<!--        history.go(-1);-->
+<!--    })-->
+<!--    // 사원가입 버튼 클릭.-->
+<!--    document.getElementById('join_btn').addEventListener("click",()=>{-->
+<!--        // alert('사원가입 클릭!');-->
+
+<!--        // "주민등록번호"입력창에 입력한 내용을 저장할 변수.-->
+<!--        let input_rrn = document.getElementById('resident_num').value;-->
+<!--        // "아이디"입력창에 입력한 내용을 저장할 변수.-->
+<!--        let input_emp_id = document.getElementById('emp_id').value;-->
+<!--        // "비밀번호"입력창에 입력한 내용을 저장할 변수.-->
+<!--        let input_emp_pass = document.getElementById('emp_pass').value;-->
+
+
+<!--        // const passRegExp = /^(?=.*[a-z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,20}$/gi;-->
+<!--        // let pass_check_result = passRegExp.test(input_emp_pass);-->
+<!--        // if(pass_check_result){-->
+<!--        //     document.getElementById('emp_pass').value = input_emp_pass;-->
+<!--        // }else{-->
+<!--        //     document.getElementById('emp_pass').value = "pass_error";-->
+<!--        // }-->
+
+
+
+
+<!--        alert(input_rrn + "/" + input_emp_id + "/" + input_emp_pass);-->
+
+<!--    })-->
+
+
+
+<!--</script>-->
+
+<!--    -->
+
+
+<!--</html>-->
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Document</title>-->
+<!--    <style>-->
+<!--        #new_employee_info div{-->
+<!--            margin-top: 10px;-->
+<!--        }-->
+<!--    </style>-->
+<!--    <link rel="stylesheet" href="/static/css/base.css">-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--</head>-->
+<!--<body>-->
+
+
+
+
+
+
+
+<!--<h1>사원등록_사원용</h1>-->
+<!--<div id="add_new_employee">-->
+<!--    <form action="employee_join" method="post">-->
+<!--        <div id="new_employee_info">-->
+<!--            <div id="employee_rrn_info">-->
+<!--                <label for="employee_rrn">주민등록 번호</label><br/>-->
+<!--                <input type="text" id="employee_rrn" style="width: 250px;" onchange="check_rrn()">-->
+<!--                <span id="rrn_message" style="display: none; color: red;">주민번호를 양식에 맞게 입력하세요.</span><br/>-->
+<!--            </div>-->
+
+<!--                <div id="employee_id_info">-->
+<!--                    <label for="employee_id">아이디</label><br/>-->
+<!--                    <input type="text" id="employee_id" name="employee_id" style="width: 250px;">-->
+<!--                    <input type="submit" id="dulicate_id_check" style="width: 90px;" value="중복체크" onclick="check_input_id()"><br/>-->
+<!--                    <span id="id_check_message" style="color: red; margin-left: 40px;">#{check_message}</span>-->
+<!--                </div>-->
+
+
+<!--            <div id="employee_pass_info">-->
+<!--                <label for="employee_pass">비밀번호</label><br/>-->
+<!--                <input type="text" id="employee_pass" style="width: 250px;" onchange="check_pass_reg()"><br/>-->
+<!--            </div>-->
+
+<!--            <div id="employee_check_pass_info">-->
+<!--                <label for="employee_pass_check">비밀번호 확인</label><br/>-->
+<!--                <input type="text" id="employee_pass_check" name="employee_pass_check" style="width: 250px;">-->
+<!--                <span id="pass_not_match" style="color: black; margin-left: 10px;">비밀번호 확인.</span>-->
+<!--            </div>-->
+
+<!--            <div id="employee_email_info">-->
+<!--                <label for="employee_email">이메일</label><br/>-->
+<!--                <input type="email" id="employee_email" style="width: 250px;">-->
+<!--                <input type="button" id="verify_email" style="width: 90px;" value="이메일 인증"><br/>-->
+<!--            </div>-->
+
+<!--            <div id="employee_addr_info">-->
+<!--                <input type="text" id="post_addr" style="width: 145px;">-->
+<!--                <input type="button" id="find_post_addr" value="우편번호 찾기" onclick="road_btn()"><br/>-->
+<!--                <input type="text" id="road_name_addr" value="도로명 주소" style="width: 250px;"><br/>-->
+<!--                <input type="text" id="detail_addr" value="상세주소" style="width: 250px;"><br/>-->
+
+<!--                <label for="show_post_addr" id="show_post_addr" ></label>-->
+<!--                <label for="show_road_addr" id="show_road_addr" ></label>-->
+<!--                <label for="show_road_addr" id="show_detail_addr" ></label>-->
+
+
+<!--            </div>-->
+
+<!--            <div id="add_employee_btn_set">-->
+<!--                <input type="button" id="cancel_btn" value="취소">-->
+<!--                <input type="submit" id="submit_btn" value="가입" onclick="show_addr_result()">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->
+
+
+
+
+
+
+
+
+
+<!--</body>-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사원등록_사원용</title>
+    <!--    <link rel="stylesheet" href="/CIS_manager_page_css/css/base.css">-->
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/member_css/employee_list.css">
+    <!--    <link rel="stylesheet" href="/CIS_manager_page_css/css/employee_manage/employee_list.css">-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        section{
+            height: 620px;
+        }
+        #add_new_employee{
+            margin-left: 400px;
+        }
+
+        #new_employee_info div input{
+            /*background-color: green;*/
+            width: 300px;
+            height: 30px;
+            border-radius: 30px;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="main">
+    <header>
+        <div class="header_left">
+            <a href="#">
+                <img src="" alt="Logo" class="logo_img">
+                <div>
+                    <span class="logo_text">ooo Company</span>
+                </div>
+            </a>
+        </div>
+        <div class="header_right">
+            <div>
+                <span class="login_user">관리자 ooo 님</span>
+            </div>
+            <form action="" method="">
+                <input type="button" value="로그아웃" class="logout_btn">
+            </form>
+        </div>
+    </header>
+    <section>
+
+        <div id="add_new_employee">
+            <h1>사원등록_사원용</h1>
+            <form action="employee_join" method="post">
+                <div id="new_employee_info">
+                    <div id="employee_rrn_info">
+                        <label for="employee_rrn">주민등록 번호</label><br/>
+                        <input type="text" id="employee_rrn" style="width: 250px;" onchange="check_rrn()">
+                        <span id="rrn_message" style="display: none; color: red;">주민번호를 양식에 맞게 입력하세요.</span><br/>
+                    </div>
+
+                    <div id="employee_id_info">
+                        <label for="employee_id">아이디</label><br/>
+                        <input type="text" id="employee_id" name="employee_id" style="width: 250px;">
+                        <input type="submit" id="dulicate_id_check" style="width: 90px;" value="중복체크" onclick="check_input_id()"><br/>
+                        <span id="id_check_message" style="color: red; margin-left: 40px;">#{check_message}</span>
+                    </div>
+
+
+                    <div id="employee_pass_info">
+                        <label for="employee_pass">비밀번호</label><br/>
+                        <input type="text" id="employee_pass" style="width: 250px;" onchange="check_pass_reg()"><br/>
+                    </div>
+
+                    <div id="employee_check_pass_info">
+                        <label for="employee_pass_check">비밀번호 확인</label><br/>
+                        <input type="text" id="employee_pass_check" name="employee_pass_check" style="width: 250px;">
+                        <span id="pass_not_match" style="color: black; margin-left: 10px;">비밀번호 확인.</span>
+                    </div>
+
+                    <div id="employee_email_info">
+                        <label for="employee_email">이메일</label><br/>
+                        <input type="email" id="employee_email" style="width: 250px;">
+                        <input type="button" id="verify_email" style="width: 90px;" value="이메일 인증"><br/>
+                    </div>
+
+                    <div id="employee_addr_info">
+                        <input type="text" id="post_addr" style="width: 145px;">
+                        <input type="button" id="find_post_addr" style="width: 120px" value="우편번호 찾기" onclick="road_btn()"><br/>
+                        <input type="text" id="road_name_addr" value="도로명 주소" style="width: 250px;"><br/>
+                        <input type="text" id="detail_addr" value="상세주소" style="width: 250px;"><br/>
+
+                        <label for="show_post_addr" id="show_post_addr" ></label>
+                        <label for="show_road_addr" id="show_road_addr" ></label>
+                        <label for="show_road_addr" id="show_detail_addr" ></label>
+                    </div>
+
+                    <div id="add_employee_btn_set">
+                        <input type="button" id="cancel_btn" style="width: 150px; height: 50px; font-size: 20px" value="취소">
+                        <input type="submit" id="submit_btn" style="width: 150px; height: 50px; font-size: 20px" value="가입" onclick="show_addr_result()">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+<script src="/CIS_manager_page_js/js/manage_employee_list.js"></script>
+</body>
+</html>
+
+
+
+
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+    // 자바 정규표현식: 주민등록번호 형식
+    //  String regex = "^(\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))-[1-4]\\d{6}$";
+    function check_rrn(){
+        let input_rrn = document.getElementById('employee_rrn').value;
+        alert(typeof(input_rrn))
+        const regExp = "/^(\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01]))-[1-4]\d{6}$/";
+        if(input_rrn.match(regExp)){
+            alert('합격');
+        }else{
+            alert('불합격');
+        }
+    }
+
+
+    // 아이디 중복 체크.
+    document.getElementById('dulicate_id_check').addEventListener("click",()=>{
+        let id = document.getElementById('employee_id').value;
+        alert(id);
+        $.ajax({
+            url : 'ajaxStr',
+            type : "post",
+            data : {'id' : id},
+            dataType : "json",
+            success : function (data){
+                alert("ajax 리턴값 : " + typeof (data));
+                alert("check_data : " + data);
+                if(data.overlay > 0){
+                    $('#id_check_message').html(id + '는 이미 사용중입니다.');
+                }else{
+                    $('#id_check_message').html(id + '는 사용기능합니다.');
+                }
+            },
+            error:function (e){
+                alert("e : " + e);
+            }
+        })
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    document.getElementById('employee_pass_check').addEventListener('keyup',(e) => {
+        let input_pass = document.getElementById('employee_pass').value;
+        let check_pass = document.getElementById('employee_pass_check').value;
+        if(input_pass == check_pass){
+            document.getElementById('pass_not_match').innerHTML = "<span id='pass_not_match' style='color: green;'>사용가능한 비밀번호입니다.</span>";
+        }else{
+            document.getElementById('pass_not_match').innerHTML = "<span id='pass_not_match' style='color: red;'>비밀번호 불일치입니다.</span>";
+        }
+    })
+
+
+    // 비밀번호 확인.
+    function check_pass(){
+        let input_pass = document.getElementById('employee_pass').value;
+        let check_pass = document.getElementById('employee_pass_check').value;
+        if(input_pass == check_pass){
+            document.getElementById('pass_not_match').innerHTML = "<span id='pass_not_match' style='color: green;'>사용가능한 비밀번호입니다.</span>";
+        }else{
+            document.getElementById('pass_not_match').innerHTML = "<span id='pass_not_match' style='color: red;'>비밀번호 불일치입니다.</span>";
+        }
+    }
+
+</script>
+
+
+
+<!-- 우편번호 daum api -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function road_btn(){
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 우편번호
+                // document.getElementById('post_num').value(data.zonecode);
+                document.getElementById('post_addr').value = data.zonecode;
+                // 도로명 및 지번주소
+                // document.getElementById("road_name_addr").value(data.roadAddress);
+                document.getElementById("road_name_addr").value = data.roadAddress;
+                // 상세 주소
+                document.getElementById("detail_addr").value = "";
+                document.getElementById("detail_addr").focus();
+            }
+        }).open();
+    }
+
+    function show_addr_result(){
+        let post_addr = document.getElementById("post_addr").value;
+        let road_addr = document.getElementById("road_name_addr").value;
+        let jibun_addr = document.getElementById("detail_addr").value;
+        document.getElementById('show_post_addr').innerText = post_addr;
+        document.getElementById('show_road_addr').innerText = road_addr;
+        document.getElementById('show_detail_addr').innerText = jibun_addr;
+    }
+</script>
+
+
+
+
+
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 - 사원 정보 수정</title>
+<!--    <link rel="stylesheet" href="/CIS_manager_page_css/css/base.css">-->
+<!--    <link rel="stylesheet" href="/CIS_manager_page_css/css/employee_manage/employee_list.css">-->
+
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/member_css/employee_list.css">
+
+    <!-- 사원 정보 수정 css -->
+    <link rel="stylesheet" href="/CIS_manager_page_css/css/employee_manage/modify_employee_list.css">
+
+    <style>
+
+        section{
+            height : 620px;
+        }
+
+        .employee_list{
+            height: 610px;
+        }
+
+        .employee_list div{
+            text-align: right;
+            margin-right: 120px;
+            margin-top: 20px;
+        }
+
+        .employee_list div h1{
+            /*margin-right: 300px;*/
+            width: 1098px;
+            text-align: center;
+        }
+
+        .employee_list div span{
+            /*background-color: green;*/
+            width: 300px;
+            height: 30px;
+            border-radius: 30px;
+
+        }
+
+        #date{
+            margin-right: 202px;
+        }
+
+        /*이름*/
+        #employee_name{
+            margin-right: 190px;
+        }
+
+        /*아이디*/
+        #employee_id{
+            margin-right: 165px;
+        }
+
+        /*#employee_id input{*/
+        /*    margin-left: 30px;*/
+        /*    background-color: red;*/
+        /*}*/
+
+
+
+        /*직급*/
+        #employee_rank{
+            margin-right: 95px;
+            /*background-color: red;*/
+            margin-left: 30px;
+        }
+
+        /*부서명*/
+        #employee_dept{
+            margin-right: 95px;
+            margin-left: 30px;
+        }
+
+        /*전화번호*/
+        #employee_tel{
+            margin-right: 145px;
+        }
+
+        /*날짜*/
+        #date{
+            margin-right: 160px;
+            margin-left: 30px;
+        }
+
+        /*재직상태*/
+        #work_status{
+            margin-right: 85px;
+        }
+
+
+        .modify_input_content{
+            /*background-color: red;*/
+            font-size: 20px;
+        }
+
+        .modify_btn div input{
+            margin-right: 50px;
+            /*background-color: red;*/
+        }
+
+    </style>
+
+
+
+
+
+</head>
+<body>
+    <div class="main">
+        <header>
+            <div class="header_left">
+                <a href="#">
+                    <img src="" alt="Logo" class="logo_img">
+                    <div>
+                        <span class="logo_text">ooo Company</span>
+                    </div>
+                </a>
+            </div>
+            <div class="header_right">
+                <div>
+                    <span class="login_user">관리자 ooo 님</span>
+                </div>
+                <form action="" method="">
+                    <input type="button" value="로그아웃" class="logout_btn">
+                </form>
+            </div>
+        </header>
+        <section>
+            <div class="employee_list_container">
+                <div class="employee_list">
+                    <div>
+                        <h1>관리자 - 사원 정보 수정</h1>
+                    </div>
+                    <div class="modify_employee_info">
+                        <form action="send_modify_employee_info" method="post">
+                            <div class="modify_input_content">
+                                <div>
+                                    <label for="employee_name" >이름</label>
+<!--                                    <input type="text" name="employee_name" value="&nbsp;&nbsp;&nbsp;사원 이름" readonly>-->
+                                    <span name="employee_name" id="employee_name">&nbsp;&nbsp;&nbsp;사원이름</span>
+                                    <br/>
+                                </div>
+                                    
+                                <div>
+                                    <label for="employee_id">아이디</label>    
+<!--                                    <input type="text" name="employee_id" value="&nbsp;&nbsp;&nbsp;사원 아이디" readonly>-->
+                                    <span name="employee_id" id="employee_id">&nbsp;&nbsp;&nbsp;사원 아이디</span>
+                                    <br/>
+                                </div>
+                         
+                                <div>
+                                    <label for="employee_rank">직급</label>
+                                    <input type="text" name="employee_rank" id="employee_rank" value="&nbsp;&nbsp;&nbsp;사원 직급">
+<!--                                    <span name="employee_rank">&nbsp;&nbsp;&nbsp;사원 직급</span>-->
+                                    <br/>
+                                </div>
+                         
+                                <div>
+                                    <label for="employee_dept">부서명</label>    
+                                    <input type="text" name="employee_dept" id="employee_dept" value="&nbsp;&nbsp;&nbsp;사원 부서명">
+<!--                                    <span name="employee_dept">&nbsp;&nbsp;&nbsp;사원 부서명</span>-->
+                                    <br/>
+                                </div>
+                        
+                                <div>
+                                    <label for="employee_tel">전화번호</label>
+<!--                                    <input type="text" name="employee_tel" value="&nbsp;&nbsp;&nbsp;사원 전화번호" readonly>-->
+                                    <span name="employee_tel" id="employee_tel">&nbsp;&nbsp;&nbsp;사원 전화번호</span>
+                                    <br/>
+                                </div>
+                     
+                                <div>
+                                    <label for="employee_join_date">입사날짜</label>
+                                    <input type="date" id="date" max="2070-12-31" min="1900-01-01" name="employee_join_date" style="width: 100px"><br/>
+                                </div>
+                           
+                                <div id="work_status">
+                                    <label for="employee_status">제직상태</label>
+<!--                                    <input type="text" name="employee_status" value="&nbsp;&nbsp;&nbsp;사원 제직상태"><br/>-->
+                                    <input type="checkbox" name="work_status" class="work_status" style="width: 105px" value="working"/>재직중
+                                    <input type="checkbox" name="work_status" class="work_status" style="width: 105px" value="not_working"/>퇴직
+                                </div>
+                            </div>
+
+                            <div class="modify_btn">
+                                <div>    
+                                    <input type="button" style="width: 150px; height: 50px; font-size: 20px" value="취소" id="cancel_change_btn">
+                                    <input type="submit" style="width: 150px; height: 50px; font-size: 20px" value="확인" id="change_employee_info_btn">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="/CIS_manager_page_js/js/manage_employee_list.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIS : 메일 보내기</title>
+    <link rel="stylesheet" href="/css/layout/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/board/write.css">
+</head>
+<body>
+<div class="main">
+    <header>
+        <div class="header_left">
+            <a href="emp_main">
+                <img src="/img/logo.png" alt="Logo" class="logo_img">
+                <div>
+                    <span class="logo_text">○○○ Company</span>
+                </div>
+            </a>
+        </div>
+        <div class="header_right">
+            <div>
+                <span class="login_user">○○○ 님</span>
+            </div>
+            <form action="" method="">
+                <input type="button" value="로그아웃" class="logout_btn">
+            </form>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="email"><span>이메일</span></a></li>
+            <li><a href=""><span>게시판</span></a></li>
+            <li><a href=""><span>근태관리</span></a></li>
+            <li><a href=""><span>개인업무</span></a></li>
+        </ul>
+    </nav>
+    <section>
+        <div class="mail_container">
+            <div id="write">
+                <form action="/board_write_one" method="get">
+                    <div class="write_main"><span>자유게시판</span></div>
+                    <input type="text" value="자유게시판" readonly hidden="true" name="category">
+                    <div class="write_writer">
+
+
+                        <div class="write_writer_name">
+                            <label for="namebox">작성자</label>
+                            <input type="text" id="namebox" placeholder="작성자이름" name="emp_id">
+                        </div>
+
+                    </div>
+                    <div class="write_title">
+                        <div class="write_title_name">
+                            <label for="titlebox">제목</label>
+                            <input type="text" id="titlebox" placeholder="제목을 입력하시오" name="board_title">
+                        </div>
+
+                    </div>
+                    <div class="write_text">
+                        <div class="write_text_name">
+                            <label for="contextbox">글내용</label>
+                            <textarea id="contextbox" name="board_content"></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="write_files">
+                        <div class="write_files_btn_div"><input type="button" value="파일추가" id="filebtn"> </div>
+                        <!--
+                        <input type="file" name="file" id="formFile">
+                        <input type="file" name="file" id="formFile">
+                        <input type="file" name="file" id="formFile">
+                        -->
+
+
+                    </div>
+
+                    <div class="write_button">
+                        <div class="fileadd_div">
+                            <input class="write_add_btn" type="submit" value="등록">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer th:replace="~{layout/footer::footer}"></footer>
+</div>
+</body>
+<script src="/js/board/write_gj.js"></script>
+
+</html>

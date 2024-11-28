@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cis.member.repository.IF_MemberDao">
+
+
+    <insert id="insertMember" parameterType="com.cis.member.dto.MemberDTO">
+--         insert into employee values (#{emp_id},#{resident_num},#{emp_pass},#{create_at})
+        insert into employee values (#{emp_id}, #{resident_num}, #{emp_pass}, #{create_at}, #{post_addr}, #{road_addr}, #{jibun_addr})
+    </insert>
+
+
+
+    <select id="selectOne" resultType="com.cis.member.dto.MemberDTO" parameterType="String">
+        select * from employee where emp_id=#{id}
+    </select>
+
+
+    <select id="selectCount" resultType="Int" parameterType="String">
+        select count(*) from employee where emp_id=#{id}
+    </select>
+
+
+
+
+
+</mapper>

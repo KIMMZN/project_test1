@@ -1,0 +1,43 @@
+.employee_list{
+    height: 500px;
+}
+
+.employee_list div span{
+    font-size: 30px;
+    margin-left: 400px;
+}
+
+
+.modify_input_content{
+    text-align: right;
+    margin-right: 300px;
+}
+
+
+
+.modify_employee_info .modify_input_content div label{
+    font-size: 20px;
+   
+}
+
+.modify_employee_info .modify_input_content input{
+    width: 300px;
+    height: 30px;
+    border-radius: 30px;
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+.modify_btn{
+    margin-left: 300px;
+}
+
+
+.modify_btn div input{
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 30px;
+    margin-top: 10px;
+    margin-left: 50px;
+}

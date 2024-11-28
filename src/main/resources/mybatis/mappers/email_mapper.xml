@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cis.email.repository.IF_EmailRepository">
+    <insert id="emailInsert" parameterType="com.cis.email.dto.EmailDTO">
+        INSERT INTO email VALUES ((SELECT nextval('email_seq') FROM DUAL), #{mail_title}, #{mail_content}, DEFAULT, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i'), #{recipient_id}, 'test2')
+    </insert>
+    <select id="emailSelectAll" resultType="com.cis.email.dto.EmailDTO">
+        SELECT * FROM email ORDER BY mail_num ASC, create_at ASC LIMIT #{startIndex}, #{pageSize}
+    </select>
+    <select id="emailSelectOne" resultType="com.cis.email.dto.EmailDTO">
+        SELECT * FROM email WHERE mail_num=${email_num}
+    </select>
+    <select id="emailSelectAllCnt" resultType="int">
+        SELECT COUNT(*) FROM email
+    </select>
+    <delete id="emailDelete" parameterType="string">
+        DELETE FROM email WHERE mail_num=${email_num}
+    </delete>
+</mapper>

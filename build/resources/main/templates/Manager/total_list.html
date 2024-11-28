@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전체 직원 리스트</title>
+<!--    <link rel="stylesheet" href="/CIS_manager_page_css/css/base.css">-->
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/member_css/employee_list.css">
+<!--    <link rel="stylesheet" href="/CIS_manager_page_css/css/employee_manage/employee_list.css">-->
+</head>
+<body>
+    <div class="main">
+        <header>
+            <div class="header_left">
+                <a href="#">
+                    <img src="" alt="Logo" class="logo_img">
+                    <div>
+                        <span class="logo_text">ooo Company</span>
+                    </div>
+                </a>
+            </div>
+            <div class="header_right">
+                <div>
+                    <span class="login_user">관리자 ooo 님</span>
+                </div>
+                <form action="" method="">
+                    <input type="button" value="로그아웃" class="logout_btn">
+                </form>
+            </div>
+        </header>
+        <section>
+            <div class="employee_list_container">
+                <div class="employee_list">
+                    <table class="employee_list_table">
+                        <thead>
+                            <tr>
+                                <td style="width: 7%;">x번호</td>
+                                <td style="width: 12%;">#이름</td>
+                                <td style="width: 12%;">#아이디</td>
+                                <td style="width: 12%;">*직급</td>
+                                <td style="width: 12%;">*부서명</td>
+                                <td style="width: 12%;">#전화번호</td>
+                                <td style="width: 12%;">x입사날짜</td>
+                                <td style="width: 12%;">*제직상태</td>
+                            </tr>
+                            <tr id="employee_list_empty">
+                                <td colspan="8">직원 리스트가 비여있습니다.</td>
+                            </tr>
+                        </thead>
+                        <tbody id="employee_list_content">
+                            <tr>
+                                <td>1</td>
+                                <td><a href="#" class="employee_detail_info">홍길동</a></td>
+                                <td>Hong Gil-dong</td>
+                                <td>사원</td>
+                                <td>생활가전</td>
+                                <td>010-1111-2222</td>
+                                <td>2024-11-21</td>
+                                <td><a href="#" class="employee_detail_info">제직중</a></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><a href="#" class="employee_detail_info">홍길동</a></td>
+                                <td>Hong Gil-dong</td>
+                                <td>사원</td>
+                                <td>생활가전</td>
+                                <td>010-1111-2222</td>
+                                <td>2024-11-21</td>
+                                <td><a href="#" class="employee_detail_info">제직중</a></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><a href="#" class="employee_detail_info">홍길동</a></td>
+                                <td>Hong Gil-dong</td>
+                                <td>사원</td>
+                                <td>생활가전</td>
+                                <td>010-1111-2222</td>
+                                <td>2024-11-21</td>
+                                <td><a href="#" class="employee_detail_info">제직중</a></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><a href="#" class="employee_detail_info">홍길동</a></td>
+                                <td>Hong Gil-dong</td>
+                                <td>사원</td>
+                                <td>생활가전</td>
+                                <td>010-1111-2222</td>
+                                <td>2024-11-21</td>
+                                <td><a href="#" class="employee_detail_info">제직중</a></td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><a href="#" class="employee_detail_info">홍길동</a></td>
+                                <td>Hong Gil-dong</td>
+                                <td>사원</td>
+                                <td>생활가전</td>
+                                <td>010-1111-2222</td>
+                                <td>2024-11-21</td>
+                                <td><a href="#" class="employee_detail_info">제직중</a></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="paging">
+                                <td colspan="8">
+                                    <a href="" style="font-weight: bold;">이전</a>
+                                    <a href="">1</a>
+                                    <a href="">2</a>
+                                    <a href="">3</a>
+                                    <a href="">4</a>
+                                    <a href="">5</a>
+                                    <a href="" style="font-weight: bold;">다음</a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="/CIS_manager_page_js/js/manage_employee_list.js"></script>
+</body>
+</html>

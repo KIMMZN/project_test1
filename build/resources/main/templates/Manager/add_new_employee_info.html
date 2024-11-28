@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사원정보 수정</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/member_css/employee_list.css">
+
+    <style>
+        h1{
+            background-color: green;
+            text-align: center;
+        }
+        .modify_employee_info{
+            background-color: red;
+            text-align: right;
+            margin-right: 300px;
+        }
+
+        .modify_input_content{
+            background-color: aqua;
+            margin-right: 100px;
+        }
+
+
+
+        .modify_btn{
+            background-color: green;
+            width: 100%;
+        }
+
+
+        .modify_btn div input{
+            background-color: yellow;
+            width: 150px;
+            height: 30px;
+            font-size: 20px;
+            border-radius: 30px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        <header>
+            <div class="header_left">
+                <a href="#">
+                    <img src="" alt="Logo" class="logo_img">
+                    <div>
+                        <span class="logo_text">ooo Company</span>
+                    </div>
+                </a>
+            </div>
+            <div class="header_right">
+                <div>
+                    <span class="login_user">관리자 ooo 님</span>
+                </div>
+                <form action="" method="">
+                    <input type="button" value="로그아웃" class="logout_btn">
+                </form>
+            </div>
+        </header>
+        <section>
+            <div class="employee_list_container">
+                <div class="employee_list">
+                    <div>
+                       <h1>관리자 - 사원 등록</h1>
+                    </div>
+                    <div class="modify_employee_info">
+                        <form action="add_new_employee" method="post">
+                            <div class="modify_input_content">
+                                <div>
+                                    <label for="employee_name" >이름</label>
+                                    <input type="text" name="employee_name" value="&nbsp;&nbsp;&nbsp;사원 이름"><br/>
+                                </div>
+                                    
+                                <div>
+                                    <label for="employee_id">아이디</label>    
+                                    <input type="text" name="employee_id" value="&nbsp;&nbsp;&nbsp;사원 아이디" ><br/>
+                                </div>
+                         
+                                <div>
+                                    <label for="employee_rank">직급</label>
+                                    <input type="text" name="employee_rank" value="&nbsp;&nbsp;&nbsp;사원 직급"><br/>
+                                </div>
+                         
+                                <div>
+                                    <label for="employee_dept">부서명</label>    
+                                    <input type="text" name="employee_dept" value="&nbsp;&nbsp;&nbsp;사원 부서명"><br/>
+                                </div>
+                        
+                                <div>
+                                    <label for="employee_tel">전화번호</label>
+                                    <input type="text" name="employee_tel" value="&nbsp;&nbsp;&nbsp;사원 전화번호"><br/>
+                                </div>
+                     
+                                <div>
+                                    <label for="employee_join_date">입사날짜</label>
+                                    <input type="text" name="employee_join_date" value="&nbsp;&nbsp;&nbsp;사원 입사날짜"><br/>
+                                </div>
+                           
+                                <div>
+                                    <label for="employee_status">제직상태</label>
+                                    <input type="text" name="employee_status" value="&nbsp;&nbsp;&nbsp;사원 제직상태"><br/>
+                                </div>
+                            </div>
+
+                            <div class="modify_btn">
+                                <div>    
+                                    <input type="button" value="취소" id="cancel_change_btn">
+                                    <input type="submit" value="확인" id="change_employee_info_btn">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="/CIS_manager_page_js/js/manage_employee_list.js"></script>
+</body>
+</html>

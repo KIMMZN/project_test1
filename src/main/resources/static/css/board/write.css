@@ -1,0 +1,239 @@
+form {
+
+    padding: 0;
+    margin: 0;
+    display: inline;
+}
+/* 링크 밑줄 제거*/
+
+a, a:visited, a:hover, a:active, a:link {
+    text-decoration: none;
+}
+
+
+/* 아직 방문하지 않은 링크의 글자색을 정의합니다. */
+a:link { color: black
+
+}
+
+table tr:hover {
+
+    background-color: lightblue;
+}
+
+
+
+#write {
+    border-radius: 10px;
+    text-align: center;
+    margin: 0 auto;
+    float: left;
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+}
+.write_main {
+    width: 100%;
+    height: 10%;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    float: left;
+    box-sizing: border-box;
+
+
+}
+.write_main span {
+    border: 1px solid black;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    margin-top: 10px;
+}
+.write_writer {
+    box-sizing: border-box;
+   border: 1px solid black;
+    border-radius: 10px;
+    float: left;
+    width: 100%;
+    height: 9%;
+
+
+}
+.write_writer div {
+    box-sizing: border-box;
+    float: left;
+    border: 1px solid black;
+    margin-right: 200px;
+    text-align: left;
+    border-radius: 10px;
+}
+#namebox { /* 작성자 input box*/
+    width:200px;
+
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+
+.write_title {
+    box-sizing: border-box;
+    float: left;
+    width: 100%;
+    height: 12%;
+}
+
+/* 글 내용 스타일*/
+.write_text {
+    box-sizing: border-box;
+    float: left;
+    width: 100%;
+    height: 43%;
+}
+.write_text_name {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+
+}
+
+#contextbox{
+    height: 90%;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 99%;
+
+
+}
+
+/* 제목 박스*/
+.write_title_name {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; /* 수직 배치 */
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+
+
+}
+
+#titlebox {
+
+    width: 99%;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.write_button {
+    float: left;
+    width: 100%;
+    height: 10%;
+    border: 1px solid black;
+    border-radius: 10px;
+
+}
+
+.fileadd_div {
+    display: block;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+
+}
+
+.write_add_btn {
+    border: 1px solid black;
+    background-color: rgb(13, 110, 253);
+    border-radius: 10px;
+    height: 100%;
+    width: 7%;
+
+
+}
+.write_files{
+    position: relative; /* 요소의 기준 설정 */
+    width: 100%; /* 부모의 전체 크기 차지 */
+    min-height: 50px; /* 최소 높이 설정 */
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px; /* 내부 여백 추가 */
+    overflow: hidden; /* float 문제 해결 */
+
+
+}
+.write_files_btn_div {
+   /* display: block;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;  */
+    display: flex;
+    align-items: center;
+    justify-content: start; /* 버튼을 왼쪽 정렬 */
+    height: auto; /* 내부 콘텐츠에 따라 높이 조정 */
+    width: 100%;
+
+
+}
+
+#filebtn {
+    border-radius: 10px;
+    height: 30px; /* 고정 크기로 설정 */
+    width: auto; /* 고정 크기로 설정 */
+    border: 1px solid black;
+    cursor: pointer; /* 클릭 가능한 버튼임을 표시 */
+    margin-top: 5px; /* 버튼과 상단 간격 */
+
+
+}
+
+.file_add {
+    display: flex; /* 자식 요소를 수평으로 배치 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 10px; /* 요소 간 간격 */
+    margin-top: 10px; /* 상단 간격 */
+
+}
+
+#file_cancelbtn {
+    background-color: red;
+}
+
+footer{
+    width: 1250px;
+    height: 80px;
+    display: inline-block;
+    margin-left: 10px;
+    text-align: center;
+    align-items: center;
+}
+
+section {
+    width: 98%;
+    height: 61%;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mail_container {
+    width: 97.3%;
+    height: 94%;
+    padding: 15px;
+}
+

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CIS : 메일</title>
+  <link rel="stylesheet" href="/css/layout/base.css"/>
+  <link rel="stylesheet" href="/css/board/board_base.css"/>
+  <link rel="stylesheet" href="/css/board/board_main.css">
+  <script src="https://kit.fontawesome.com/ae15ba340d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="main">
+  <header>
+    <div class="header_left">
+      <a href="emp_main">
+        <img src="/img/logo.png" alt="Logo" class="logo_img">
+        <div>
+          <span class="logo_text">○○○ Company</span>
+        </div>
+      </a>
+    </div>
+    <div class="header_right">
+      <div>
+        <span class="login_user">○○○ 님</span>
+      </div>
+      <form action="" method="">
+        <input type="button" value="로그아웃" class="logout_btn">
+      </form>
+    </div>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="email"><span>이메일</span></a></li>
+      <li><a href=""><span>게시판</span></a></li>
+      <li><a href=""><span>근태관리</span></a></li>
+      <li><a href=""><span>개인업무</span></a></li>
+    </ul>
+  </nav>
+  <section>
+    <div class="mail_container">
+      <div class="mail_btn">
+        <!-- <a href="email_delete"> -->
+        <!-- <a href=""> -->
+
+        <a href="/board_gj">
+          <input type="button" value="공지사항" class="mail_delete">
+        </a>
+        <a href="/board_fr">
+          <input type="button" value="자유게시판" class="mail_delete">
+        </a>
+
+
+        <!-- </a> -->
+      </div>
+      <div id="board_select_title">
+        <span class="board_select_title_1">자유게시판</span>
+      </div>
+
+      <div id="search_div">
+        <!-- <div id="search_div_1"><div>pages</div></div> -->
+        <div id="search_div_2">
+          <form action="home.html" method="get">
+            <div id="search_optin">
+              <!-- <div>-->
+
+              <select name="type" id="intputState">
+                <option selected>제목/내용</option>
+                <option>제목</option>
+                <option>내용</option>
+              </select>
+              <!-- </div> -->
+
+              <input type="text" placeholder="검색어를 입력하시오" class="searchBox">
+              <button class="search-btn" type="submit" value="검색">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+
+
+          </form>
+        </div>
+      </div>
+
+      <div class="mail_list">
+        <table class="mail_table">
+          <tr>
+            <!-- <th width =10%>번호</th>
+             <th width =40%>제목</th>
+             <th width =10%>글쓴이</th>
+             <th width =10%>조회수</th>
+             <th width =20%>등록일자</th>
+             <th width =10%>삭제/수정</th> -->
+            <th>번호</th>
+            <th class="th2">제목</th>
+            <th>글쓴이</th>
+            <th>조회수</th>
+            <th>등록일자</th>
+
+          </tr>
+          <!--   <td th:text="${m.board_title}"></td></td> -->
+          <!--  th:href="@{|${m.board_num}|}"  -->
+          <!-- @{/경로/{변수명}(변수명=값)} -->
+          <tr th:each="m: ${boardvolist}">
+            <td th:text="${m.board_num}"></td>
+            <td>
+              <a th:href="@{/gj_preview/{board_num}(board_num=${m.board_num})}" th:text="${m.board_title}"></a>
+            </td>
+            <td th:text="${m.emp_id}"></td>
+            <td th:text="${m.boardHits}"></td>
+            <td th:text="${m.getCreate_at()}"></td>
+          </tr>
+
+
+
+          <tr>
+            <td colspan="7" style="border-top: 1px solid gray;">
+              <c:if test="${pagevo.prev }">
+                <a href="board?page=${pagevo.startPage -1}">[이전페이지그룹] </a>
+              </c:if>
+              <!--  forEach   리스틀 순회,  아래처럼 시작과 끝을 지정하여 반복하는 사용것. -->
+              <c:forEach begin="${pagevo.startPage}" end="${pagevo.endPage }" var="idx">
+                <c:if test="${pagevo.page == idx}">[</c:if>
+                <a href="board?page=${idx}">${idx}</a>
+                <c:if test="${pagevo.page == idx}">]</c:if>
+              </c:forEach>
+              <c:if test="${pagevo.next }">
+                <a href="board?page=${pagevo.endPage + 1}"> [다음페이지그룹]</a>
+              </c:if>
+            </td>
+
+          </tr>
+        </table>
+      </div>
+      <div id="table_write_div">
+        <a href="/write_fr">
+          <button class="write_button" type="button">글쓰기 </button>
+        </a>
+      </div>
+    </div>
+  </section>
+  <footer th:replace="~{layout/footer::footer}"></footer>
+</div>
+</body>
+</html>
