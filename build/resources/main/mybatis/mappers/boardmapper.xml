@@ -13,6 +13,13 @@
     </insert>
 
 
+    <insert id="insertOne_fr" parameterType="com.cis.board.vo.boardVO">
+        INSERT INTO board_table
+        (category, board_num, board_title, board_content, create_at, emp_id, boardHits, fileAttached)
+        VALUES (#{category},(SELECT nextval3('board_seq_fr') FROM DUAL),#{board_title},#{board_content},default,#{emp_id},default,#{fileAttached});
+    </insert>
+
+
     <!-- 본래
          <select id="listAll" resultType="company.company_project.vo.boardVO">
                   SELECT * from board where category = '공지사항' order by board_num DESC;
@@ -40,7 +47,12 @@
     <!-- 게시글하나보기 -->
     <select id="selectOne" parameterType="int" resultType="com.cis.board.vo.boardVO">
         select * from board_table
-        where board_num = #{num}
+        where board_num = #{num} and category = '공지사항'
+    </select>
+    <!-- 게시글하나보기 -->
+    <select id="selectOne_fr" parameterType="int" resultType="com.cis.board.vo.boardVO">
+        select * from board_table
+        where board_num = #{num} and category = '자유게시판'
     </select>
 
     <!-- 게시글 한개 삭제 -->
@@ -54,13 +66,13 @@
             delete from board_table
             where board_num = #{board_num} and category = #{category}
     </delete>
-
+    <!-- 게시글 하나 수정 -->
     <update id="updateOne" parameterType="com.cis.board.vo.boardVO">
             update board_table
             set board_title = #{board_title}, board_content=#{board_content}
             where board_num =#{board_num} and category = #{category}
     </update>
-    <!--게시글 조회  -->
+    <!-- 공지사항 게시글 조회  -->
     <select id="fiandAll" parameterType="com.cis.board.vo.searchDTO" resultType="com.cis.board.vo.boardVO">
             select *
             from board_table
@@ -69,11 +81,29 @@
             order by board_num DESC
             LIMIT #{pagination.limitStart}, #{recordSize}
     </select>
-    <!--게시글 카운트-->
+    <!--자유게시판 게시글 조회 -->
+    <select id="fiandAll_fr" parameterType="com.cis.board.vo.searchDTO" resultType="com.cis.board.vo.boardVO">
+        select *
+        from board_table
+        where category = '자유게시판'
+        <include refid="search"/>
+        order by board_num DESC
+        LIMIT #{pagination.limitStart}, #{recordSize}
+    </select>
+    <!--공지사항 게시글 카운트 -->
     <select id="count" parameterType="com.cis.board.vo.searchDTO" resultType="int">
         select count(*)
         from board_table
         where category = '공지사항'
+        <include refid="search"/>
+    </select>
+
+
+    <!--자유 게시판 게시글 카운트 -->
+    <select id="count_fr" parameterType="com.cis.board.vo.searchDTO" resultType="int">
+        select count(*)
+        from board_table
+        where category = '자유게시판'
         <include refid="search"/>
     </select>
 
@@ -108,6 +138,24 @@
               </if>
     </sql>
 
+    <insert id="insertFile" parameterType="com.cis.board.vo.fileVO">
+        INSERT INTO board_file
+        (category, board_num, original_name, save_name, file_size, created_date)
+        SELECT
+            bt.category,
+            bt.board_num,
+            #{original_name},
+            #{save_name},
+            #{file_size},
+            NOW()
+        FROM
+            board_table bt
+        WHERE
+            bt.category = #{category}
+            LIMIT 1;
+    </insert>
+
+<!--    public void fileAdd(boardVO boardvo)throws Exception;-->
 
 
         <!--

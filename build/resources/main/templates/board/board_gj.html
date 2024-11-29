@@ -58,25 +58,20 @@
       </div>
 
       <div id="search_div">
-        <!-- <div id="search_div_1"><div>pages</div></div> -->
         <div id="search_div_2">
-          <form action="home.html" method="get">
+          <form id="searchForm" method="get" action="/board_gj">
             <div id="search_optin">
-              <!-- <div>-->
-              <select name="type" id="intputState">
-                <option selected>제목/내용</option>
-                <option>제목</option>
-                <option>내용</option>
+              <select name="searchType" id="searchType" title="검색 유형 선택">
+                <option value="" th:selected="${searchType == ''}">전체 검색</option>
+                <option value="board_title" th:selected="${searchType == 'board_title'}">제목</option>
+                <option value="board_content" th:selected="${searchType == 'board_content'}">내용</option>
+                <option value="emp_id" th:selected="${searchType == 'emp_id'}">작성자</option>
               </select>
-              <!-- </div> -->
-
-              <input type="text" placeholder="검색어를 입력하시오" class="searchBox">
-              <button class="search-btn" type="submit" value="검색">
+              <input type="text" name="keyword" id="keyword" class="searchBox" placeholder="검색어를 입력하시오" th:value="${keyword}">
+              <button class="search-btn" type="submit">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </button>
             </div>
-
-
           </form>
         </div>
       </div>
@@ -84,58 +79,50 @@
       <div class="mail_list">
         <table class="mail_table">
           <tr>
-            <!-- <th width =10%>번호</th>
-             <th width =40%>제목</th>
-             <th width =10%>글쓴이</th>
-             <th width =10%>조회수</th>
-             <th width =20%>등록일자</th>
-             <th width =10%>삭제/수정</th> -->
             <th>번호</th>
             <th class="th2">제목</th>
             <th>글쓴이</th>
             <th>조회수</th>
             <th>등록일자</th>
-
           </tr>
-          <!--   <td th:text="${m.board_title}"></td></td> -->
-          <!--  th:href="@{|${m.board_num}|}"  -->
-          <!-- @{/경로/{변수명}(변수명=값)} -->
-          <tr th:each="m: ${boardvolist}">
-              <td th:text="${m.board_num}"></td>
-              <td>
-                <a th:href="@{/gj_preview/{board_num}(board_num=${m.board_num})}" th:text="${m.board_title}"></a>
-              </td>
-              <td th:text="${m.emp_id}"></td>
-              <td th:text="${m.boardHits}"></td>
-              <td th:text="${m.getCreate_at()}"></td>
-          </tr>
-
-          <!-- <tr>
-            <td colspan="7" style="border-top: 1px solid gray;">
-              <c:if test="${pagevo.prev }">
-                <a href="board?page=${pagevo.startPage -1}">[이전페이지그룹] </a>
-              </c:if>
-                forEach   리스틀 순회,  아래처럼 시작과 끝을 지정하여 반복하는 사용것.
-              <c:forEach begin="${pagevo.startPage}" end="${pagevo.endPage }" var="idx">
-                <c:if test="${pagevo.page == idx}">[</c:if>
-                <a href="board?page=${idx}">${idx}</a>
-                <c:if test="${pagevo.page == idx}">]</c:if>
-              </c:forEach>
-              <c:if test="${pagevo.next }">
-                <a href="board?page=${pagevo.endPage + 1}"> [다음페이지그룹]</a>
-              </c:if>
+          <tr th:each="m: ${boardvolist.list}">
+            <td th:text="${m.board_num}"></td>
+            <td>
+              <a th:href="@{/gj_preview/{board_num}(board_num=${m.board_num})}" th:text="${m.board_title}"></a>
             </td>
-
-          </tr>  -->
+            <td th:text="${m.emp_id}"></td>
+            <td th:text="${m.boardHits}"></td>
+            <td th:text="${m.getCreate_at()}"></td>
+          </tr>
         </table>
-        <!--/* 페이지네이션 */-->
-        <div class="paging">
-          <a href="#" class="page_bt first">첫 페이지</a><a href="#" class="page_bt prev">이전 페이지 그룹</a>
-          <p><span class="on">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a></p>
-          <a href="#" class="page_bt next">다음 페이지 그룹</a><a href="#" class="page_bt last">마지막 페이지</a>
-        </div>
 
+        <!-- 페이지네이션 -->
+        <div class="paging">
+          <!-- 첫 페이지 -->
+          <a th:href="@{/board_gj(page=1, keyword=${keyword}, searchType=${searchType})}">첫 페이지</a>
+
+          <!-- 이전 페이지 -->
+          <a th:href="@{/board_gj(page=${boardvolist.pagination.startPage - 1}, keyword=${keyword}, searchType=${searchType})}"
+             th:if="${boardvolist.pagination.existPrevPage}">이전 페이지</a>
+
+          <!-- 페이지 번호 -->
+          <span th:each="page : ${#numbers.sequence(boardvolist.pagination.startPage, boardvolist.pagination.endPage)}">
+      <a th:href="@{/board_gj(page=${page}, keyword=${keyword}, searchType=${searchType})}"
+         th:text="${page}"
+         th:classappend="${page == currentPage} ? 'on' : ''">
+      </a>
+    </span>
+
+          <!-- 다음 페이지 -->
+          <a th:href="@{/board_gj(page=${boardvolist.pagination.endPage + 1}, keyword=${keyword}, searchType=${searchType})}"
+             th:if="${boardvolist.pagination.existNextPage}" class="page_bt next">다음 페이지</a>
+
+          <!-- 마지막 페이지 -->
+          <a th:href="@{/board_gj(page=${boardvolist.pagination.totalPageCount}, keyword=${keyword}, searchType=${searchType})}"
+             th:if="${boardvolist.pagination.existNextPage}" class="page_bt last">마지막 페이지</a>
+        </div>
       </div>
+
       <div id="table_write_div">
         <a href="/write_gj">
           <button class="write_button" type="button">글쓰기 </button>
@@ -149,5 +136,6 @@
 </div>
 
 </body>
+<script src="/js/board/board_main.js"></script>
 
 </html>

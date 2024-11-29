@@ -38,7 +38,7 @@
     <section>
         <div class="mail_container">
             <div id="write">
-                <form action="/board_write_one" method="get">
+                <form action="/board_write_one" method="post" enctype="multipart/form-data">
                     <div class="write_main"><span>자유게시판</span></div>
                     <input type="text" value="자유게시판" readonly hidden="true" name="category">
                     <div class="write_writer">
