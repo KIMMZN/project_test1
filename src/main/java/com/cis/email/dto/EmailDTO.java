@@ -1,16 +1,20 @@
 package com.cis.email.dto;
 
-import java.util.Arrays;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmailDTO {
-    private String mail_num;
-    private String mail_title;
-    private String mail_content;
-    private String mail_check;
-    private String create_at;
-    private String recipient_id;
-    private String sender_id;
-    private String[] mail_file;
+    private String mail_num;            // 번호
+    private String mail_title;          // 제목
+    private String mail_content;        // 내용
+    private String mail_check;          // 이메일 열람 여부
+    private String create_at;           // 작성일
+    private String recipient_id;        // 받는 사람
+    private String sender_id;           // 보내는 사람
+    // 파일을 저장할 리스트
+    private List<MultipartFile> mail_files = new ArrayList<>();
 
     public String getMail_num() {
         return mail_num;
@@ -54,11 +58,11 @@ public class EmailDTO {
     public void setSender_id(String sender_id) {
         this.sender_id = sender_id;
     }
-    public String[] getMail_file() {
-        return mail_file;
+    public List<MultipartFile> getMail_files() {
+        return mail_files;
     }
-    public void setMail_file(String[] mail_file) {
-        this.mail_file = mail_file;
+    public void setMail_files(List<MultipartFile> mail_files) {
+        this.mail_files = mail_files;
     }
 
     @Override
@@ -71,7 +75,7 @@ public class EmailDTO {
                 ", create_at='" + create_at + '\'' +
                 ", recipient_id='" + recipient_id + '\'' +
                 ", sender_id='" + sender_id + '\'' +
-                ", mail_file=" + Arrays.toString(mail_file) +
+                ", mail_files=" + mail_files +
                 '}';
     }
 

@@ -2,6 +2,7 @@ package com.cis.board.vo;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 @Data

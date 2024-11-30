@@ -17,14 +17,34 @@ window.onload = () => {
         attendance_empty.style.display = "none";
     }
 
-    if (attendance_row.rows[0].cells[0].innerText == now_date) {
+    if (attendance_row.rows[0].cells[0].innerText === now_date) {
         work_start.style.display = "none"
     } else {
         work_end.style.display = "none"
     }
 }
 
+
+
 work_start.addEventListener("click", () => {
     work_start.style.display = "none"
     work_end.style.display = ""
+
+    const form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "work_start");
+
+    // const input = document.createElement("input");
+    // input.setAttribute("type", "hidden");
+    // input.setAttribute("name", "emp_id");
+    // input.setAttribute("value", 유저아이디)
+    // form.appendChild(input);
+
+    document.body.appendChild(form);
+    form.submit();
+});
+
+work_end.addEventListener("click", () => {
+    console.log(now_date);
+
 });

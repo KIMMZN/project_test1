@@ -74,16 +74,21 @@
                 </div>
                 <div class="files_container">
                     <div class="files_btn_div">
-                        <input type="file" name="file" id="formFile">
-                        <input type="file" name="file" id="formFile">
-                        <input type="file" name="file" id="formFile">
+                        <ul th:each="fList: ${fileList}">
+                            <a th:href="@{/fr_preview/{board_num}/{file_num}/{category}(board_num=${fList.board_num}, file_num=${fList.file_id}, category=${fList.category})}"
+                               th:text="${fList.original_name}">
+                            </a>
+                        </ul>
                     </div>
-                    <!--
-                    <input type="file" name="file" id="formFile">
-                    <input type="file" name="file" id="formFile">
-                    <input type="file" name="file" id="formFile">
                     -->
                 </div>
+                <!--
+                  <th:block th:each="files : ${email_files}">
+                            <a th:text="${files.file_originname}"
+                               th:href="|@{email_detail/}${email_one.mail_num}@{/files/}${filesStat.count}@{/}${files.file_name}@{/download}|">
+                            </a>
+                        </th:block>
+                -->
                 <div class="update_delete_container">
                     <div class="update_delete_div">
                         <input type="button" value="목록" onclick="btnlist()">

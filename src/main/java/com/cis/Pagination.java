@@ -14,6 +14,7 @@ public class Pagination {
     private int startIndex = 0;    // DB SELECT 인덱스 지정
     private int prevBlock;         // 이전 블럭의 마지막 페이지
     private int nextBlock;         // 다음 블럭의 시작 페이지
+    private String filter;
 
     public int getPageSize() {
         return pageSize;
@@ -93,6 +94,12 @@ public class Pagination {
     public void setNextBlock(int nextBlock) {
         this.nextBlock = nextBlock;
     }
+    public String getFilter() {
+        return filter;
+    }
+    public void setFilter(String filter) {
+        this.filter = filter;
+    }
 
     @Override
     public String toString() {
@@ -110,6 +117,7 @@ public class Pagination {
                 ", startIndex=" + startIndex +
                 ", prevBlock=" + prevBlock +
                 ", nextBlock=" + nextBlock +
+                ", filter=" + filter +
                 '}';
     }
 

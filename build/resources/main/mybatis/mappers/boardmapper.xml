@@ -137,13 +137,13 @@
                 </choose>
               </if>
     </sql>
-
+        <!-- 게시판 파일 첨부 board_num이 없어서 문제-->
     <insert id="insertFile" parameterType="com.cis.board.vo.fileVO">
         INSERT INTO board_file
         (category, board_num, original_name, save_name, file_size, created_date)
         SELECT
             bt.category,
-            bt.board_num,
+            #{board_num},
             #{original_name},
             #{save_name},
             #{file_size},
@@ -154,6 +154,19 @@
             bt.category = #{category}
             LIMIT 1;
     </insert>
+    <!-- board_num 가져오기 for 파일첨부 getBoardNum()-->
+    <select id="getBoardNum" resultType="int" parameterType="String">
+        select board_num from board_table
+        where category = #{categoryTemp}
+        order by board_num DESC
+        Limit 1;
+    </select>
+    <!-- 파일 정보 가져오기 selectFile-->
+    <select id="selectFile" parameterType="map" resultType="com.cis.board.vo.fileVO">
+        select * from board_file
+        where board_num = #{num} AND category =#{category};
+    </select>
+
 
 <!--    public void fileAdd(boardVO boardvo)throws Exception;-->
 

@@ -15,25 +15,21 @@
             <div class="attendance_container">
                 <div class="attendance_insert_container">
                     <div class="commute_container">
-                        <form action="" method="">
-                            <input type="button" value="출근" class="work_start">
-                            <!-- 현재일의 출근 기록이 있다면 다음으로 변경 -->
-                            <input type="button" value="퇴근" class="work_end">
-                        </form>
+                        <input type="button" value="출근" class="work_start">
+                        <!-- 현재일의 출근 기록이 있다면 다음으로 변경 -->
+                        <input type="button" value="퇴근" class="work_end">
                     </div>
                     <div class="significant_container">
                         <label for="significant" class="significant_label">사유 선택</label>
                     </div>
                     <div class="significant_container">
-                        <select name="" id="significant" class="significant_select">
-                            <option>조퇴</option>
-                            <option>반차</option>
-                            <option>외출</option>
-                            <option>출장</option>
+                        <select name="significant" id="significant" class="significant_select">
+                            <option value="조퇴">조퇴</option>
+                            <option value="반차">반차</option>
+                            <option value="외출">외출</option>
+                            <option value="출장">출장</option>
                         </select>
-                        <form action="" method="">
-                            <input type="button" value="사유등록" class="significant_btn">
-                        </form>
+                        <input type="button" value="사유등록" class="significant_btn">
                     </div>
                 </div>
                 <div class="attendance_list">

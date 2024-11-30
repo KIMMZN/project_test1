@@ -6,15 +6,36 @@
         INSERT INTO email VALUES ((SELECT nextval('email_seq') FROM DUAL), #{mail_title}, #{mail_content}, DEFAULT, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i'), #{recipient_id}, 'test2')
     </insert>
     <select id="emailSelectAll" resultType="com.cis.email.dto.EmailDTO">
-        SELECT * FROM email ORDER BY mail_num ASC, create_at ASC LIMIT #{startIndex}, #{pageSize}
+        SELECT * FROM email ORDER BY mail_num DESC, create_at DESC LIMIT #{startIndex}, #{pageSize}
+    </select>
+    <select id="emailSelectCheckAll" resultType="com.cis.email.dto.EmailDTO">
+        SELECT * FROM email WHERE mail_check=#{filter} ORDER BY mail_num DESC, create_at DESC LIMIT #{startIndex}, #{pageSize}
     </select>
     <select id="emailSelectOne" resultType="com.cis.email.dto.EmailDTO">
         SELECT * FROM email WHERE mail_num=${email_num}
     </select>
+    <select id="emailSelectOrderOne" resultType="string">
+        SELECT mail_num FROM email ORDER BY mail_num DESC LIMIT 1
+    </select>
     <select id="emailSelectAllCnt" resultType="int">
         SELECT COUNT(*) FROM email
     </select>
+    <select id="emailSelectCheckAllCnt" resultType="int">
+        SELECT COUNT(*) FROM email WHERE mail_check=#{filter}
+    </select>
     <delete id="emailDelete" parameterType="string">
-        DELETE FROM email WHERE mail_num=${email_num}
+        DELETE FROM email WHERE mail_num=#{email_num}
     </delete>
+    <insert id="emailFileInsert" parameterType="list">
+        INSERT INTO email_file VALUES <foreach item="file" collection="list" separator=",">(#{file.mail_num}, #{file.file_name}, #{file.file_originname}, #{file.file_size}, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i'))</foreach>
+    </insert>
+    <select id="emailNumFind" parameterType="string" resultType="com.cis.email.dto.EmailFileDTO">
+        SELECT * FROM email_file WHERE mail_num=#{mail_num} ORDER BY upload_at
+    </select>
+    <select id="emailFileNameFind" parameterType="list" resultType="com.cis.email.dto.EmailFileDTO">
+        SELECT * FROM email_file WHERE file_name=<foreach item="name" collection="list" open="(" separator="," close=")">#{name.file_name}</foreach> ORDER BY upload_at
+    </select>
+    <select id="emailFileFind" resultType="com.cis.email.dto.EmailFileDTO">
+        SELECT * FROM email_file WHERE file_name=#{file_name}
+    </select>
 </mapper>

@@ -6,6 +6,7 @@ import com.cis.board.vo.fileVO;
 import com.cis.board.vo.searchDTO;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
+import java.util.Map;
 
 
 @Mapper
@@ -52,6 +53,12 @@ public interface IF_Reopository {
 
      //파일 저장
       public void insertFile(fileVO file)throws Exception;
+     //board_num 가져오기
+        public int getBoardNum(String categoryTemp)throws Exception;
+        //자유게시판 파일 가져요기
+         //List<fileVO> fileList = boardservice.getAttach(num);
+        public List<fileVO> selectFile(Map<String, Object> params)throws Exception;
+
 
 
 }

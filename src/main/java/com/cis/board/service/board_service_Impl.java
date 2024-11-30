@@ -9,12 +9,16 @@ import com.cis.board.vo.fileVO;
 import com.cis.board.vo.searchDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class board_service_Impl implements IF_board_service {
 
 
@@ -35,39 +39,30 @@ public class board_service_Impl implements IF_board_service {
 
     @Override
     public void writeOneF(boardVO boardvo, List<fileVO> fileList) throws Exception {
+
         if(boardvo.getCategory().equals("공지사항")) {
             ifrepository.insertOne(boardvo);
         }else {
             ifrepository.insertOne_fr(boardvo);
         }
 
-        //첨부파일이 0이 아니라면
-        if(boardvo.getFileAttached() != 0) {
-            for (fileVO file : fileList) {
+        //table에 insert된 board의 id가져오기
+       String categoryTemp = boardvo.getCategory();
+        int board_num_temp = ifrepository.getBoardNum(categoryTemp);
+        System.out.println("보드넘 가져온 값 확인:  "+ board_num_temp);
 
-                file.setCategory(boardvo.getCategory());
-                System.out.println(file.getCategory()+ " 카테고리 ");
-                System.out.println(file.getBoard_num() + " 보드넘 확인");
-                // 카테고리 공지사항 이라면 filevo에 공지사항 설정
-//                if (boardvo.getCategory().equals("공지사항")) {
-//                    System.out.println("공지사항 있음");
-//                    fileVO filevo = fileList.get(i);
-//                    filevo.setCategory("공지사항");
-//                    fileList.set(i, filevo);
-//                    ifrepository.insertFile(boardvo, fileList);
-//                }else {
-//                    System.out.println("자유게시판 있음");
-//                    fileVO filevo = fileList.get(i);
-//                    filevo.setCategory("자유게시판");
-//                    fileList.set(i, filevo);
-//                    System.out.println(filevo.getCategory() + "  //자유게시판확인");
-//                    ifrepository.insertFile(boardvo, fileList);
+        //file첨부, 게시판 id와 게시판 카테고리 추가하여
+        if (!fileList.isEmpty() && fileList != null && boardvo.getFileAttached() != 0) {
+                for (fileVO file : fileList) {
+                    file.setBoard_num(board_num_temp);// 생성된 board_num 설정
+                    file.setCategory(boardvo.getCategory()); // 카테고리 설정
                     ifrepository.insertFile(file);
 //                }
-
-            }
-
+                }
         }
+
+
+
     }
 
     //공지 all
@@ -101,6 +96,17 @@ public class board_service_Impl implements IF_board_service {
     public boardVO viewOne_fr(int num) throws Exception {
 
         return ifrepository.selectOne_fr(num);
+    }
+
+    @Override
+    public List<fileVO> getAttach(int num,String category) throws Exception {
+                //Map에 파일 파라미터 설정
+                Map<String, Object> params = new HashMap<>();
+                params.put("category", category);
+                params.put("num", num);
+
+
+        return ifrepository.selectFile(params);
     }
 
     //삭제

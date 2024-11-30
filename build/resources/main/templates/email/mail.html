@@ -14,13 +14,19 @@
         <section>
             <div class="mail_container">
                 <div class="mail_btn">
-                    <a href="email_send">
+                    <a th:href="@{email_send}">
                         <input type="button" value="메일쓰기" class="mail_send">
                     </a>
                     <input type="button" value="메일삭제" class="mail_delete">
-                    <input type="button" value="전체보기" class="mail_view">
-                    <input type="button" value="안읽은메일보기" class="mail_view">
-                    <input type="button" value="읽은메일보기" class="mail_view">
+                    <a th:href="@{email(filter=all)}">
+                        <input type="button" value="전체보기" class="mail_view">
+                    </a>
+                    <a th:href="@{email(filter=unread)}">
+                        <input type="button" value="안읽은메일보기" class="mail_view">
+                    </a>
+                    <a th:href="@{email(filter=read)}">
+                        <input type="button" value="읽은메일보기" class="mail_view">
+                    </a>
                 </div>
                 <div class="mail_list">
                     <table class="mail_table">
@@ -55,16 +61,16 @@
                         <tfoot>
                             <tr class="paging">
                                 <td colspan="4">
-                                    <a th:href="@{email(page=1)}" style="font-weight: bold;"><div>처음</div></a>
-                                    <a th:href="@{email(page=${pagination.prevBlock})}" style="font-weight: bold;"><div>이전</div></a>
+                                    <a th:href="@{email(filter=${pagination.filter},page=1)}" style="font-weight: bold;"><div>처음</div></a>
+                                    <a th:href="@{email(filter=${pagination.filter},page=${pagination.prevBlock})}" style="font-weight: bold;"><div>이전</div></a>
                                     <th:block th:with="start=${pagination.startPage}, end=${pagination.endPage}">
-                                        <a th:each="pageButton : ${#numbers.sequence(start, end)}" th:href="@{email(page=${pageButton})}">
+                                        <a th:each="pageButton : ${#numbers.sequence(start, end)}" th:href="@{email(filter=${pagination.filter},page=${pageButton})}">
                                             <div th:if="${pagination.selectPage == pageButton}" th:text="${pageButton}" style="color: skyblue; font-weight: bold;"></div>
                                             <div th:unless="${pagination.selectPage == pageButton}" th:text="${pageButton}"></div>
                                         </a>
                                     </th:block>
-                                    <a th:href="@{email(page=${pagination.nextBlock})}" style="font-weight: bold;"><div>다음</div></a>
-                                    <a th:href="@{email(page=${pagination.totalPageCnt})}" style="font-weight: bold;"><div>끝</div></a>
+                                    <a th:href="@{email(filter=${pagination.filter},page=${pagination.nextBlock})}" style="font-weight: bold;"><div>다음</div></a>
+                                    <a th:href="@{email(filter=${pagination.filter},page=${pagination.totalPageCnt})}" style="font-weight: bold;"><div>끝</div></a>
                                 </td>
                             </tr>
                         </tfoot>

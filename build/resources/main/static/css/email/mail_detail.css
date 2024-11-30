@@ -116,7 +116,7 @@ section {
     display: flex;
     align-items: center;
 }
-.mail_file {
+.mail_files {
     width: 90%;
     margin-left: 5px;
 
@@ -124,7 +124,7 @@ section {
     justify-content: flex-start;
     align-items: center;
 }
-.mail_file a {
+.mail_files a {
     color: dodgerblue;
     text-decoration: none;
     border: 1px solid black;
@@ -132,7 +132,7 @@ section {
     margin-right: 15px;
     padding: 10px 15px;
 }
-.mail_file a:hover {
+.mail_files a:hover {
     color: cornflowerblue;
 }
 .mail_delete {

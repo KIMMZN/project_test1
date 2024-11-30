@@ -1,14 +1,18 @@
 package com.cis.board.util;
 
 import com.cis.board.vo.fileVO;
+import jakarta.annotation.Resource;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,8 +25,8 @@ public class FIleDataUtil {
 
 
     // 파일 저장 경로 설정
-    String uploadDir = "C:/Users/13/Desktop/folder/파이널프로젝트자료/filefolder";
-    File uploadDirFile = new File(uploadDir);
+    private final String uploadDir = "C:/Users/13/Desktop/folder/파이널프로젝트자료/filefolder";
+    private final Path uploadDirPath = Paths.get(uploadDir); // Path 객체 생성
 
 
     //배열로 이름 리턴
@@ -45,10 +49,11 @@ public class FIleDataUtil {
                 String saveName = uuid.toString() + "." + originalFilename.split("\\.")[1];
 
                 // 3. 저장 경로 설정
-                String filePath = uploadDirFile + File.separator + saveName;
+                //String filePath = uploadDirFile + File.separator + saveName;
+                Path filePath = uploadDirPath.resolve(saveName); // Path 객체를 통해 경로 생성
 
                 // 4. 파일 저장
-                multipartFile.transferTo(new File(filePath));
+                multipartFile.transferTo(filePath.toFile()); // 파일 저장
 
                 // 5. 원본 파일 이름을 배열에 저장
                // files[i] = saveName;
@@ -60,8 +65,6 @@ public class FIleDataUtil {
                         .file_size((int) multipartFile.getSize())
                         .build();
                 fileList.add(filevo);
-
-
 
 
             }
