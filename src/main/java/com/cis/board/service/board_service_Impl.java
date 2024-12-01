@@ -4,6 +4,7 @@ package com.cis.board.service;
 import com.cis.board.paging.Pagination;
 import com.cis.board.paging.PagingResponse;
 import com.cis.board.repository.IF_Reopository;
+import com.cis.board.util.FIleDataUtil;
 import com.cis.board.vo.boardVO;
 import com.cis.board.vo.fileVO;
 import com.cis.board.vo.searchDTO;
@@ -23,6 +24,7 @@ public class board_service_Impl implements IF_board_service {
 
 
      private final IF_Reopository ifrepository;
+     private final FIleDataUtil fileDataUtil;
 
     //게시글 작성, 공지사항글 자유게시판글 분리 //+file
 //    @Override
@@ -129,6 +131,48 @@ public class board_service_Impl implements IF_board_service {
 
         ifrepository.updateOne(boardvo);
     }
+    //자유게시판 수정시 파일 삭제할때
+    @Override
+    public void fileDel(List<String> delIds, String categoryTemp) throws Exception {
+        System.out.println(categoryTemp+"////1차 카테고리템프 확인");
+        for(String delId : delIds) {
+
+            int delInt = Integer.parseInt(delId); // 변환 확인
+            System.out.println(delInt + "delint");
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("category", categoryTemp);
+            params.put("num", delInt);
+            System.out.println(categoryTemp+"////카테고리템프 확인");
+
+            fileVO file = ifrepository.selectFileById(params); // DB 조회 확인
+            System.out.println("db조회");
+            if (file == null) {
+                System.out.println("file이 null입니다. params 확인: " + params);
+            } else {
+                System.out.println("file 정보: " + file.toString());
+            }
+
+
+
+            if (file != null) {
+                // 로컬 파일 삭제
+                System.out.println("파일삭제전");
+                boolean isDeleted = fileDataUtil.deleteFile(file.getSave_name());
+                System.out.println(file.getSave_name()+ "// savename가져오나 ");
+                if (isDeleted) {
+                    System.out.println("로컬 파일 삭제 성공: " + file.getSave_name());
+                } else {
+                    System.out.println("로컬 파일 삭제 실패: " + file.getSave_name());
+                }
+            }else {
+                System.out.println("file 정보: " + file.toString());
+            }
+
+            ifrepository.deleteFile(params);
+        }
+
+    }
 
     //공지사항 게시글 리스트 조회
     // param - searchDTO
@@ -192,6 +236,18 @@ public class board_service_Impl implements IF_board_service {
         List<boardVO> list = ifrepository.fiandAll_fr(params);
         return new PagingResponse<>(list, pagination);
 
+
+    }
+
+    @Override
+    public void modfile(List<fileVO> filevoList) throws Exception {
+        //file첨부, 게시판 id와 게시판 카테고리 추가하여
+        if (!filevoList.isEmpty() && filevoList != null) {
+            for (fileVO file : filevoList) {
+                ifrepository.insertFile(file);
+//                }
+            }
+        }
 
     }
 

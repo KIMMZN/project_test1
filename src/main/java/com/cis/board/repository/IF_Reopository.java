@@ -28,6 +28,11 @@ public interface IF_Reopository {
 
     //게시글 하나 수정
     public void updateOne(boardVO boardvo)throws Exception;
+    //자유게시판 글 수정시 파일 삭제
+    public void deleteFile(Map<String, Object> params)throws Exception;
+
+    //게시글 수정시 파일 삭제
+
     //ifrepository.updateOne(boardvo);
 
     // 공지사항 게시글 리스트 조회// search dto를 파라미터로,
@@ -53,12 +58,14 @@ public interface IF_Reopository {
 
      //파일 저장
       public void insertFile(fileVO file)throws Exception;
-     //board_num 가져오기
+        //board_num 가져오기
         public int getBoardNum(String categoryTemp)throws Exception;
         //자유게시판 파일 가져요기
          //List<fileVO> fileList = boardservice.getAttach(num);
         public List<fileVO> selectFile(Map<String, Object> params)throws Exception;
 
+        //파일정보 가져오기, parameter = num과 category , return = fileVo
+        fileVO selectFileById(Map<String, Object> params) throws Exception;
 
 
 }

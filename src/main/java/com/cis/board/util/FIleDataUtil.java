@@ -25,13 +25,13 @@ public class FIleDataUtil {
 
 
     // 파일 저장 경로 설정
-    private final String uploadDir = "C:/Users/13/Desktop/folder/파이널프로젝트자료/filefolder";
+    private final String uploadDir ="C:\\Users\\AdministraorK\\OneDrive\\바탕 화면\\새 폴더\\programing\\프로젝트\\파이널프로젝트\\testsave";
     private final Path uploadDirPath = Paths.get(uploadDir); // Path 객체 생성
 
 
     //배열로 이름 리턴
 
-
+  //파일 저장시
     public List<fileVO> savefiles (List<MultipartFile> file) throws IOException {
        // String[] files = new String[file.size()];
         //파일 원본이름 변수
@@ -77,6 +77,17 @@ public class FIleDataUtil {
     public int attaced(List<MultipartFile> file) {
 
         return file.size();
+    }
+
+    //파일 삭제시
+    public boolean deleteFile(String saveName) {
+        File file = new File(uploadDir + File.separator + saveName);
+        if (file.exists()) {
+            System.out.println("파일삭제함");
+            return file.delete(); // 파일 삭제
+        }
+        System.out.println("파일삭제못함");
+        return false; // 파일이 없으면 false 반환
     }
 
 

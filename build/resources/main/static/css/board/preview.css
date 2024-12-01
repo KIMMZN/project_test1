@@ -10,6 +10,7 @@
     border-radius: 10px;
 
 
+
 }
 
 /* 타이틀*/
@@ -271,7 +272,6 @@ footer{
 .files_container {
     width: 100%;
     height: 5%;
-
     float: left;
 
 }
@@ -281,10 +281,13 @@ footer{
   border-radius: 10px;
   height: 100%;
     width: 100%;
+    box-sizing: border-box;
+
 }
 
 .files_btn_div ul {
-    height: 98%;
+    width: 100%;
+    height: 50%;
     float: left;
     list-style-type: none; /* 기본 리스트 스타일 제거 */
     margin: 0;
@@ -295,6 +298,7 @@ footer{
 }
 
 .files_btn_div li {
+    float: left;
     margin-right: 15px; /* 아이템 간 간격 */
     border: 1px solid black;
     border-radius: 10px;
@@ -310,4 +314,42 @@ footer{
 .files_btn_div a:hover {
     color: #0056b3; /* 호버 시 색상 */
     text-decoration: underline; /* 호버 시 밑줄 */
+}
+
+
+/*fileUploadContainer*/
+
+/* 파일 업로드 컨테이너 */
+#fileUploadContainer {
+    display: none; /* 기본적으로 숨김 */
+    position: relative; /* 부모 요소 기준으로 위치 지정 가능 */
+    width: 50%; /* 부모 요소 너비와 일치 */
+    max-height: 150px; /* 최대 높이 제한 */
+    overflow-y: auto; /* 스크롤 생성 */
+    margin-top: 10px; /* li 아래에 간격 */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+
+/* 파일 추가 버튼 스타일 */
+#fileUploadContainer label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+#fileUploadContainer input[type="button"] {
+    border: 1px solid #007bff;
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#fileUploadContainer input[type="button"]:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
 }

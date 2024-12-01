@@ -74,13 +74,25 @@
                 </div>
                 <div class="files_container">
                     <div class="files_btn_div">
-                        <ul th:each="fList: ${fileList}">
-                            <a th:href="@{/fr_preview/{board_num}/{file_num}/{category}(board_num=${fList.board_num}, file_num=${fList.file_id}, category=${fList.category})}"
-                               th:text="${fList.original_name}">
-                            </a>
+                        <ul id="fileListUl">
+                            <li>
+                                <label for="addbutton" hidden>파일 추가:</label>
+                                <input type="button" id="addbutton" value="파일추가" hidden>
+                            </li>
+                            <li th:each="fList: ${fileList}" th:data-file-id="${fList.file_id}">
+                                <a th:href="@{/fr_preview/{board_num}/{file_num}/{category}(board_num=${fList.board_num}, file_num=${fList.file_id}, category=${fList.category})}"
+                                   th:text="${fList.original_name}">
+                                </a>
+                            </li>
                         </ul>
+
+
+
+
                     </div>
-                    -->
+                    <!-- 파일 업로드 컨테이너 -->
+
+
                 </div>
                 <!--
                   <th:block th:each="files : ${email_files}">

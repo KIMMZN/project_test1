@@ -55,27 +55,7 @@ public class BoardController {
         return "/board/board_gj";
 
     }
-    //페이징을 위한 임시//
-//    @GetMapping(value = "/board/home")
-//    public String boardTemp (@ModelAttribute searchDTO params, Model model)throws Exception {
-//
-//        PagingResponse<boardVO> boardvolist = ifboardservice.findAllPost(params);
-//
-//        //List<boardVO> boardvolist = ifboardservice.findAllPost(params);
-//
-//        //boardvolist.getPagination().getStartPage()
-//        //현재 검색 조건과 페이징 정보 추가
-//        model.addAttribute("boardvolist", boardvolist);
-//        model.addAttribute("keyword", params.getKeyword());
-//        model.addAttribute("searchType", params.getSearchType());
-//
-//       // model.addAttribute("boardvolist", boardvolist);
-//        // System.out.println(boardvolist.size()+ boardvolist.toString());
-//        //System.out.println(boardvolist);
-//        // 현재 페이지 추가
-//        model.addAttribute("currentPage", params.getPage());
-//        return "/board/board_temp";
-//
+
 //    }
 
 
@@ -137,9 +117,10 @@ public class BoardController {
         return "/board/board_fr";
     }
 
-
+    //자유게시판 글쓰기 클릭했을시 + id확인하고 이름 불러오기
     @GetMapping(value = "/write_fr")
     public String write_fr() throws Exception {
+
 
 
         return "/board/write_fr";
@@ -185,19 +166,79 @@ public class BoardController {
         return "/board/fr_preview";
     }
 
-    //글 삭제 (num,category)
+    //공지게시판 글 삭제 (num,category) + 파일삭제
     @PostMapping(value = "/gj_preview/delOne/{num}")
-    public String gj_preview_delOne(@PathVariable("num") int num, @ModelAttribute boardVO boardvo) throws Exception {
+    public String gj_preview_delOne(@PathVariable("num") int num, @ModelAttribute boardVO boardvo,
+                                    @RequestParam(value = "delids",required = false) List<String> deleteFileIds) throws Exception {
+        System.out.println(boardvo.toString() + "boardvo");
+
+
         boardvo.setBoard_num(num);
-
-        //System.out.println(boardvo.toString()+"   !!!!tostiong 테스트");
-
         ifboardservice.deleteOne(boardvo);
+        String categoryTemp = boardvo.getCategory();
+
+        // 파일 삭제 처리
+        if (deleteFileIds != null && !deleteFileIds.isEmpty()) {
+            System.out.println("삭제처리ㄱ: " + deleteFileIds);
+            ifboardservice.fileDel(deleteFileIds, categoryTemp);
+        } else {
+            System.out.println("파일 없슴");
+        }
         //System.out.println(boardvo.getCategory() + "카테고리");
         //System.out.println(num+"게시글넘버");
+        //삭제완
 
 
         return "redirect:/board_gj";
+    }
+
+    //자유게시판 글 삭제 (num,category) + 파일삭제
+    @PostMapping(value = "/fr_preview/delOne/{num}")
+    public String fr_preview_delOne(@PathVariable("num") int num,@RequestParam(value = "category", required = true) String category,
+                                    @RequestParam(value = "delfileIds",required = false) List<String> deleteFileIds) throws Exception {
+
+        System.out.println("게시글 번호: " + num);
+        System.out.println("카테고리: " + category);
+        System.out.println("삭제할 파일 IDs: " + deleteFileIds);
+
+        // deleteFileIds null 체크 추가
+        if (deleteFileIds == null) {
+            deleteFileIds = new ArrayList<>();
+        }
+
+        System.out.println("삭제할 파일 IDs: " + deleteFileIds);
+
+        // 파일 삭제 처리
+        if (!deleteFileIds.isEmpty()) {
+            System.out.println("삭제할 파일 IDs: " + deleteFileIds);
+            ifboardservice.fileDel(deleteFileIds, category);
+        } else {
+            System.out.println("삭제할 파일이 없음");
+        }
+
+
+        // 게시글 삭제
+        boardVO boardvo = new boardVO();
+        boardvo.setBoard_num(num);
+        boardvo.setCategory(category);
+        System.out.println(boardvo.toString() + "boardvo");
+
+        String categoryTemp = boardvo.getCategory();
+        boardvo.setBoard_num(num);
+
+        if (boardvo.getCategory() != null) {
+
+            ifboardservice.deleteOne(boardvo);
+        }
+
+
+
+
+        //System.out.println(boardvo.getCategory() + "카테고리");
+        //System.out.println(num+"게시글넘버");
+        System.out.println("삭제완료 ");
+
+        return "board/board_fr";
     }
 
     ;
@@ -216,67 +257,108 @@ public class BoardController {
 
     //자유게시판 수정
     @PostMapping(value = "/fr_preview/modifyOne/{num}")
-    public String fr_modifyOne(@ModelAttribute boardVO boardvo) throws Exception {
+    public String fr_modifyOne(@ModelAttribute boardVO boardvo,
+                               @RequestParam(value = "deleteFiles", required = false) List<String> deleteFileIds,
+                               @RequestPart(value = "files", required = false) List<MultipartFile> file) throws Exception {
 
 
+        System.out.println(boardvo.toString());
+       System.out.println(file+ "files " );
+       System.out.println(deleteFileIds+ "deleteFileIds");
+        //카테고리를 parameter에 추가
+        String categoryTemp = boardvo.getCategory();
+        System.out.println(boardvo.getCategory());
+        //파일 삭제
+
+        // 파일 삭제 처리
+        if (deleteFileIds != null && !deleteFileIds.isEmpty()) {
+            System.out.println("Files to delete: " + deleteFileIds);
+            ifboardservice.fileDel(deleteFileIds, categoryTemp);
+        } else {
+            System.out.println("No files to delete.");
+        }
+
+        //파일 추가
+        // 파일이 null이면 빈 리스트로 초기화
+        if (file == null) {
+            file = new ArrayList<>();
+        }
+
+        //파일 경로에 저장 하고 새로운 파일 이름 리턴
+        List<fileVO> fileVoList = filedatautil.savefiles(file);
+        //boardvo에 첨부된 파일 갯수를 저장
+        boardvo.setFileAttached(filedatautil.attaced(file));
+
+        //게시판 업데이트
         ifboardservice.modOne(boardvo);
+
+        //파일 업데이트(추가)
+        for (fileVO fileone : fileVoList) {
+            fileone.setBoard_num(boardvo.getBoard_num());
+            fileone.setCategory(categoryTemp);
+        }
+        ifboardservice.modfile(fileVoList);
+
+
+
         //System.out.println(num + "     a asdf");
-        System.out.println(boardvo.toString() + "   boardvo테스트");
+        System.out.println(boardvo.toString() + "  수정작업완료 ");
 
         return "redirect:/board_fr";
-    }
+    };
+
 
     //자유게시판 파일 다운로드
     // @GetMapping(value = "")
 
-    @GetMapping(value = "/fr_preview/{board_num}/{file_num}/{category}")
-    public ResponseEntity<org.springframework.core.io.Resource> downloadFile(
-            @PathVariable("board_num") int boardNum,
-            @PathVariable("file_num") int fileNum,
-            @PathVariable("category") String category)throws Exception {
-
-        try {
-            // 데이터베이스에서 파일 정보 가져오기
-            List<fileVO> fileInfoList = ifboardservice.getAttach(boardNum, category);
-
-            if (fileInfoList == null || fileInfoList.isEmpty()) {
-                return ResponseEntity.notFound().build(); // 파일 정보가 없으면 404 반환
-            }
-
-            // file_num과 일치하는 파일 찾기
-            fileVO targetFile = fileInfoList.stream()
-                    .filter(file -> file.getFile_id() == fileNum)
-                    .findFirst()
-                    .orElse(null);
-
-            if (targetFile == null) {
-                return ResponseEntity.notFound().build(); // 해당 file_num의 파일이 없으면 404 반환
-            }
-
-            // 파일 경로 생성
-            File file = new File(filedatautil.getUploadDir() + "/" + targetFile.getSave_name());
-
-            if (!file.exists()) {
-                return ResponseEntity.notFound().build(); // 파일이 없으면 404 반환
-            }
-
-            // FileSystemResource 생성
-            org.springframework.core.io.Resource resource = new org.springframework.core.io.FileSystemResource(file);
-
-            // 파일 이름 인코딩 (한글 및 특수 문자 처리)
-            String encodedFileName = java.net.URLEncoder.encode(targetFile.getOriginal_name(), "UTF-8").replaceAll("\\+", "%20");
-
-            // 다운로드 가능한 ResponseEntity 반환
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encodedFileName + "\"")
-                    .body(resource);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().build(); // 서버 오류 반환
-        }
-
-    }
+//    @GetMapping(value = "/fr_preview/{board_num}/{file_num}/{category}")
+//    public ResponseEntity<org.springframework.core.io.Resource> downloadFile(
+//            @PathVariable("board_num") int boardNum,
+//            @PathVariable("file_num") int fileNum,
+//            @PathVariable("category") String category)throws Exception {
+//
+//        try {
+//            // 데이터베이스에서 파일 정보 가져오기
+//            List<fileVO> fileInfoList = ifboardservice.getAttach(boardNum, category);
+//
+//            if (fileInfoList == null || fileInfoList.isEmpty()) {
+//                return ResponseEntity.notFound().build(); // 파일 정보가 없으면 404 반환
+//            }
+//
+//            // file_num과 일치하는 파일 찾기
+//            fileVO targetFile = fileInfoList.stream()
+//                    .filter(file -> file.getFile_id() == fileNum)
+//                    .findFirst()
+//                    .orElse(null);
+//
+//            if (targetFile == null) {
+//                return ResponseEntity.notFound().build(); // 해당 file_num의 파일이 없으면 404 반환
+//            }
+//
+//            // 파일 경로 생성
+//            File file = new File(filedatautil.getUploadDir() + "/" + targetFile.getSave_name());
+//
+//            if (!file.exists()) {
+//                return ResponseEntity.notFound().build(); // 파일이 없으면 404 반환
+//            }
+//
+//            // FileSystemResource 생성
+//            org.springframework.core.io.Resource resource = new org.springframework.core.io.FileSystemResource(file);
+//
+//            // 파일 이름 인코딩 (한글 및 특수 문자 처리)
+//            String encodedFileName = java.net.URLEncoder.encode(targetFile.getOriginal_name(), "UTF-8").replaceAll("\\+", "%20");
+//
+//            // 다운로드 가능한 ResponseEntity 반환
+//            return ResponseEntity.ok()
+//                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encodedFileName + "\"")
+//                    .body(resource);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseEntity.internalServerError().build(); // 서버 오류 반환
+//        }
+//
+//    }
 }
 
 
