@@ -49,7 +49,9 @@ document.querySelector("#delbtn").addEventListener("click", ()=> {
         body: formdata,
     }).then((response) => {
         if (response.ok) {
+
             alert("삭제가 완료되었습니다")
+            window.location.href = "/board_fr"; // 목록 페이지로 리다이렉트
 
         } else {
             alert("삭제에 실패했습니다")

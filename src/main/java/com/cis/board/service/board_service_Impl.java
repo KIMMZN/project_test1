@@ -12,10 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -213,6 +210,9 @@ public class board_service_Impl implements IF_board_service {
     public PagingResponse<boardVO> findAllPost_fr(searchDTO params) throws Exception {
         //조건에 해당하는 데이터가 없는 경우, 응답 데이터에 비어있는 리스트와
         //null을 담아 반환
+
+
+
         int count = ifrepository.count_fr(params);
         if(count<1) {
             //데이터가 없는 경우에 pagination 객체 생성
@@ -234,6 +234,10 @@ public class board_service_Impl implements IF_board_service {
         // 계산된 페이지 정보의 일부(limitStart, recordSize)를 기준으로
         // 리스트 데이터 조회 후 응답 데이터 반환
         List<boardVO> list = ifrepository.fiandAll_fr(params);
+        if (list == null) {
+            list = new ArrayList<>();
+        }
+
         return new PagingResponse<>(list, pagination);
 
 

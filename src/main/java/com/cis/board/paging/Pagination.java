@@ -2,8 +2,10 @@ package com.cis.board.paging;
 
 import com.cis.board.vo.searchDTO;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Pagination {
 
     private int totalRecordCount;     // 전체 데이터 수
@@ -31,6 +33,7 @@ public class Pagination {
             this.existNextPage = false; // 다음 페이지 없음
         }
     }
+
 
     private void calculation(searchDTO params) {
 

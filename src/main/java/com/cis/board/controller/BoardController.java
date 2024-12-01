@@ -11,6 +11,7 @@ import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -99,6 +100,14 @@ public class BoardController {
 
         PagingResponse<boardVO> boardvolist = ifboardservice.findAllPost_fr(params);
 
+        // Null 체크 및 기본값 설정
+        if (boardvolist == null || boardvolist.getList() == null) {
+            boardvolist = new PagingResponse<>();
+            boardvolist.setList(new ArrayList<>()); // 빈 리스트로 초기화
+            boardvolist.setPagination(new Pagination(1, params)); // 페이징 정보 기본값
+        }
+
+        System.out.println("boardvolist: " + boardvolist);
         //List<boardVO> boardvolist = ifboardservice.findAllPost(params);
 
         //boardvolist.getPagination().getStartPage()
@@ -226,10 +235,10 @@ public class BoardController {
         String categoryTemp = boardvo.getCategory();
         boardvo.setBoard_num(num);
 
-        if (boardvo.getCategory() != null) {
 
-            ifboardservice.deleteOne(boardvo);
-        }
+
+
+        ifboardservice.deleteOne(boardvo); // 삭제 처리
 
 
 

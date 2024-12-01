@@ -85,7 +85,7 @@
             <th>조회수</th>
             <th>등록일자</th>
           </tr>
-          <tr th:each="m: ${boardvolist.list}">
+          <tr th:each="m: ${boardvolist.list}" th:if="${boardvolist.list != null}">>
             <td th:text="${m.board_num}"></td>
             <td>
               <a th:href="@{/fr_preview/{board_num}(board_num=${m.board_num})}" th:text="${m.board_title}"></a>
@@ -94,6 +94,10 @@
             <td th:text="${m.boardHits}"></td>
             <td th:text="${m.getCreate_at()}"></td>
           </tr>
+          <tr th:if="${boardvolist.list == null || #lists.isEmpty(boardvolist.list)}">
+            <td colspan="5">게시글이 없습니다.</td>
+          </tr>
+
         </table>
 
         <!-- 페이지네이션 -->
