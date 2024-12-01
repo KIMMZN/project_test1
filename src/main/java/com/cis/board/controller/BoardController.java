@@ -247,7 +247,7 @@ public class BoardController {
         //System.out.println(num+"게시글넘버");
         System.out.println("삭제완료 ");
 
-        return "board/board_fr";
+        return "redirect:/board_fr";
     }
 
     ;
