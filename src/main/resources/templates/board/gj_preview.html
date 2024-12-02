@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/layout/base.css"/>
     <link rel="stylesheet" type="text/css" href="/css/board/write.css">
     <link rel="stylesheet" type="text/css" href="/css/board/preview.css">
+    <link rel="stylesheet" type="text/css" href="/css/board/modal_comment.css">
     <script src="https://kit.fontawesome.com/ae15ba340d.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -74,16 +75,25 @@
                 </div>
                 <div class="files_container">
                     <div class="files_btn_div">
-                        <input type="file" name="file" id="formFile">
-                        <input type="file" name="file" id="formFile">
-                        <input type="file" name="file" id="formFile">
+                        <ul id="fileListUl">
+                            <li>
+                                <label for="addbutton" hidden>파일 추가:</label>
+                                <input type="button" id="addbutton" value="파일추가" hidden>
+                            </li>
+                            <li th:each="fList: ${fileList}" th:data-file-id="${fList.file_id}">
+                                <a th:href="@{/fr_preview/{board_num}/{file_num}/{category}(board_num=${fList.board_num}, file_num=${fList.file_id}, category=${fList.category})}"
+                                   th:text="${fList.original_name}">
+                                </a>
+                            </li>
+                        </ul>
+
+
+
+
                     </div>
-                    <!--
-                    <input type="file" name="file" id="formFile">
-                    <input type="file" name="file" id="formFile">
-                    <input type="file" name="file" id="formFile">
-                    -->
+                    <!-- 파일 업로드 컨테이너 -->
                 </div>
+
                 <div class="update_delete_container">
                     <div class="update_delete_div">
                         <input type="button" value="목록" onclick="btnlist()">
@@ -94,34 +104,30 @@
                 </div>
 
                 <div class="comment_div">
-                    <div class="Comment_title">
-                        <table>
-                            <thead>
-                            <tr><th>Comment</th></tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td >댓글내용:원진호!!</td>
-                                <td >작성자:시온</td>
-                            </tr>
 
-                            </tbody>
-                        </table>
-                    </div>
+                    <!-- 댓글 확인 버튼 -->
 
-                    <form action="#" method="get" onsubmit="return confirm('정말 댓글을 등록하시겠습까?')">
-                        <div class="Comment_btn_div">
-                            <div class="Comment_writer_div">
-                                <label for="Comment_writer">작성자</label>
-                                <input type="text" id="Comment_writer" name="cmtWriter">
-                            </div>
-                            <div class="Comment_area_div">
-                                <label for="Comment_area"></label>
-                                <textarea name="textarea" id="Comment_area" placeholder="댓글남기기"></textarea>
-                                <input type="submit" value="댓글등록" class="Comment_btn">
-                            </div>
+                    <input type="button" id="check_comment" value="댓글 확인">
+
+                </div>
+
+
+
+                <!-- 댓글 모달 -->
+
+                <div id="commentModal" class="modal">
+                    <div class="modal-content">
+                        <span id="closeModal" class="close">&times;</span>
+                        <h2>댓글</h2>
+                        <div id="modalCommentList">
+                            <!-- 댓글 리스트가 여기에 로드됩니다 -->
                         </div>
-                    </form>
+                        <form id="modalCommentForm">
+                            <input type="text" id="modalCommentWriter" name="emp_id" placeholder="작성자" required>
+                            <textarea name="comment_content" id="modalCommentArea" placeholder="댓글을 입력하세요." required></textarea>
+                            <input type="submit" value="댓글 등록" class="modal-comment-btn">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -130,5 +136,6 @@
 </div>
 </body>
 <script src="/js/board/board_gj_preview.js"></script>
+<script src="/js/board/board_comment.js"></script>
 
 </html>

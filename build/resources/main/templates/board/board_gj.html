@@ -85,7 +85,7 @@
             <th>조회수</th>
             <th>등록일자</th>
           </tr>
-          <tr th:each="m: ${boardvolist.list}">
+          <tr th:each="m: ${boardvolist.list}" th:if="${boardvolist.list != null}">
             <td th:text="${m.board_num}"></td>
             <td>
               <a th:href="@{/gj_preview/{board_num}(board_num=${m.board_num})}" th:text="${m.board_title}"></a>

@@ -1,0 +1,25 @@
+
+깃허브
+git init
+프로젝트 깃주소 https://github.com/Abyssmash/CIS
+
+
+git remote -v
+git remote add origin https://github.com/Abyssmash/CIS.git
+git pull origin main
+
+<삭제
+git push origin -d gitsion
+
+git add *
+
+git commit -m "asdf"
+
+git push origin sionkim
+git push -m origin gitsion
+
+
+깃 허브 일정
+pull & push , pull request
+아침 
+8교시때

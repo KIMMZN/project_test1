@@ -10,7 +10,6 @@
     border-radius: 10px;
 
 
-
 }
 
 /* 타이틀*/
@@ -148,68 +147,179 @@ input[type="button"]:hover {
     font-size: 20px;
 }
 
-/* 코멘트 style*/
+/*!* 코멘트 style*!*/
+/*.comment_div {*/
+/*    float: left;*/
+/*    width: 100%;*/
+/*    height: auto;*/
+/*    box-sizing: border-box;*/
+/*}*/
+/*.Comment_title {*/
+/*    text-align: left;*/
+/*    float: left;*/
+/*    width: 100%;*/
+/*    border-bottom: 1px solid;*/
+/*}*/
+/*#commentList {*/
+/*    text-align: left;*/
+/*    float: left;*/
+/*    width: 100%;*/
+/*    border-bottom: 1px solid;*/
+/*}*/
+
+/*!* 커멘트 남기기 style *!*/
+/*.Comment_btn_div {*/
+/*    float: left;*/
+/*    width: 100%;*/
+/*    text-align: left;*/
+/*    height: 15%;*/
+/*    box-sizing: border-box;*/
+/*    border-radius: 10px;*/
+/*    border: 1px solid black;*/
+/*}*/
+
+/*.Comment_writer_div {*/
+/*    width: 40%;*/
+/*    height: 20%;*/
+/*    border-radius: 10px;*/
+/*    border: 1px solid black;*/
+/*}*/
+/*.Comment_area_div {*/
+
+/*    height: 80%;*/
+/*    border-radius: 10px;*/
+/*    width: 50%;*/
+
+/*}*/
+
+
+/*#Comment_area {*/
+/*    width: 80%;*/
+/*    height: 35%;*/
+/*    float: left;*/
+/*    border-radius: 10px;*/
+
+
+/*}*/
+
+/*.Comment_btn {*/
+/*    border: 1px solid black;*/
+/*    width:15%;*/
+/*    height: 35px;*/
+/*    background-color: rgb(13, 110, 253);*/
+/*    color: white;*/
+/*    border-radius: 10px;*/
+/*}*/
+/* 댓글 영역 */
+/* 댓글 영역 */
 .comment_div {
     float: left;
     width: 100%;
-    height: auto;
+    height: auto; /* 댓글 영역 자동 확장 */
     box-sizing: border-box;
+    padding: 10px;
+    background-color: #f9f9f9; /* 배경색 */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-top: 10px;
+    max-height: 300px; /* 댓글 영역 최대 높이 설정 */
+    overflow-y: auto; /* 스크롤 추가 */
 }
-.Comment_title {
-    text-align: left;
-    float: left;
+
+/* 댓글 리스트 */
+#CommentList {
     width: 100%;
-    border-bottom: 1px solid;
+    height: auto; /* 댓글 추가 시 자동 확장 */
+    overflow-y: auto; /* 스크롤 추가 */
+    max-height: 250px; /* 최대 높이 설정 */
+    padding: 5px;
 }
 
-/* 커멘트 남기기 style */
-.Comment_btn_div {
-    float: left;
-    width: 100%;
+/* 개별 댓글 */
+.comment_item {
+    border-bottom: 1px solid #ddd; /* 댓글 사이 구분선 */
+    padding: 5px 0;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 댓글 작성자 */
+.comment_item p:first-child {
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+}
+
+/* 댓글 내용 */
+.comment_item p:nth-child(2) {
+    color: #555;
+    flex: 1; /* 내용 공간 차지 */
     text-align: left;
-    height: 15%;
-    box-sizing: border-box;
-    border-radius: 10px;
-    border: 1px solid black;
 }
 
-.Comment_writer_div {
-    width: 40%;
-    height: 20%;
-    border-radius: 10px;
-    border: 1px solid black;
-}
-.Comment_area_div {
-
-    height: 80%;
-    border-radius: 10px;
-    width: 50%;
-
-}
-
-
-#Comment_area {
-    width: 80%;
-    height: 35%;
-    float: left;
-    border-radius: 10px;
-
-
-}
-
-.Comment_btn {
-    border: 1px solid black;
-    width:15%;
-    height: 35px;
-    background-color: rgb(13, 110, 253);
+/* 댓글 삭제 버튼 */
+.comment_item .delete-btn {
+    background-color: #dc3545; /* 삭제 버튼 색상 */
     color: white;
-    border-radius: 10px;
-}
-
-#Comment_writer {
-
+    border: none;
     border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-left: 10px;
 }
+
+.comment_item .delete-btn:hover {
+    background-color: #c82333; /* 호버 시 색상 변경 */
+}
+
+/* 댓글 작성 폼 */
+#commentForm {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    gap: 10px;
+    align-items: center;
+}
+
+/* 작성자 입력 */
+#Comment_writer {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 30%;
+}
+
+/* 댓글 내용 입력 */
+#Comment_area {
+    flex: 3;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    min-height: 50px;
+    width: 60%;
+}
+
+/* 댓글 등록 버튼 */
+.Comment_btn {
+    flex: 1;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: auto;
+}
+
+.Comment_btn:hover {
+    background-color: #0056b3;
+}
+
 table {
     float: left;
     width: 100%;

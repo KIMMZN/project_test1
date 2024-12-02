@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CIS : 공지게시판 글 보기</title>
+    <title>CIS : 쟈유게시판 글 보기</title>
     <link rel="stylesheet" href="/css/layout/base.css"/>
     <link rel="stylesheet" type="text/css" href="/css/board/write.css">
     <link rel="stylesheet" type="text/css" href="/css/board/preview.css">
+    <link rel="stylesheet" type="text/css" href="/css/board/modal_comment.css">
     <script src="https://kit.fontawesome.com/ae15ba340d.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -94,13 +95,7 @@
 
 
                 </div>
-                <!--
-                  <th:block th:each="files : ${email_files}">
-                            <a th:text="${files.file_originname}"
-                               th:href="|@{email_detail/}${email_one.mail_num}@{/files/}${filesStat.count}@{/}${files.file_name}@{/download}|">
-                            </a>
-                        </th:block>
-                -->
+
                 <div class="update_delete_container">
                     <div class="update_delete_div">
                         <input type="button" value="목록" onclick="btnlist()">
@@ -111,35 +106,26 @@
                 </div>
 
                 <div class="comment_div">
-                    <div class="Comment_title">
-                        <table>
-                            <thead>
-                            <tr><th>Comment</th></tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td >댓글내용:원진호!!</td>
-                                <td >작성자:시온</td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <form action="#" method="get" onsubmit="return confirm('정말 댓글을 등록하시겠습까?')">
-                        <div class="Comment_btn_div">
-                            <div class="Comment_writer_div">
-                                <label for="Comment_writer">작성자</label>
-                                <input type="text" id="Comment_writer" name="cmtWriter">
-                            </div>
-                            <div class="Comment_area_div">
-                                <label for="Comment_area"></label>
-                                <textarea name="textarea" id="Comment_area" placeholder="댓글남기기"></textarea>
-                                <input type="submit" value="댓글등록" class="Comment_btn">
-                            </div>
-                        </div>
-                    </form>
+                    <!-- 댓글 확인 버튼 -->
+                    <input type="button" id="check_comment" value="댓글 확인">
                 </div>
+
+                <!-- 댓글 모달 -->
+                <div id="commentModal" class="modal">
+                    <div class="modal-content">
+                        <span id="closeModal" class="close">&times;</span>
+                        <h2>댓글</h2>
+                        <div id="modalCommentList">
+                            <!-- 댓글 리스트가 여기에 로드됩니다 -->
+                        </div>
+                        <form id="modalCommentForm">
+                            <input type="text" id="modalCommentWriter" name="emp_id" placeholder="작성자" required>
+                            <textarea name="comment_content" id="modalCommentArea" placeholder="댓글을 입력하세요." required></textarea>
+                            <input type="submit" value="댓글 등록" class="modal-comment-btn">
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -147,5 +133,6 @@
 </div>
 </body>
 <script src="/js/board/board_fr_preview.js"></script>
+<script src="/js/board/board_comment.js"></script>
 
 </html>

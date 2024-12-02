@@ -1,0 +1,184 @@
+분석 가설 작업 , 설명가능하게
+
+1. git, github 차이 구분.
+2. remote, local 차이 구분 및 이해.
+  2- pull하고 local branch 삭제?
+3. push : add commit
+   pull
+
+4. branch 전략 : master vs main  == 의미부여자 : 프로젝트 담당자.
+
+A   A-1        a1개발자 push   - A1  - pull request -- 자동머지 --ㄼ ㅡㅡ 머지
+     A-2
+     A-3
+
+
+
+프로젝트 깃허브
+
+
+13@DESKTOP-EQI4N4V MINGW64 ~/Desktop/folder/파이널프로젝트/gitsion
+$ git init
+Initialized empty Git repository in C:/Users/13/Desktop/folder/파이널프로젝트/gitsion/.git/
+
+13@DESKTOP-EQI4N4V MINGW64 ~/Desktop/folder/파이널프로젝트/gitsion (master)
+$ git remote -v
+
+13@DESKTOP-EQI4N4V MINGW64 ~/Desktop/folder/파이널프로젝트/gitsion (master)
+$ git remote add origin https://github.com/Abyssmash/CIS.git
+
+13@DESKTOP-EQI4N4V MINGW64 ~/Desktop/folder/파이널프로젝트/gitsion (master)
+$ git remote -v
+origin  https://github.com/Abyssmash/CIS.git (fetch)
+origin  https://github.com/Abyssmash/CIS.git (push)
+
+13@DESKTOP-EQI4N4V MINGW64 ~/Desktop/folder/파이널프로젝트/gitsion (master)
+$ git branch
+
+13@DESKTOP-EQI4N4V MINGW64 ~/Desktop/folder/파이널프로젝트/gitsion (master)
+$ git branch -m gitsion
+
+13@DESKTOP-EQI4N4V MINGW64 ~/Desktop/folder/파이널프로젝트/gitsion (gitsion)
+$ git remote -v
+origin  https://github.com/Abyssmash/CIS.git (fetch)
+origin  https://github.com/Abyssmash/CIS.git (push)
+
+13@DESKTOP-EQI4N4V MINGW64 ~/Desktop/folder/파이널프로젝트/gitsion (gitsion)
+$ git pull origin main
+remote: Enumerating objects: 10, done.
+remote: Counting objects: 100% (10/10), done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 10 (delta 1), reused 6 (delta 1), pack-reused 0 (from 0)
+Unpacking objects: 100% (10/10), 2.15 KiB | 73.00 KiB/s, done.
+From https://github.com/Abyssmash/CIS
+ * branch            main       -> FETCH_HEAD
+ * [new branch]      main       -> origin/main
+
+13@DESKTOP-EQI4N4V MINGW64 ~/Desktop/folder/파이널프로젝트/gitsion (gitsion)
+$ git add *
+
+13@DESKTOP-EQI4N4V MINGW64 ~/Desktop/folder/파이널프로젝트/gitsion (gitsion)
+$ git commit -m "siontest"
+[gitsion 6fb528d] siontest
+ 1 file changed, 1 insertion(+)
+ create mode 100644 gitsion.txt
+
+13@DESKTOP-EQI4N4V MINGW64 ~/Desktop/folder/파이널프로젝트/gitsion (gitsion)
+$ git push -m origin gitsion
+error: unknown switch `m'
+usage: git push [<options>] [<repository> [<refspec>...]]
+
+    -v, --[no-]verbose    be more verbose
+    -q, --[no-]quiet      be more quiet
+    --[no-]repo <repository>
+                          repository
+    --[no-]all            push all branches
+    --[no-]branches       alias of --all
+    --[no-]mirror         mirror all refs
+    -d, --[no-]delete     delete refs
+    --[no-]tags           push tags (can't be used with --all or --branches or --mirror)
+    -n, --[no-]dry-run    dry run
+    --[no-]porcelain      machine-readable output
+    -f, --[no-]force      force updates
+    --[no-]force-with-lease[=<refname>:<expect>]
+                          require old value of ref to be at this value
+    --[no-]force-if-includes
+                          require remote updates to be integrated locally
+    --[no-]recurse-submodules (check|on-demand|no)
+                          control recursive pushing of submodules
+    --[no-]thin           use thin pack
+    --[no-]receive-pack <receive-pack>
+                          receive pack program
+    --[no-]exec <receive-pack>
+                          receive pack program
+    -u, --[no-]set-upstream
+                          set upstream for git pull/status
+    --[no-]progress       force progress reporting
+    --[no-]prune          prune locally removed refs
+    --no-verify           bypass pre-push hook
+    --verify              opposite of --no-verify
+    --[no-]follow-tags    push missing but relevant tags
+    --[no-]signed[=(yes|no|if-asked)]
+                          GPG sign the push
+    --[no-]atomic         request atomic transaction on remote side
+    -o, --[no-]push-option <server-specific>
+                          option to transmit
+    -4, --ipv4            use IPv4 addresses only
+    -6, --ipv6            use IPv6 addresses only
+
+
+13@DESKTOP-EQI4N4V MINGW64 ~/Desktop/folder/파이널프로젝트/gitsion (gitsion)
+$ git push -u origin gitsion
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 355 bytes | 355.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/Abyssmash/CIS.git
+   cf99470..6fb528d  gitsion -> gitsion
+branch 'gitsion' set up to track 'origin/gitsion'.
+
+
+깃허브
+git init
+git remote -v
+git remote add origin https://github.com/Abyssmash/CIS.git
+git pull origin main
+
+git remote add origin https://github.com/Abyssmash/CIS.git
+
+<삭제
+git push origin -d gitsion
+
+git add *
+
+git commit -m "asdf" 
+
+git push origin sionkim
+git push -m origin gitsion
+
+
+
+
+이 오류 메시지는 두 브랜치(main과 kimsion1)가 전혀 공통된 커밋 기록이 없을 때 발생합니다. 즉, 두 브랜치가 완전히 독립적으로 생성되었기 때문에 서로 비교하거나 병합할 수 없다는 의미입니다. 문제를 해결하려면 상황에 따라 다음 단계를 수행할 수 있습니다.
+
+1. 두 브랜치를 강제로 병합하고 싶은 경우
+두 브랜치를 병합하려면 공통 기반 커밋을 만들어야 합니다.
+
+병합하고 싶은 브랜치로 이동합니다.
+
+bash
+코드 복사
+git checkout main
+다른 브랜치를 강제로 병합합니다.
+
+bash
+코드 복사
+git merge kimsion1 --allow-unrelated-histories
+--allow-unrelated-histories 옵션은 서로 다른 커밋 히스토리를 가진 브랜치를 병합할 때 필요합니다.
+병합 과정에서 충돌(conflict)이 발생할 수 있으므로, 충돌이 발생하면 수정한 후 병합을 완료해야 합니다.
+충돌을 해결한 뒤 병합 완료:
+
+bash
+코드 복사
+git add .
+git commit -m "Resolved conflicts and merged unrelated histories"
+2. 브랜치를 비교하려는 경우
+브랜치가 서로 연관이 없기 때문에 일반적인 방법으로 비교할 수 없습니다. 하지만 다음 명령어로 각각의 커밋 기록을 확인해 비교할 수 있습니다.
+
+main 브랜치의 로그 확인:
+
+bash
+코드 복사
+git log main
+kimsion1 브랜치의 로그 확인:
+
+bash
+코드 복사
+git log kimsion1
+두 브랜치의 차이를 확인하려면 패치(diff) 파일을 생성해 비교할 수 있습니다.
+
+bash
+코드 복사
+git diff main kimsion1 > diff.patch

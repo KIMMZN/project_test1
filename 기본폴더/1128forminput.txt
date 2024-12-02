@@ -1,0 +1,24 @@
+파라미터
+설명
+
+
+offset
+MyBatis에서 쿼리의 parameterType이 클래스의 객체인 경우, XML Mapper의 #{parameter}는 멤버 변수의 getter에 해당됩니다. 쉽게 말해, get( ) 메서드를 이용해서 쿼리에 파라미터를 바인딩하는 개념입니다. findAll 쿼리에서 offset은 SearchDto 클래스의 getOffset( ) 메서드가 리턴하는, (page - 1) * recordSize를 계산한 값입니다. 예를 들어, page를 3으로, recordSize를 10으로 가정해보면 (3 - 1) * 10 = 20입니다. 즉, 현재 페이지 번호가 3이라면 "LIMIT 20, 10"으로 쿼리가 실행되며, 결론적으로 offset은 조회할 데이터의 시작 위치(몇 번째 데이터부터 조회할 것인지)를 의미합니다.
+
+
+recordSize
+시작 위치(offset)를 기준으로 조회할 데이터의 개수를 의미합니다.
+
+
+
+///
+<input> 태그에서 value가 설정되지 않아도, 브라우저는 사용자가 입력한 값을 폼 데이터로 전송합니다.
+name="keyword"는 쿼리 파라미터의 **키(key)**가 되고, 사용자가 입력한 값이 해당 키의 **값(value)**로 전송됩니다.
+Thymeleaf의 th:value는 기본값을 설정하는 역할만 할 뿐, 폼의 동작과 직접적인 관련은 없습니다.
+
+<form> 태그 안에서 <input> 태그의 name 속성만 설정되어 있다면:
+
+사용자가 입력한 값이 자동으로 **쿼리 파라미터의 값(value)**가 됩니다.
+name 속성이 쿼리 파라미터의 **키(key)**로 사용됩니다.
+
+

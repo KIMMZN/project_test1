@@ -2,6 +2,7 @@ package com.cis.board.repository;
 
 
 import com.cis.board.vo.boardVO;
+import com.cis.board.vo.commentVO;
 import com.cis.board.vo.fileVO;
 import com.cis.board.vo.searchDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -66,6 +67,18 @@ public interface IF_Reopository {
 
         //파일정보 가져오기, parameter = num과 category , return = fileVo
         fileVO selectFileById(Map<String, Object> params) throws Exception;
+
+        //comment 하나 insert
+         boolean insertCommentOne(commentVO commentvo)throws Exception;
+
+         //comment 보기
+          List<commentVO> selectAllCmt(Map<String, Object> params)throws Exception;
+
+          //댓글 삭제
+        boolean deleteComment(Map<String, Object> params)throws Exception;
+
+        //삭제 위한 정보 가져오기
+        commentVO getCmtByparamsOne(Map<String, Object> params) throws Exception;
 
 
 }

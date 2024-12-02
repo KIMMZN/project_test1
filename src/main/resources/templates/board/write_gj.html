@@ -38,7 +38,7 @@
     <section>
         <div class="mail_container">
             <div id="write">
-                <form action="/board_write_one" method="get">
+                <form action="/board_write_one" method="post" enctype="multipart/form-data">
                     <div class="write_main"><span>공지사항</span></div>
                     <input type="text" value="공지사항" readonly hidden="true" name="category">
                     <div class="write_writer">
@@ -66,14 +66,12 @@
                     </div>
 
                     <div class="write_files">
-                        <div class="write_files_btn_div">
-                            <input type="button" value="파일추가" id="filebtn">
-                        </div>
+                        <div class="write_files_btn_div"><input type="button" value="파일추가" id="filebtn"> </div>
                         <!--
-                        <input type="file" name="file" id="formFile">
-                        <input type="file" name="file" id="formFile">
-                        <input type="file" name="file" id="formFile">
-                        -->
+                       <input type="file" name="file" id="formFile">
+                       <input type="file" name="file" id="formFile">
+                       <input type="file" name="file" id="formFile">
+                       -->
                     </div>
 
                     <div class="write_button">

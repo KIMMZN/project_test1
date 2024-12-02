@@ -1,0 +1,26 @@
+board_main.css 수정중. for 관리자.     manager_board_main.css로 새로 만들예정
+
+
+컨트롤러 추가
+board. - controller, repository, service, vo
+
+css 추가
+board-base.css
+css 수정
+write.css 
+수정
+
+
+board . html 파일 업데이트
+각 css의 경로 수정 (모든 board html)
+
+
+
+
+    <link rel="stylesheet" href="/css/layout/base.css"/>
+    <link rel="stylesheet" href="/css/board/board_base.css"/>
+    <link rel="stylesheet" href="/css/board/board_main.css">
+
+기능구현:
+공지게시판  - crud 기능 구현
+

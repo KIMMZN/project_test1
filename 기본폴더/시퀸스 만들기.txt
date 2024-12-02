@@ -1,0 +1,50 @@
+-- 시퀀스, 프로시져 만들어보자
+-- innodb =따로 스토리지 엔진을 명시하지 않으면 default로 설정되는 스토리지 엔진임
+CREATE TABLE sequences (
+    name VARCHAR(32) NOT NULL,
+    currval BIGINT UNSIGNED NOT NULL,
+    PRIMARY KEY (name)
+) ENGINE = InnoDB;
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE `create_sequence` (IN tname VARCHAR(32))
+MODIFIES SQL DATA
+DETERMINISTIC
+BEGIN
+    DELETE FROM sequences WHERE name = tname;
+    INSERT INTO sequences (name, currval) VALUES (tname, 0);
+END$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE FUNCTION `nextval1` (tname VARCHAR(32))
+RETURNS BIGINT UNSIGNED
+MODIFIES SQL DATA
+DETERMINISTIC
+BEGIN
+    DECLARE ret BIGINT UNSIGNED;
+    UPDATE sequences SET currval = currval + 1 WHERE name = tname;
+    SELECT currval INTO ret FROM sequences WHERE name = tname;
+    RETURN ret;
+END$$
+
+DELIMITER ;
+
+create table asdf(
+num int,
+id varchar(20)
+);
+
+
+
+call create_sequence('test');
+
+
+
+INSERT INTO asdf VALUES ((SELECT nextval1('test')from dual),"시온");

@@ -1,0 +1,546 @@
+
+board_gj_html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CIS : 메일</title>
+  <link rel="stylesheet" href="/css/layout/base.css"/>
+  <link rel="stylesheet" href="/css/board/board_base.css"/>
+  <link rel="stylesheet" href="/css/board/board_main.css">
+  <script src="https://kit.fontawesome.com/ae15ba340d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="main">
+  <header>
+    <div class="header_left">
+      <a href="emp_main">
+        <img src="/img/logo.png" alt="Logo" class="logo_img">
+        <div>
+          <span class="logo_text">○○○ Company</span>
+        </div>
+      </a>
+    </div>
+    <div class="header_right">
+      <div>
+        <span class="login_user">○○○ 님</span>
+      </div>
+      <form action="" method="">
+        <input type="button" value="로그아웃" class="logout_btn">
+      </form>
+    </div>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="email"><span>이메일</span></a></li>
+      <li><a href=""><span>게시판</span></a></li>
+      <li><a href=""><span>근태관리</span></a></li>
+      <li><a href=""><span>개인업무</span></a></li>
+    </ul>
+  </nav>
+  <section>
+    <div class="mail_container">
+      <div class="mail_btn">
+        <!-- <a href="email_delete"> -->
+        <!-- <a href=""> -->
+
+        <a href="/board_gj">
+          <input type="button" value="공지사항" class="mail_delete">
+        </a>
+        <a href="/board_fr">
+          <input type="button" value="자유게시판" class="mail_delete">
+        </a>
+
+
+        <!-- </a> -->
+      </div>
+      <div id="board_select_title">
+        <span class="board_select_title_1">공지사항</span>
+      </div>
+
+      <div id="search_div">
+        <div id="search_div_2">
+          <form id="searchForm" method="get" action="/board_gj">
+            <div id="search_optin">
+              <select name="searchType" id="searchType" title="검색 유형 선택">
+                <option value="" th:selected="${searchType == ''}">전체 검색</option>
+                <option value="board_title" th:selected="${searchType == 'board_title'}">제목</option>
+                <option value="board_content" th:selected="${searchType == 'board_content'}">내용</option>
+                <option value="emp_id" th:selected="${searchType == 'emp_id'}">작성자</option>
+              </select>
+              <input type="text" name="keyword" id="keyword" class="searchBox" placeholder="검색어를 입력하시오" th:value="${keyword}">
+              <button class="search-btn" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="mail_list">
+        <table class="mail_table">
+          <tr>
+            <th>번호</th>
+            <th class="th2">제목</th>
+            <th>글쓴이</th>
+            <th>조회수</th>
+            <th>등록일자</th>
+          </tr>
+          <tr th:each="m: ${boardvolist.list}">
+            <td th:text="${m.board_num}"></td>
+            <td>
+              <a th:href="@{/gj_preview/{board_num}(board_num=${m.board_num})}" th:text="${m.board_title}"></a>
+            </td>
+            <td th:text="${m.emp_id}"></td>
+            <td th:text="${m.boardHits}"></td>
+            <td th:text="${m.getCreate_at()}"></td>
+          </tr>
+        </table>
+
+        <!-- 페이지네이션 -->
+        <div class="paging">
+          <!-- 첫 페이지 -->
+          <a th:href="@{/board_gj(page=1, keyword=${keyword}, searchType=${searchType})}">첫 페이지</a>
+
+          <!-- 이전 페이지 -->
+          <a th:href="@{/board_gj(page=${boardvolist.pagination.startPage - 1}, keyword=${keyword}, searchType=${searchType})}"
+             th:if="${boardvolist.pagination.existPrevPage}">이전 페이지</a>
+
+          <!-- 페이지 번호 -->
+          <span th:each="page : ${#numbers.sequence(boardvolist.pagination.startPage, boardvolist.pagination.endPage)}">
+      <a th:href="@{/board_gj(page=${page}, keyword=${keyword}, searchType=${searchType})}"
+         th:text="${page}"
+         th:classappend="${page == currentPage} ? 'on' : ''">
+      </a>
+    </span>
+
+          <!-- 다음 페이지 -->
+          <a th:href="@{/board_gj(page=${boardvolist.pagination.endPage + 1}, keyword=${keyword}, searchType=${searchType})}"
+             th:if="${boardvolist.pagination.existNextPage}" class="page_bt next">다음 페이지</a>
+
+          <!-- 마지막 페이지 -->
+          <a th:href="@{/board_gj(page=${boardvolist.pagination.totalPageCount}, keyword=${keyword}, searchType=${searchType})}"
+             th:if="${boardvolist.pagination.existNextPage}" class="page_bt last">마지막 페이지</a>
+        </div>
+      </div>
+
+      <div id="table_write_div">
+        <a href="/write_gj">
+          <button class="write_button" type="button">글쓰기 </button>
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+  <footer th:replace="~{layout/footer::footer}"></footer>
+</div>
+
+</body>
+<script src="/js/board/board_main.js"></script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------
+wirete_gj
+-------------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIS : 공지사항 글쓰기</title>
+    <link rel="stylesheet" href="/css/layout/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/board/write.css">
+</head>
+<body>
+<div class="main">
+    <header>
+        <div class="header_left">
+            <a href="emp_main">
+                <img src="/img/logo.png" alt="Logo" class="logo_img">
+                <div>
+                    <span class="logo_text">○○○ Company</span>
+                </div>
+            </a>
+        </div>
+        <div class="header_right">
+            <div>
+                <span class="login_user">○○○ 님</span>
+            </div>
+            <form action="" method="">
+                <input type="button" value="로그아웃" class="logout_btn">
+            </form>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="email"><span>이메일</span></a></li>
+            <li><a href=""><span>게시판</span></a></li>
+            <li><a href=""><span>근태관리</span></a></li>
+            <li><a href=""><span>개인업무</span></a></li>
+        </ul>
+    </nav>
+    <section>
+        <div class="mail_container">
+            <div id="write">
+                <form action="/board_write_one" method="get">
+                    <div class="write_main"><span>공지사항</span></div>
+                    <input type="text" value="공지사항" readonly hidden="true" name="category">
+                    <div class="write_writer">
+
+
+                        <div class="write_writer_name">
+                            <label for="namebox">작성자</label>
+                            <input type="text" id="namebox" placeholder="작성자이름" name="emp_id">
+                        </div>
+
+                    </div>
+                    <div class="write_title">
+                        <div class="write_title_name">
+                            <label for="titlebox">제목</label>
+                            <input type="text" id="titlebox" placeholder="제목을 입력하시오" name="board_title">
+                        </div>
+
+                    </div>
+                    <div class="write_text">
+                        <div class="write_text_name">
+                            <label for="contextbox">글내용</label>
+                            <textarea id="contextbox" name="board_content"></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="write_files">
+                        <div class="write_files_btn_div">
+                            <input type="button" value="파일추가" id="filebtn">
+                        </div>
+                        <!--
+                        <input type="file" name="file" id="formFile">
+                        <input type="file" name="file" id="formFile">
+                        <input type="file" name="file" id="formFile">
+                        -->
+                    </div>
+
+                    <div class="write_button">
+                        <div class="fileadd_div">
+                            <input class="write_add_btn" type="submit" value="등록">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer th:replace="~{layout/footer::footer}"></footer>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/js/board/write_gj.js}"></script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------
+gj_preview.html
+----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIS : 공지게시판 글 보기</title>
+    <link rel="stylesheet" href="/css/layout/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/board/write.css">
+    <link rel="stylesheet" type="text/css" href="/css/board/preview.css">
+    <script src="https://kit.fontawesome.com/ae15ba340d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="main">
+    <header>
+        <div class="header_left">
+            <a href="emp_main">
+                <img src="/img/logo.png" alt="Logo" class="logo_img">
+                <div>
+                    <span class="logo_text">○○○ Company</span>
+                </div>
+            </a>
+        </div>
+        <div class="header_right">
+            <div>
+                <span class="login_user">○○○ 님</span>
+            </div>
+            <form action="" method="">
+                <input type="button" value="로그아웃" class="logout_btn">
+            </form>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="email"><span>이메일</span></a></li>
+            <li><a href=""><span>게시판</span></a></li>
+            <li><a href=""><span>근태관리</span></a></li>
+            <li><a href=""><span>개인업무</span></a></li>
+        </ul>
+    </nav>
+    <section>
+        <div class="mail_container">
+            <div id="write">
+                <div class="write_main"><span>공지사항</span></div>
+                <input type="text" value="공지사항" readonly hidden="true" name="category" id="categoryId">
+                <div class="write_writer">
+                    <div class="write_writer_name">
+                        <label for="namebox">작성자</label>
+                        <input type="text" id="namebox" placeholder="작성자" readonly
+                               th:value="${boardvo.emp_id}">
+                        <!-- th:value="${boardvo.emp_id} "-->
+
+                    </div>
+
+                </div>
+                <div class="write_title">
+                    <div class="write_title_name">
+                        <label for="titlebox" class="title_font">제목</label>
+                        <input type="text" id="titlebox" placeholder="제목을 입력하시오" readonly
+                               th:value="${boardvo.board_title}" name="board_title">
+                        <!--  th:value="${boardvo.board_title}" -->
+                    </div>
+
+                </div>
+                <div class="write_text">
+                    <div class="write_text_name">
+                        <label for="contextbox" class="context_font">글내용</label>
+                        <textarea id="contextbox" placeholder="내용을 입력하시오 " readonly
+                                  th:text="${boardvo.board_content}" name="board_content">
+
+                </textarea>
+                        <!--th:text="${boardvo.board_content}"-->
+                    </div>
+
+                </div>
+                <div class="files_container">
+                    <div class="files_btn_div">
+                        <input type="file" name="file" id="formFile">
+                        <input type="file" name="file" id="formFile">
+                        <input type="file" name="file" id="formFile">
+                    </div>
+                    <!--
+                    <input type="file" name="file" id="formFile">
+                    <input type="file" name="file" id="formFile">
+                    <input type="file" name="file" id="formFile">
+                    -->
+                </div>
+                <div class="update_delete_container">
+                    <div class="update_delete_div">
+                        <input type="button" value="목록" onclick="btnlist()">
+                        <input type="submit" value="수정" id="modifybtn">
+                        <input type="submit" value="삭제" id="delbtn">
+
+                    </div>
+                </div>
+
+                <div class="comment_div">
+                    <div class="Comment_title">
+                        <table>
+                            <thead>
+                            <tr><th>Comment</th></tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td >댓글내용:원진호!!</td>
+                                <td >작성자:시온</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <form action="#" method="get" onsubmit="return confirm('정말 댓글을 등록하시겠습까?')">
+                        <div class="Comment_btn_div">
+                            <div class="Comment_writer_div">
+                                <label for="Comment_writer">작성자</label>
+                                <input type="text" id="Comment_writer" name="cmtWriter">
+                            </div>
+                            <div class="Comment_area_div">
+                                <label for="Comment_area"></label>
+                                <textarea name="textarea" id="Comment_area" placeholder="댓글남기기"></textarea>
+                                <input type="submit" value="댓글등록" class="Comment_btn">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer th:replace="~{layout/footer::footer}"></footer>
+</div>
+</body>
+<script src="/js/board/board_gj_preview.js"></script>
+
+</html>
+
+
+------------------
+board_gj_preview
+---
+//title
+const titlebox = document.querySelector("#titlebox");
+//text
+const contextbox = document.querySelector("#contextbox");
+//category
+const categoryIdbox = document.querySelector("#categoryId");
+//id(name)
+const nameBox = document.querySelector("#namebox");
+
+const pathname = window.location.pathname; //pathname가져옴. /gj_preview/4
+//  alert(pathname+"패스네임"); //게시판글넘버
+const num = pathname.split('/').pop();
+//const num = parseInt(pathname.split('/').pop(), 10);
+
+
+
+/*목록 버튼 클릭시*/
+function btnlist() {
+    location.href = "/board_gj";
+};
+
+
+/*삭제 버튼 클릭시 */
+
+    let del = document.querySelector("#delbtn").addEventListener("click", ()=> {
+        // const url = window.location.href; // url 가져오기
+        //  let query = window.location.search; // url query 가져오기
+        // let param = new URLSearchParams(query);
+        // alert(num);
+        // alert(typeof num +"   //num의 타입 확인")
+        alert("무슨일")
+        if(confirm("삭제?")){
+            let form = document.createElement("form");
+            form.setAttribute("method", 'post');
+            form.setAttribute("action", `/gj_preview/delOne/${num}`);
+
+            let categoryField = document.createElement("input");
+            categoryField.setAttribute("type", 'hidden');
+            categoryField.setAttribute("name",'category');
+            categoryField.setAttribute("value", categoryIdbox.value);
+            form.appendChild(categoryField);
+
+            document.body.appendChild(form);
+            form.submit();
+
+            /* 템플릿 리터럴을 사용 하려면 문자열을 ``(백틱)으로 감싸야함 */
+
+            alert("삭제함");
+        }else {
+            alert("취소함");
+        }
+    });
+
+    //수정
+//DOMContentloaded:
+//dom트리가 완전히 구축되었을 때 실행.
+//이미지 , css, 외부 리소스 로드는 완료되지 않아도 실행. // 빠르게 실행됨
+document.addEventListener("DOMContentLoaded", () => {
+    let modify= document.querySelector("#modifybtn").addEventListener("click", ()=>{
+        alert("asdf");
+        document.querySelector("#titlebox").removeAttribute("readonly", false);
+        document.querySelector("#contextbox").removeAttribute("readonly", false);
+
+        let pdiv = document.querySelector(".update_delete_div");
+        pdiv.innerHTML = '';
+
+        let submitbtnInput = document.createElement('input');
+        submitbtnInput.setAttribute("type", "button");
+        submitbtnInput.setAttribute("id", "submitBtn");
+        submitbtnInput.setAttribute("value", "수정")
+        pdiv.appendChild(submitbtnInput);
+
+        let cancelbtnInput = document.createElement('input');
+        cancelbtnInput.setAttribute("type", "button");
+        cancelbtnInput.setAttribute("id", "cancelBtn");
+        cancelbtnInput.setAttribute("value", "취소")
+        pdiv.appendChild(cancelbtnInput);
+    });
+});
+
+    document.querySelector(".update_delete_div").addEventListener('click', (e)=> {
+            let titleTemp = titlebox.value;
+            let contexTemp = contextbox.value;
+            let categoryTemp = categoryIdbox.value;
+
+
+             alert(titleTemp);
+
+            if(e.target.id === "submitBtn") {
+                e.preventDefault() // 기본동작방지
+                alert("수정버튼")
+                let form = document.createElement('form');
+                form.setAttribute('method', 'post');
+                form.setAttribute('action', `/gj_preview/modifyOne/${num}`);
+
+
+                let titleField = document.createElement("input");
+                titleField.setAttribute("type", "hidden");
+                titleField.setAttribute("name", "board_title");
+                titleField.setAttribute("value", titleTemp);
+                form.appendChild(titleField);
+
+                let textField = document.createElement("input");
+                textField.setAttribute("type", "hidden");
+                textField.setAttribute("name", "board_content");
+                textField.setAttribute("value", contexTemp);
+                form.appendChild(textField);
+
+                let categoryField = document.createElement("input");
+                categoryField.setAttribute("type", "hidden");
+                categoryField.setAttribute("name", "category");
+                categoryField.setAttribute("value", categoryTemp);
+                form.appendChild(categoryField);
+
+                let numberField = document.createElement("input");
+                numberField.setAttribute("type", "hidden");
+                numberField.setAttribute("name", "board_num");
+                numberField.setAttribute("value", num);
+                form.appendChild(numberField);
+
+                document.body.appendChild(form);
+                form.submit();
+
+            }else if(e.target.id === "cancelBtn") {
+                location.reload(true);
+            }
+
+    });
+
+
+
+
+
+

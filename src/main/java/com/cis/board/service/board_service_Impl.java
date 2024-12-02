@@ -6,6 +6,7 @@ import com.cis.board.paging.PagingResponse;
 import com.cis.board.repository.IF_Reopository;
 import com.cis.board.util.FIleDataUtil;
 import com.cis.board.vo.boardVO;
+import com.cis.board.vo.commentVO;
 import com.cis.board.vo.fileVO;
 import com.cis.board.vo.searchDTO;
 import lombok.RequiredArgsConstructor;
@@ -39,8 +40,10 @@ public class board_service_Impl implements IF_board_service {
     @Override
     public void writeOneF(boardVO boardvo, List<fileVO> fileList) throws Exception {
 
+        System.out.println(boardvo.getCategory()+ "서비스 카테고리 확인");
         if(boardvo.getCategory().equals("공지사항")) {
             ifrepository.insertOne(boardvo);
+
         }else {
             ifrepository.insertOne_fr(boardvo);
         }
@@ -253,6 +256,39 @@ public class board_service_Impl implements IF_board_service {
             }
         }
 
+    }
+
+    @Override
+    public boolean addCommentOne(commentVO commentvo) throws Exception {
+
+        return ifrepository.insertCommentOne(commentvo);
+    }
+
+    @Override
+    public List<commentVO> viewComment(Map<String, Object> params) throws Exception {
+
+
+        if(params != null && !params.isEmpty()) {
+            return ifrepository.selectAllCmt(params);
+        }else {
+
+            return null;
+        }
+
+
+    }
+
+    @Override
+    public boolean deleteCommentByCategoryAndId(Map<String, Object> params) throws Exception {
+
+
+        return ifrepository.deleteComment(params);
+    }
+
+    @Override
+    public commentVO getCmtByparamsOne(Map<String, Object> params) throws Exception {
+
+        return ifrepository.getCmtByparamsOne(params);
     }
 
 

@@ -1,0 +1,59 @@
+
+//new comment table
+create table comment(
+category varchar(10),
+board_num int not null,
+comment_num int primary key,
+comment_content varchar(255) not null,
+create_at timestamp default current_timestamp,
+emp_id varchar(12), 
+
+CONSTRAINT fk_board_table FOREIGN KEY (category, board_num)
+REFERENCES board_table (category, board_num)
+ON DELETE CASCADE,
+    
+    -- 직원 테이블과의 외래 키
+CONSTRAINT fk_employee FOREIGN KEY (emp_id)
+REFERENCES employee(emp_id)
+ON DELETE SET NULL -- 직원 삭제 시 댓글 작성자를 NULL로 설정
+);
+
+
+board_file
+Field        |Type        |Null|Key|Default            |Extra         |
+-------------+------------+----+---+-------------------+--------------+
+file_id      |int(11)     |NO  |PRI|                   |auto_increment|
+category     |varchar(10) |NO  |MUL|                   |              |
+board_num    |int(11)     |NO  |   |                   |              |
+save_name    |varchar(255)|NO  |   |                   |              |
+created_date |datetime    |NO  |   |current_timestamp()|              |
+file_size    |int(11)     |YES |   |                   |              |
+original_name|varchar(255)|YES |   |                   |              |
+
+
+
+
+
+board_table;
+Field        |Type       |Null|Key|Default            |Extra
+-------------+-----------+----+---+-------------------+-----
+category     |varchar(10)|NO  |PRI|                   |     
+board_num    |int(11)    |NO  |PRI|                   |     
+board_title  |varchar(20)|YES |   |                   |     
+board_content|varchar(20)|YES |   |                   |     
+create_at    |timestamp  |YES |   |current_timestamp()|     
+emp_id       |varchar(12)|YES |   |                   |     
+boardHits    |int(11)    |YES |   |0                  |     
+fileAttached |int(11)    |YES |   |0                  |     
+
+
+create table board_table(
+category varchar(10),
+board_num int primary key,
+board_title varchar(20),
+board_content varchar(20),
+create_at timestamp default current_timestamp,
+emp_id varchar(12),
+boardHits int default 0,
+fileAttached int default 0
+);

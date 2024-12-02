@@ -5,10 +5,13 @@ package com.cis.board.service;
 import com.cis.Pagination;
 import com.cis.board.paging.PagingResponse;
 import com.cis.board.vo.boardVO;
+import com.cis.board.vo.commentVO;
 import com.cis.board.vo.fileVO;
 import com.cis.board.vo.searchDTO;
 
+import javax.xml.stream.events.Comment;
 import java.util.List;
+import java.util.Map;
 
 public interface IF_board_service {
     //게시글 작성
@@ -44,6 +47,14 @@ public interface IF_board_service {
     //자유 게시판 파일 수정(추가)
     public void modfile(List<fileVO> filevoList)throws Exception;
 
+    //댓글 글쓰기;
+    public boolean addCommentOne(commentVO commentvo)throws Exception;
+    //댓글 가져오기;
+   //List<commentVO> returunList = ifboardservice.(params);
+    public List<commentVO> viewComment(Map<String, Object> params )throws Exception;
 
+    boolean deleteCommentByCategoryAndId(Map<String, Object> params) throws Exception;
+    //댓글 삭제시 정보 가져오기
+    commentVO getCmtByparamsOne(Map<String, Object> params) throws Exception;
 
 }
