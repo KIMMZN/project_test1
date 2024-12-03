@@ -61,19 +61,6 @@ public class CommentController {
 
 
 
-
-//        returunList.forEach(comment -> {
-//            // 대댓글 추가 로직
-//            List<commentVO> replies = ifboardservice.getReplies(comment.getId());
-//            comment.setReplies(replies);
-//
-//        });
-        // 각 댓글에 작성자 여부 플래그 추가
-//        comments.forEach(comment -> {
-//            comment.setOwner(comment.getEmp_id().equals(currentUserId));
-//
-//        });
-
         for (commentVO commentVO : comments) {
             System.out.println("commentvo 확인");
             System.out.println(commentVO.toString());

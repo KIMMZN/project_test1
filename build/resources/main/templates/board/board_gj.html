@@ -122,10 +122,11 @@
              th:if="${boardvolist.pagination.existNextPage}" class="page_bt last">마지막 페이지</a>
         </div>
       </div>
-
+<!--      model.addAttribute("loginFlag", loginFlag);-->
       <div id="table_write_div">
         <a href="/write_gj">
-          <button class="write_button" type="button">글쓰기 </button>
+          <button class="write_button" type="button"
+          th:if="${loginFlag == true}">글쓰기 </button>
         </a>
       </div>
 

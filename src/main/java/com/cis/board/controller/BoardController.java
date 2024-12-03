@@ -9,7 +9,12 @@ import com.cis.board.vo.commentVO;
 import com.cis.board.vo.fileVO;
 import com.cis.board.vo.searchDTO;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.Group;
+import org.apache.catalina.Role;
+import org.apache.catalina.User;
+import org.apache.catalina.UserDatabase;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,8 +40,24 @@ public class BoardController {
 
 
     @GetMapping(value = "/board_gj")
-    public String board(@ModelAttribute searchDTO params, Model model) throws Exception {
+    public String board(@ModelAttribute searchDTO params, Model model,
+                        HttpSession session) throws Exception {
 
+
+        System.out.println("공지게시판");
+        
+        //세션 로그인 설정. 임시로
+        boolean loginFlag = false;
+        if(session.getAttribute("admId") != null) {
+            System.out.println(session.getAttribute("Name")+"  //유저네임");
+            System.out.println(session.getAttribute("admId")+"   /아이디");
+
+            loginFlag = true;
+
+        }else {
+            System.out.println("로그인 실패");
+        }
+        
         PagingResponse<boardVO> boardvolist = ifboardservice.findAllPost(params);
 
         //List<boardVO> boardvolist = ifboardservice.findAllPost(params);
@@ -52,17 +73,32 @@ public class BoardController {
         //System.out.println(boardvolist);
         // 현재 페이지 추가
         model.addAttribute("currentPage", params.getPage());
+        model.addAttribute("loginFlag", loginFlag);
         return "/board/board_gj";
 
     }
 
 //    }
 
-
+    //공지사항 게시판 글쓰기. session 작업중.
     @GetMapping(value = "/write_gj")
-    public String write_gj() throws Exception {
+    public String write_gj(HttpSession session, Model model) throws Exception {
 
+        //세션 로그인 설정. 임시로
+        String name = "";
+        if(session.getAttribute("admId") != null) {
+            System.out.println(session.getAttribute("Name")+"  //유저네임");
+            System.out.println(session.getAttribute("admId")+"   /아이디");
 
+            name = (String) session.getAttribute("Name");
+          //  user = (User) session.getAttribute("Name");
+
+        }else {
+            System.out.println("로그인 실패");
+        }
+
+        //유저이름을 모델을 통해 뷰로
+        model.addAttribute("userName", name);
         return "/board/write_gj";
     }
 

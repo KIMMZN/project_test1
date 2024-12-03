@@ -44,9 +44,11 @@
                     <div class="write_writer">
 
 
-                        <div class="write_writer_name">
+                        <div class="write_writer_name" ${model}>
                             <label for="namebox">작성자</label>
-                            <input type="text" id="namebox" placeholder="작성자이름" name="emp_id">
+<!--                            model.addAttribute("userName", name);-->
+                            <input type="text" id="namebox" name="emp_id"
+                            th:value="${userName}" readonly>
                         </div>
 
                     </div>
@@ -67,11 +69,7 @@
 
                     <div class="write_files">
                         <div class="write_files_btn_div"><input type="button" value="파일추가" id="filebtn"> </div>
-                        <!--
-                       <input type="file" name="file" id="formFile">
-                       <input type="file" name="file" id="formFile">
-                       <input type="file" name="file" id="formFile">
-                       -->
+
                     </div>
 
                     <div class="write_button">
