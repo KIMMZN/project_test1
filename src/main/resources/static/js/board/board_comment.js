@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", ()=> {
-   const commentForm = document.getElementById("commentForm");
-   const commentList = document.querySelector("#CommentList");
-   const categoryIdbox = document.querySelector("#categoryId");
-   const pathname = window.location.pathname;
-   const num = pathname.split('/').pop(); // 게시글 번호
+    const commentForm = document.getElementById("commentForm");
+    const commentList = document.querySelector("#CommentList");
+    const categoryIdbox = document.querySelector("#categoryId");
+    const pathname = window.location.pathname;
+    const num = pathname.split('/').pop(); // 게시글 번호
 
     const checkCommentBtn = document.getElementById("check_comment");
     const commentModal = document.getElementById("commentModal");
@@ -25,25 +25,53 @@ document.addEventListener("DOMContentLoaded", ()=> {
     // 댓글 등록
     modalCommentForm.addEventListener("submit", (e) => {
         e.preventDefault();
+        // const formData = new FormData(modalCommentForm);
+        // formData.append("category", categoryIdbox.value);
+        // formData.append("board_num", num);
+
         const formData = new FormData(modalCommentForm);
-        formData.append("category", categoryIdbox.value);
-        formData.append("board_num", num);
+
+        const requestData= {};
+        formData.forEach((value, key) => {
+            requestData[key] = value;
+        });
+             //추가 데이터 삽입
+            requestData["category"] = categoryIdbox.value;
+            requestData["board_num"] = num;
 
         fetch(`/board/addComment/${num}`, {
-            method: "POST",
-            body: formData,
+            method:"POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(requestData),
         })
             .then((response) => response.json())
             .then((data) => {
-                if (data.success) {
-                    alert("댓글이 등록되었습니다.");
-                    loadComments(); // 댓글 목록 새로고침
+                if(data.success) {
+                    alert("댓글이 등록 되었습니다");
                     modalCommentForm.reset();
-                } else {
-                    alert("댓글 등록에 실패했습니다.");
+                    loadComments();
+                }else{
+                    alert("댓글 등록 실패")
                 }
             })
-            .catch((error) => console.error("Error:", error));
+            .catch((error)=> console.log("Error", error))
+        // fetch(`/board/addComment/${num}`, {
+        //     method: "POST",
+        //     body: formData,
+        // })
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         if (data.success) {
+        //             alert("댓글이 등록되었습니다.");
+        //             loadComments(); // 댓글 목록 새로고침
+        //             modalCommentForm.reset();
+        //         } else {
+        //             alert("댓글 등록에 실패했습니다.");
+        //         }
+        //     })
+        //     .catch((error) => console.error("Error:", error));
     });
 
     // 댓글 로드
@@ -203,9 +231,9 @@ document.addEventListener("DOMContentLoaded", ()=> {
 
 
 
-       //  alert(commentID)
-       //  alert(commentItem)
-       //  alert(commentContent)
+        //  alert(commentID)
+        //  alert(commentItem)
+        //  alert(commentContent)
         //fetch(`/board/editComment/${category}/${commentId}`, {method: "update"})
 
     }

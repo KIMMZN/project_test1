@@ -118,10 +118,11 @@
                     <div class="modal-content">
                         <span id="closeModal" class="close">&times;</span>
                         <h2>댓글</h2>
+<!--                        댓글 리스트-->
                         <div id="modalCommentList">
-                            <!-- 댓글 리스트-->
+<!--                             자바 스크립트로 댓글 추가-->
                         </div>
-                        <form id="modalCommentForm"><!--이름 보이게하고 id hidden -->
+                        <form id="modalCommentForm">
                             <input type="text" id="modalCommentWriterH" name="emp_id" hidden="hidden" th:value="${loggedId}">
                             <input type="text" id="modalCommentWriter" name="emp_name" required th:value="${loggedNanme}" readonly>
                             <textarea name="comment_content" id="modalCommentArea" placeholder="댓글을 입력하세요." required></textarea>

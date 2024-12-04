@@ -5,6 +5,7 @@ import com.cis.board.service.IF_board_service;
 import com.cis.board.vo.commentVO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -18,14 +19,12 @@ public class CommentController {
     private final IF_board_service ifboardservice;
     //댓글 insert
     @PostMapping(value = "/board/addComment/{num}")
-    public Map<String, Object> addComment (@ModelAttribute commentVO commentvo)throws Exception {
-
-        System.out.println("comentvo확인 ://");
-        System.out.println(commentvo.toString());
-
-        boolean success = false;
+    public ResponseEntity<?> addComment(@PathVariable int num, @RequestBody commentVO commentvO)throws Exception {
+//        requestData["category"] = categoryIdbox.value;
+//        requestData["board_num"] = num;
+        boolean success;
         try {
-            success = ifboardservice.addCommentOne(commentvo);
+            success = ifboardservice.addCommentOne(commentvO);
             System.out.println(success+"  :boolean 확인");
 
         }catch (Exception e) {
@@ -33,14 +32,38 @@ public class CommentController {
             success = false;
         }
 
-        //응답
-//        boolean success = false; // 초기값 설정
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", success);
-        System.out.println(response+ "response확인");
+        System.out.println(commentvO.toString());
 
-        return response;
+
+        // JSON 응답 반환
+        return ResponseEntity.ok(Map.of(
+                "success", success,
+                "message", success ? "댓글이 등록되었습니다." : "댓글 등록에 실패했습니다."
+        ));
     }
+//    public Map<String, Object> addComment (@ModelAttribute commentVO commentvo)throws Exception {
+//
+//        System.out.println("comentvo확인 ://");
+//        System.out.println(commentvo.toString());
+//
+//        boolean success = false;
+//        try {
+//            success = ifboardservice.addCommentOne(commentvo);
+//            System.out.println(success+"  :boolean 확인");
+//
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//            success = false;
+//        }
+//
+//        //응답
+////        boolean success = false; // 초기값 설정
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("success", success);
+//        System.out.println(response+ "response확인");
+//
+//        return response;
+//    }
 
     //댓글 view
     @GetMapping(value = "/board/getComment/{category}/{num}")
