@@ -77,9 +77,10 @@ document.addEventListener("DOMContentLoaded", ()=> {
                         //<button class="edit-btn" data-comment-id="${comment.comment_num}">수정</button>`
                         //<p class="${comment.comment_num}"><strong>${comment.comment_content}</strong></p>
                         commentItem.innerHTML = `
-                             <p><strong>${comment.emp_id}</strong>: </p>
+                             <p><strong>${comment.emp_name}</strong>: </p>
                              <p data-comment-id="${comment.comment_num}"><strong>${comment.comment_content}</strong></p>
                              <p>${comment.create_at}</p>
+                             <p hidden="hidden"><strong>${comment.emp_id}</strong> :</p>
                             ${
                             comment.emp_id === currentUserId
                                 ? `<button class="delete-btn" data-comment-id="${comment.comment_num}">삭제</button>

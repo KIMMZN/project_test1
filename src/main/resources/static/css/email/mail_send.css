@@ -50,7 +50,7 @@ section {
 .mail_recipient {
     width: 50%;
     padding-right: 15px;
-    
+
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -120,7 +120,7 @@ section {
 }
 .mail_send {
     width: 10%;
-    
+
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -135,7 +135,7 @@ section {
     border: 1px solid dodgerblue;
     border-radius: 15px;
     margin-right: 5px;
-    
+
     cursor: pointer;
 }
 .send_btn:hover {

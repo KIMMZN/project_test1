@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,13 +46,14 @@ public class BoardController {
 
 
         System.out.println("공지게시판");
-        
+        System.out.println(session.getAttribute("employee_id"));
+        System.out.println(session.getAttribute("emp_name"));
         //세션 로그인 설정. 임시로
         boolean loginFlag = false;
-        if(session.getAttribute("admId") != null) {
-            System.out.println(session.getAttribute("Name")+"  //유저네임");
-            System.out.println(session.getAttribute("admId")+"   /아이디");
-
+        if (session.getAttribute("employee_id") != null) {
+            System.out.println(session.getAttribute("emp_name") + "  //유저네임");
+            System.out.println(session.getAttribute("employee_id") + "   /아이디");
+            System.out.println(session.getAttribute("emp_rank") + "  //랭크");
             loginFlag = true;
 
         }else {
@@ -89,9 +91,8 @@ public class BoardController {
         if(session.getAttribute("admId") != null) {
             System.out.println(session.getAttribute("Name")+"  //유저네임");
             System.out.println(session.getAttribute("admId")+"   /아이디");
-
             name = (String) session.getAttribute("Name");
-          //  user = (User) session.getAttribute("Name");
+
 
         }else {
             System.out.println("로그인 실패");
@@ -118,7 +119,6 @@ public class BoardController {
         List<fileVO> fileVoList = filedatautil.savefiles(file);
         //boardvo에 첨부된 파일 갯수를 저장
         boardvo.setFileAttached(filedatautil.attaced(file));
-        // ifboardservice.writeOne(boardvo);
 
         ifboardservice.writeOneF(boardvo, fileVoList);
         System.out.println("글쓰기 as");
@@ -132,9 +132,41 @@ public class BoardController {
     }
 
     @GetMapping(value = "/board_fr")
-    public String board_fr(@ModelAttribute searchDTO params, Model model) throws Exception {
+    public String board_fr(@ModelAttribute searchDTO params, Model model,
+                           HttpSession session) throws Exception {
 
+        String emp_name = "";
+        if(session.getAttribute("employee_id") != null) {
+            System.out.println("자유게시판!!");
+            System.out.println(session.getAttribute("emp_name") + "  //유저네임");
+            System.out.println(session.getAttribute("employee_id") + "   /아이디");
+            System.out.println(session.getAttribute("emp_rank") + "  //랭크");
+
+            String emp_id = (String) session.getAttribute("employee_id");
+            emp_name = (String) session.getAttribute("emp_name");
+            String rank = (String) session.getAttribute("emp_rank");
+
+            model.addAttribute("emp_id", emp_id);
+            model.addAttribute("emp_name", emp_name);
+            model.addAttribute("rank", rank);
+        }
+        //
         PagingResponse<boardVO> boardvolist = ifboardservice.findAllPost_fr(params);
+
+        //확인요망. 공지게시판에서는 viewone 메서드 써야될듯
+        for (boardVO boardvo : boardvolist.getList()) {
+//            boardVO boardvoo= ifboardservice.viewOne_fr(boardvo.getBoard_num());
+            //board테이블의 id를 param으로 보내고 멤버 테이블에서 이름을 return 받는다.
+            emp_name = ifboardservice.getNameById(boardvo.getEmp_id());
+            System.out.println(ifboardservice.getNameById(boardvo.getEmp_id()));
+            //예외 처리
+            if (emp_name == null){
+                emp_name = "";
+            }
+            boardvo.setEmp_id(emp_name);
+
+
+        }
 
         // Null 체크 및 기본값 설정
         if (boardvolist == null || boardvolist.getList() == null) {
@@ -143,8 +175,9 @@ public class BoardController {
             boardvolist.setPagination(new Pagination(1, params)); // 페이징 정보 기본값
         }
 
-        System.out.println("boardvolist: " + boardvolist);
-        //List<boardVO> boardvolist = ifboardservice.findAllPost(params);
+        for(boardVO boardvo : boardvolist.getList()) {
+            System.out.println(boardvo.toString());
+        }
 
         //boardvolist.getPagination().getStartPage()
         //현재 검색 조건과 페이징 정보 추가
@@ -152,26 +185,45 @@ public class BoardController {
         model.addAttribute("keyword", params.getKeyword());
         model.addAttribute("searchType", params.getSearchType());
 
-        // model.addAttribute("boardvolist", boardvolist);
-        // System.out.println(boardvolist.size()+ boardvolist.toString());
-        //System.out.println(boardvolist);
-        // 현재 페이지 추가
         model.addAttribute("currentPage", params.getPage());
-
-
-
-
 
         return "/board/board_fr";
     }
 
-    //자유게시판 글쓰기 클릭했을시 + id확인하고 이름 불러오기
+    //자유게시판 글쓰기 클릭했을시 + id확인하고 이름 불러오기 + session 추가
     @GetMapping(value = "/write_fr")
-    public String write_fr() throws Exception {
+    public String write_fr(Model model, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
+
+        //세션 로그인 설정. 임시로
+        boolean loginFlag = false;
+        if(session.getAttribute("employee_id") != null) {
+            System.out.println("자유게시판 글쓰기!");
+            System.out.println(session.getAttribute("emp_name")+"  //유저네임");
+            System.out.println(session.getAttribute("employee_id")+"   /아이디");
+            System.out.println(session.getAttribute("emp_rank")+"  //랭크");
+            loginFlag = true;
+
+            String emp_id = (String) session.getAttribute("employee_id");
+            String emp_name = (String) session.getAttribute("emp_name");
+            String rank = (String) session.getAttribute("emp_rank");
+
+            model.addAttribute("emp_id", emp_id);
+            model.addAttribute("emp_name", emp_name);
+            model.addAttribute("rank", rank);
+
+
+            return "/board/write_fr";
+
+        }else {
+
+            System.out.println("로그인 실패");
+            return "redirect:/board_fr";
+        }
 
 
 
-        return "/board/write_fr";
+
+//        return "/board/write_fr";
     }
 
     //공지사항 글 하나 보기
@@ -204,14 +256,43 @@ public class BoardController {
 
     //자유게시판 글 보기 + file attached//
     @GetMapping(value = "/fr_preview/{board_num}")
-    public String fr_preview(@PathVariable("board_num") int num, Model model) throws Exception {
+    public String fr_preview(@PathVariable("board_num") int num,
+                             Model model, HttpSession session) throws Exception {
+
+        //세션 로그인 확인
+        boolean loginFlag = false;
+        String sessionId = "";
+        String loggedNanme = "";
+        if(session.getAttribute("employee_id") != null) {
+//            System.out.println("자유게시판 글보기!");
+//            System.out.println(session.getAttribute("emp_name")+"  //유저네임");
+//            System.out.println(session.getAttribute("employee_id")+"   /아이디");
+//            System.out.println(session.getAttribute("emp_rank")+"  //랭크");
+            sessionId = (String) session.getAttribute("employee_id");
+            loggedNanme = (String) session.getAttribute("emp_name");
+//            String rank = (String) session.getAttribute("emp_rank");
+
+        }
+
         System.out.println(num + "  게시글넘버");
         //조회수
         ifboardservice.readBoard(num);
         //내용 옮기기
         boardVO boardvo = ifboardservice.viewOne_fr(num);
+        //게시판 id를 param으로 이름 return
+        String emp_name = ifboardservice.getNameById(boardvo.getEmp_id());
+        //게시판 id와 세션 로그인한 아이디 비교
+//        System.out.println(boardvo.getEmp_id()+"       text 게시판id");
+//        System.out.println(sessionId+"     text 세션로그인");
+        if (boardvo.getEmp_id().equals(sessionId)) {
+            System.out.println("게시판 id와 로그인한 id 일치");
+            loginFlag = true;
+
+        }
+
         //파일 테이블에서 사용할 카테고리 파라미터
         String categoryTemp = boardvo.getCategory();
+
         System.out.println("카테고리 테스트:  " + categoryTemp);
         //file board 가져오기
         List<fileVO> fileList = ifboardservice.getAttach(num, categoryTemp);
@@ -220,21 +301,14 @@ public class BoardController {
             System.out.println(file.toString());
         }
 
-
         //model에 전송할 값들 추가
+        model.addAttribute("loggedId", sessionId); //로그인한 사용자 아이디
+        model.addAttribute("loggedNanme", loggedNanme); //로그인한 사용자이름
+        model.addAttribute("loginFlag", loginFlag);
         model.addAttribute("boardvo", boardvo);
         model.addAttribute("fileList", fileList);
-
+        model.addAttribute("emp_name", emp_name);
         System.out.println(boardvo.toString() + "boardvo");
-
-        // 로그인된 사용자 ID (예: 세션에서 가져오기)
-        String currentUserId = "asd"; // 예시로 임시 아이디 설정
-
-
-        if (currentUserId != null) {
-            model.addAttribute("currentUserId", currentUserId);
-        }
-
 
         return "/board/fr_preview";
 

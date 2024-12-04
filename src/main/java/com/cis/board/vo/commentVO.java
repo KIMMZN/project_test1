@@ -11,6 +11,7 @@ public class commentVO {
     private String comment_content;
     private String create_at;
     private String emp_id;
+    private String emp_name;
 
     private boolean isOwner;
 

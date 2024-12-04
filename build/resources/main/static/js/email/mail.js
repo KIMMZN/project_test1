@@ -75,17 +75,3 @@ mail_delete.addEventListener("click", () => {
 
     mail_all_check.checked = false;
 });
-
-let mail_all_view = document.getElementsByClassName("mail_view")[0];
-let mail_unread_view = document.getElementsByClassName("mail_view")[1];
-let mail_read_view = document.getElementsByClassName("mail_view")[2];
-
-mail_all_view.addEventListener("click", () => {
-    console.log("전체보기 클릭함")
-});
-mail_unread_view.addEventListener("click", () => {
-    console.log("안읽은메일보기 클릭함")
-});
-mail_read_view.addEventListener("click", () => {
-    console.log("읽은메일보기 클릭함")
-});

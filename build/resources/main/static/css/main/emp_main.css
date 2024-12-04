@@ -5,7 +5,7 @@ aside {
     border-radius: 15px;
     margin-right: 1px;
     padding: 10px;
-    
+
     float: left;
 }
 .profile_img {
@@ -59,7 +59,7 @@ section {
     border-radius: 15px;
     margin: 10px 14px;
     padding: 15px 20px;
-    
+
     display: inline-block;
 }
 .list_one a {
@@ -84,7 +84,7 @@ table {
     border-collapse: separate;
     border-spacing: 0 5px;
 }
-table tbody {
+table thead, table tbody {
     text-align: center;
 }
 tr td {
@@ -114,4 +114,9 @@ tr td {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.empty {
+    height: 43.5px;
+    border: 1px solid black;
+    padding: 0 5px;
 }

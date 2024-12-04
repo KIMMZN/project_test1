@@ -1,7 +1,7 @@
 package com.cis;
 
 public class Pagination {
-    private int pageSize = 6;      // 1페이지 당 튜플의 수
+    private int pageSize;          // 1페이지 당 튜플의 수
     private int blockSize = 5;     // 1페이징 당 블럭 버튼의 수
     private int selectPage;        // 현재 선택한 페이지
     private int nowPage = 1;       // 현재 페이지
@@ -124,9 +124,13 @@ public class Pagination {
     // SELECT로 가져온 튜플의 수와 현재 페이지를 Controller로부터 받아온다.
     // totalListCnt : SELECT로 가져온 튜플의 전체 수
     // nowPage : 현재 페이지
-    public Pagination(int totalListCnt, int nowPage) {
+    public Pagination(int pageSize, int totalListCnt, int nowPage) {
+        // 1페이지 당 튜플의 수 지정
+        setPageSize(pageSize);
         // 현재 페이지, 튜플의 전체 수 저장
         setNowPage(nowPage);
+        // 만약 DB에서 조회한 리스트의 수가 없을 경우 1로 고정 (에러 방지)
+        if (totalListCnt <= 0) totalListCnt = 1;
         setTotalListCnt(totalListCnt);
 
         // Math.ceil : 반올림을 위해 Math 클래스의 ceil 메서드 사용

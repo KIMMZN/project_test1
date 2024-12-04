@@ -3,6 +3,7 @@ package com.cis.board.controller;
 import com.cis.board.repository.IF_Reopository;
 import com.cis.board.service.IF_board_service;
 import com.cis.board.vo.commentVO;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +44,8 @@ public class CommentController {
 
     //댓글 view
     @GetMapping(value = "/board/getComment/{category}/{num}")
-    public Map<String, Object> viewComment (@PathVariable String category, @PathVariable Integer num)throws Exception {
+    public Map<String, Object> viewComment (@PathVariable String category, @PathVariable Integer num,
+                                            HttpSession session)throws Exception {
 
         boolean success = false;
 
@@ -59,12 +61,13 @@ public class CommentController {
         //return
         List<commentVO> comments = ifboardservice.viewComment(params);
 
-
-
-        for (commentVO commentVO : comments) {
+        for (commentVO commentvo : comments) {
             System.out.println("commentvo 확인");
-            System.out.println(commentVO.toString());
+            System.out.println(commentvo.toString());
+            String emp_name = ifboardservice.getNameById(commentvo.getEmp_id());
         }
+
+      //  String emp_name = ifboardservice.getNameById();
 
 
 
@@ -73,24 +76,31 @@ public class CommentController {
         response.put("success", true);
 //        -----------------------------------
         // 로그인된 사용자 ID 가져오기 (예시: 세션 사용)
-        String currentUserId = "asd";
-
-        //임시아이디 부여
-        if (currentUserId != null || !currentUserId.isEmpty()) {
-            response.put("current_user_id", currentUserId);
+        String loggedID = "";
+        if(session.getAttribute("employee_id") != null) {
+            loggedID = (String) session.getAttribute("employee_id");
+            System.out.println(loggedID + " 로그인된 아이디 디버그");
         }
+
+        
+        if (loggedID != null) {
+            response.put("current_user_id", loggedID);
+            System.out.println(loggedID + "logedd id 2차 확인");
+        }
+
+
         System.out.println("확인"+ comments.size() + "/ "+ true);
 // ---------------------------------------------------
 
 
         return response;
     }
-
+    
+    //댓글 삭제
     @DeleteMapping(value = "/board/deleteComment/{category}/{commentId}")
     public Map<String, Object> deleteComment(@PathVariable String category,
-                                             @PathVariable Integer commentId) {
+                                             @PathVariable Integer commentId, HttpSession session)throws Exception {
         boolean success = false;
-
         // 카테고리와 댓글 comment_num과 category로 삭제 처리
 
         //임시 아디 부여 .. 세션 활욯애야됨
@@ -106,16 +116,19 @@ public class CommentController {
             //if(comment)
 
             // 작성자 확인 후 삭제
-            if (commentvo.getEmp_id().equals(currentUserId)) {
+            if(session.getAttribute("employee_id") != null) {
+                System.out.println(1);
                 Map<String, Object> params = new HashMap<>();
                 params.put("category", category);
                 params.put("comment_num", commentId);
                 System.out.println("2");
 
                 success = ifboardservice.deleteCommentByCategoryAndId(params);
-            } else {
+
+            }else {
                 System.out.println("삭제 권한 없음");
             }
+
 
         } catch (Exception e) {
             System.out.println("3");

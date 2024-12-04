@@ -20,16 +20,6 @@
     </insert>
 
 
-    <!-- 본래
-         <select id="listAll" resultType="company.company_project.vo.boardVO">
-                  SELECT * from board where category = '공지사항' order by board_num DESC;
-          </select> -->
-    <!--
-    <select id="listAll" resultType="company.company_project.vo.boardVO">
-        SELECT * from board_table where category = '공지사항' order by board_num DESC;
-    </select>
-    -->
-
     <select id="listAll" resultType="com.cis.board.vo.boardVO">
         SELECT  board_num,board_title,emp_id, boardHits,
                 DATE_FORMAT(create_at, "%y-%m-%d") AS create_at
@@ -187,10 +177,15 @@
 
 <!-- 댓글 가져오기  List<commentVO> selectAllCmt(Map<String, Object> params)throws Exception;-->
     <select id="selectAllCmt" parameterType="Map" resultType="com.cis.board.vo.commentVO">
-        select * from comment
-        where category = #{category} AND board_num = #{board_num}
+                    select * FROM comment c
+                    join employee a
+                    on c.emp_id = a.emp_id
+                    join manager b
+                    on a.resident_num = b.resident_num
+                    where c.category = #{category} AND c.board_num = #{board_num}
     </select>
-
+<!--                select * from comment-->
+<!--                where category = #{category} AND board_num = #{board_num}-->
 
 <!--    boolean deleteCommentByCategoryAndId(Map<String, Object> params)-->
 
@@ -206,31 +201,18 @@
           AND comment_num = #{comment_num}
     </select>
 
+<!-- employee테이블의 emp_id를 넘기고 manager 테이블에서 name 리턴;-->
+    <select id="getNameById" parameterType="String" resultType="String">
+        SELECT m.emp_name
+        FROM employee e
+        JOIN manager m
+        on e.resident_num = m.resident_num
+        WHERE e.emp_id = #{emp_id}
+    </select>
 
 
 
-    <!--    INSERT INTO board_table-->
-<!--    (category, board_num, board_title, board_content, create_at, emp_id, boardHits, fileAttached)-->
-<!--    VALUES (#{category},(SELECT nextval3('board_seq') FROM DUAL),#{board_title},#{board_content},default,#{emp_id},default,#{fileAttached});-->
-<!--</insert>-->
 
 
-<!--    public void fileAdd(boardVO boardvo)throws Exception;-->
 
-
-        <!--
-      <select id="findById" parameterType="long" resultType="com.example.yourpackage.domain.User">
-          SELECT * FROM users WHERE id = #{id}
-      </select>
-      <insert id="insert" parameterType="com.example.yourpackage.domain.User">
-          INSERT INTO users (name, email) VALUES (#{name}, #{email})
-      </insert>
-      <update id="update" parameterType="com.example.yourpackage.domain.User">
-          UPDATE users SET name = #{name}, email = #{email} WHERE id = #{id}
-      </update>
-      <delete id="delete" parameterType="long">
-          DELETE FROM users WHERE id = #{id}
-      </delete>
-
-      -->
 </mapper>

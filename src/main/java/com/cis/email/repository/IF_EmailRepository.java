@@ -23,4 +23,5 @@ public interface IF_EmailRepository {
     public List<EmailFileDTO> emailNumFind(String mail_num) throws Exception;
     public List<EmailFileDTO> emailFileNameFind(List<String> file_name) throws Exception;
     public EmailFileDTO emailFileFind(String file_name) throws Exception;
+    public String findEmployeeId(String emp_id) throws Exception;
 }

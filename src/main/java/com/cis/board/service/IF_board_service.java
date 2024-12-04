@@ -16,6 +16,8 @@ import java.util.Map;
 public interface IF_board_service {
     //게시글 작성
 //   public void writeOne(boardVO boardvo)throws Exception;
+    //게시글에 작성된 id를 보내고 name을 리턴받음
+    public String getNameById(String emp_id) throws Exception;
     //게시글작성 // 파일첨부 포함
     public void writeOneF(boardVO boardvo, List<fileVO> fileList)throws Exception;
     //

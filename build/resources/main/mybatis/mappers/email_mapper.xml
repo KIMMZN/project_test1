@@ -3,39 +3,84 @@
 
 <mapper namespace="com.cis.email.repository.IF_EmailRepository">
     <insert id="emailInsert" parameterType="com.cis.email.dto.EmailDTO">
-        INSERT INTO email VALUES ((SELECT nextval('email_seq') FROM DUAL), #{mail_title}, #{mail_content}, DEFAULT, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i'), #{recipient_id}, 'test2')
+        INSERT INTO email
+            VALUES ((SELECT nextval('email_seq') FROM DUAL),
+                #{mail_title},
+                #{mail_content},
+                DEFAULT,
+                DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i'),
+                #{recipient_id},
+                'test2')
     </insert>
     <select id="emailSelectAll" resultType="com.cis.email.dto.EmailDTO">
-        SELECT * FROM email ORDER BY mail_num DESC, create_at DESC LIMIT #{startIndex}, #{pageSize}
+        SELECT * FROM email AS m INNER JOIN employee AS e
+            ON m.recipient_id=e.emp_id AND m.recipient_id='test2'
+            ORDER BY m.mail_num DESC, m.create_at DESC
+            LIMIT #{startIndex}, #{pageSize}
     </select>
     <select id="emailSelectCheckAll" resultType="com.cis.email.dto.EmailDTO">
-        SELECT * FROM email WHERE mail_check=#{filter} ORDER BY mail_num DESC, create_at DESC LIMIT #{startIndex}, #{pageSize}
+        SELECT * FROM email AS m INNER JOIN employee AS e
+            ON m.recipient_id=e.emp_id AND m.recipient_id='test2' AND m.mail_check=#{filter}
+            ORDER BY m.mail_num DESC, m.create_at DESC
+            LIMIT #{startIndex}, #{pageSize}
     </select>
     <select id="emailSelectOne" resultType="com.cis.email.dto.EmailDTO">
-        SELECT * FROM email WHERE mail_num=${email_num}
+        SELECT * FROM email AS m INNER JOIN employee AS e
+            ON m.recipient_id=e.emp_id AND m.recipient_id='test2' AND m.mail_num=#{email_num}
     </select>
     <select id="emailSelectOrderOne" resultType="string">
-        SELECT mail_num FROM email ORDER BY mail_num DESC LIMIT 1
+        SELECT m.mail_num FROM email AS m INNER JOIN employee AS e
+            ON m.recipient_id=e.emp_id AND m.recipient_id='test2'
+            ORDER BY m.mail_num DESC LIMIT 1
     </select>
     <select id="emailSelectAllCnt" resultType="int">
-        SELECT COUNT(*) FROM email
+        SELECT COUNT(*) FROM email AS m INNER JOIN employee AS e
+            ON m.recipient_id=e.emp_id AND m.recipient_id='test2'
     </select>
     <select id="emailSelectCheckAllCnt" resultType="int">
-        SELECT COUNT(*) FROM email WHERE mail_check=#{filter}
+        SELECT COUNT(*) FROM email AS m INNER JOIN employee AS e
+            ON m.recipient_id=e.emp_id AND m.recipient_id='test2' AND m.mail_check=#{filter}
     </select>
+    <update id="emailUpdate" parameterType="string">
+        UPDATE email AS m INNER JOIN employee AS e
+            ON m.recipient_id=e.emp_id AND m.recipient_id='test2'
+            SET m.mail_check='Y'
+            WHERE m.mail_num=#{email_num}
+    </update>
     <delete id="emailDelete" parameterType="string">
-        DELETE FROM email WHERE mail_num=#{email_num}
+        DELETE m FROM email AS m INNER JOIN employee AS e
+            ON m.recipient_id=e.emp_id AND m.recipient_id='test2'
+            WHERE m.mail_num=#{email_num}
     </delete>
     <insert id="emailFileInsert" parameterType="list">
-        INSERT INTO email_file VALUES <foreach item="file" collection="list" separator=",">(#{file.mail_num}, #{file.file_name}, #{file.file_originname}, #{file.file_size}, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i'))</foreach>
+        INSERT INTO email_file
+            VALUES <foreach item="file" collection="list" separator=",">
+                (#{file.mail_num},
+                #{file.file_name},
+                #{file.file_originname},
+                #{file.file_size},
+                DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i'))
+            </foreach>
     </insert>
     <select id="emailNumFind" parameterType="string" resultType="com.cis.email.dto.EmailFileDTO">
-        SELECT * FROM email_file WHERE mail_num=#{mail_num} ORDER BY upload_at
+        SELECT * FROM email_file AS f INNER JOIN email AS m
+            ON f.mail_num=m.mail_num AND f.mail_num=#{mail_num}
+            ORDER BY f.upload_at
     </select>
     <select id="emailFileNameFind" parameterType="list" resultType="com.cis.email.dto.EmailFileDTO">
-        SELECT * FROM email_file WHERE file_name=<foreach item="name" collection="list" open="(" separator="," close=")">#{name.file_name}</foreach> ORDER BY upload_at
+        SELECT * FROM email_file AS f INNER JOIN email AS m
+            ON f.mail_num=m.mail_num AND f.file_name=
+            <foreach item="name" collection="list" open="(" separator="," close=")">
+                #{name.file_name}
+            </foreach>
+            ORDER BY f.upload_at
     </select>
     <select id="emailFileFind" resultType="com.cis.email.dto.EmailFileDTO">
-        SELECT * FROM email_file WHERE file_name=#{file_name}
+        SELECT * FROM email_file AS f INNER JOIN email AS m
+            ON f.mail_num=m.mail_num AND f.file_name=#{file_name}
+    </select>
+    <select id="findEmployeeId" resultType="string">
+        SELECT e.emp_id FROM employee AS e
+            WHERE e.emp_id=#{emp_id}
     </select>
 </mapper>

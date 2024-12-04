@@ -38,6 +38,13 @@ public class board_service_Impl implements IF_board_service {
 //    }
 
     @Override
+    public String getNameById(String emp_id) throws Exception {
+
+
+        return ifrepository.getNameById(emp_id);
+    }
+
+    @Override
     public void writeOneF(boardVO boardvo, List<fileVO> fileList) throws Exception {
 
         System.out.println(boardvo.getCategory()+ "서비스 카테고리 확인");

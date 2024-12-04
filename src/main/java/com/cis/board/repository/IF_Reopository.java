@@ -80,5 +80,7 @@ public interface IF_Reopository {
         //삭제 위한 정보 가져오기
         commentVO getCmtByparamsOne(Map<String, Object> params) throws Exception;
 
+        //게시판. 아이디를 param으로 보내고 이름을 return 받음
+          String getNameById(String emp_id)throws Exception;
 
 }

@@ -19,7 +19,7 @@ section {
     align-items: center;
 }
 .attendance_insert_container {
-    width: 40%;
+    width: 30%;
     height: 100%;
     margin-right: 20px;
 }
@@ -64,8 +64,7 @@ section {
     width: 30%;
     height: 50px;
     border: 1px solid black;
-    margin-right: 40px;
-    padding: 15px;
+    padding: 10px 15px;
 }
 .significant_btn {
     font-size: 18px;
@@ -74,6 +73,7 @@ section {
     height: 40px;
     border: 1px solid black;
     border-radius: 15px;
+    margin-left: 40px;
     padding: 5px 10px;
 }
 .significant_btn:hover {
@@ -83,7 +83,7 @@ section {
     cursor: pointer;
 }
 .attendance_list {
-    width: 60%;
+    width: 70%;
     height: 100%;
     border: 1px solid black;
     border-radius: 15px;
@@ -102,10 +102,26 @@ section {
     font-weight: bold;
 }
 .attendance_table tr td {
+    height: 32px;
     border: 1px solid black;
     padding: 10px;
 }
 .paging td a {
     color: black;
     text-decoration: none;
+    width: auto;
+    height: auto;
+    margin: 0 5px;
+}
+.paging td a div {
+    width: 45px;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 5px 10px;
+
+    display: inline-block;
+}
+.paging td div:hover {
+    background-color: skyblue;
+    border: 1px solid skyblue;
 }

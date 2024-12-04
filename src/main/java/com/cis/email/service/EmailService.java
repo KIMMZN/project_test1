@@ -84,4 +84,9 @@ public class EmailService implements IF_EmailService {
         return emailrepository.emailFileFind(file_name);
     }
 
+    @Override
+    public String recipientIdCheck(String recipient_id) throws Exception {
+        return emailrepository.findEmployeeId(recipient_id);
+    }
+
 }

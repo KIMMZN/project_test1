@@ -46,3 +46,61 @@ function select_file(this_element) {
     // 파일명 설정
     // let change_name = file.name;
 }
+
+// 키를 뗀 경우의 이벤트, 제목 20글자 제한
+let mail_title = document.getElementsByName("mail_title")[0];
+mail_title.addEventListener(("keyup"), () => {
+    if (mail_title.value.length > 20) mail_title.value = mail_title.value.substring(0, 20);
+});
+
+// 키를 뗀 경우의 이벤트, 받는 사람 아이디 12글자 제한, 정규식(공백,한글,대문자 제거)적용
+let recipient_id = document.getElementsByName("recipient_id")[0];
+recipient_id.addEventListener("keyup", () => {
+    if (recipient_id.value.length > 12) recipient_id.value = recipient_id.value.substring(0, 12);
+    recipient_id.value = recipient_id.value.replaceAll(/[\sㄱ-ㅎㅏ-ㅣ가-힣A-Z]/g, "");
+});
+
+// 키를 뗀 경우의 이벤트, 내용 255글자 제한
+let mail_content = document.getElementsByName("mail_content")[0];
+mail_content.addEventListener("keyup", () => {
+    if (mail_content.value.length > 255) mail_content.value = mail_content.value.substring(0, 255);
+});
+
+let send_btn = document.getElementsByClassName("send_btn")[0];
+let email_send = document.getElementById("email_send");
+send_btn.addEventListener("click", () => {
+    let mail_title_text = mail_title.value;
+    let recipient_id_text = recipient_id.value;
+
+    if (mail_title_text.length <= 0 || mail_title_text.replaceAll(" ", "").length <= 0) {
+        alert("제목을 입력해주세요.");
+        mail_title.value = null;
+        return;
+    }
+    if (recipient_id_text.length <= 0) {
+        alert("받는 사람을 입력해주세요.");
+        recipient_id.value = null;
+        return;
+    }
+
+    $.ajax({
+        type : "POST",
+        url : "/recipient_id/check",
+        data : {
+            "recipient_id" : recipient_id_text
+        },
+        success : function(check) {
+            // 아이디가 없을 경우(1), 아이디가 있을 경우(0)
+            if (check === 1) {
+                alert(recipient_id_text + "님은 존재하지 않습니다.\n아이디를 다시 확인해주세요.");
+                recipient_id.value = null;
+            } else {
+                email_send.submit();
+            }
+        },
+        error : function() {
+            alert("서버 요청 실패");
+        }
+    });
+    // email_send.submit();
+});

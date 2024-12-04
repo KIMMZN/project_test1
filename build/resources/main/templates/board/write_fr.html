@@ -45,8 +45,11 @@
 
 
                         <div class="write_writer_name">
-                            <label for="namebox">작성자</label>
-                            <input type="text" id="namebox" placeholder="작성자이름" name="emp_id">
+                            <label for="namebox">작성자</label><!--name="emp_id"-->
+                            <input type="text" id="namebox" placeholder="작성자이름" th:value="${emp_name}"
+                                   th:data-emp-id="${emp_id}" readonly>
+                            <label for="hidden_empid" hidden="hidden"></label>
+                            <input type="text" id="hidden_empid" name="emp_id" th:value="${emp_id}" hidden="hidden" readonly>
                         </div>
 
                     </div>

@@ -1,43 +1,110 @@
+section{
+    height : 620px;
+}
+
 .employee_list{
-    height: 500px;
+    height: 610px;
+}
+
+.employee_list div{
+    text-align: right;
+    margin-right: 120px;
+    margin-top: 20px;
+}
+
+.employee_list div h1{
+    margin-right: 300px;
+    width: 750px;
 }
 
 .employee_list div span{
-    font-size: 30px;
-    margin-left: 400px;
+    width: 300px;
+    height: 30px;
+    border-radius: 30px;
+}
+
+#date{
+    margin-right: 202px;
+}
+
+/*이름*/
+#employee_name{
+    margin-right: 190px;
+    padding-left: 50px;
+}
+
+/*아이디*/
+#employee_id{
+    margin-right: 200px;
+    padding-left: 50px;
+}
+
+/*직급*/
+#employee_rank{
+    margin-right: 95px;
+    margin-left: 30px;
+    width: 170px;
+    height: 30px;
+    border-radius: 30px;
+}
+
+/*부서명*/
+#employee_dept{
+    margin-right: 95px;
+    margin-left: 30px;
+    width: 170px;
+    height: 30px;
+    border-radius: 30px;
+}
+
+/*전화번호*/
+#employee_tel{
+    margin-right: 145px;
+}
+
+/*날짜*/
+#date{
+    margin-right: 95px;
+    margin-left: 25px;
+    width: 200px;
+    height: 30px;
+    border-radius: 30px;
+    padding-left: 37px;
+    padding-right: 37px;
+    text-align: center;
+}
+
+/*재직상태*/
+#work_status{
+    margin-right: 85px;
 }
 
 
 .modify_input_content{
-    text-align: right;
-    margin-right: 300px;
-}
-
-
-
-.modify_employee_info .modify_input_content div label{
     font-size: 20px;
-   
 }
 
-.modify_employee_info .modify_input_content input{
-    width: 300px;
-    height: 30px;
-    border-radius: 30px;
-    margin-top: 10px;
-    margin-left: 30px;
+.modify_input_content div{
+    margin-top: 45px;
 }
 
-.modify_btn{
-    margin-left: 300px;
+.modify_input_content input{
+    text-align: center;
 }
-
 
 .modify_btn div input{
-    width: 200px;
-    height: 50px;
-    font-size: 20px;
-    border-radius: 30px;
+    margin-right: 50px;
     margin-top: 10px;
-    margin-left: 50px;
+}
+
+#cancel_change_btn{
+    width: 200px;
+    height: 30px;
+    border-radius: 30px;
+}
+
+#change_employee_info_btn{
+    width: 200px;
+    height: 30px;
+    border-radius: 30px;
 }

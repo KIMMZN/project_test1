@@ -1,30 +1,27 @@
-package com.cis;
+package com.cis.email.controller;
 
+import com.cis.email.component.EmailFileUtils;
 import com.cis.email.dto.EmailFileDTO;
-import com.cis.email.service.EmailService;
 import com.cis.email.service.IF_EmailService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.webresources.FileResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class FileAPIController {
+public class EmailFileAPIController {
 
     private final IF_EmailService emailservice;
-    private final FileUtils fileUtils;
+    private final EmailFileUtils emailFileUtils;
 
     // 파일 리스트 조회
     @GetMapping(value = "email_detail/{mail_num}/files/{index}")
@@ -43,7 +40,7 @@ public class FileAPIController {
         // file : DB에서 조회한 첨부파일의 모든 정보(객체)
         // resource : file 변수에 담긴 객체를 Resource 타입으로 조회
         EmailFileDTO file = emailservice.emailFileFind(file_name);
-        Resource resource = fileUtils.downloadFileRead(file);
+        Resource resource = emailFileUtils.downloadFileRead(file);
         try {
             // file_originname : 다운로드할 첨부파일의 이름
             // 실제 파일명을 저장하고, 이름이 깨지지 않도록 UTF-8 형식으로 인코딩
@@ -61,4 +58,5 @@ public class FileAPIController {
             throw new RuntimeException("Filename Encoding Failed : " + file.getFile_originname());
         }
     }
+
 }

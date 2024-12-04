@@ -6,6 +6,6 @@
         <typeAlias type="com.cis.email.dto.EmailDTO" alias="EmailDTO"/>
         <typeAlias type="com.cis.email.dto.EmailFileDTO" alias="EmailFileDTO"/>
         <typeAlias type="com.cis.attendance.dto.AttendanceDTO" alias="AttendanceDTO"/>
-        <typeAlias type="com.cis.member.dto.MemberDTO" alias="MemberDTO"/>
+<!--        <typeAlias type="com.cis.member.dto.MemberDTO" alias="MemberDTO"/>-->
     </typeAliases>
 </configuration>

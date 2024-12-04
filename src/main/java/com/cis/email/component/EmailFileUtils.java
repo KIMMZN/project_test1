@@ -1,4 +1,4 @@
-package com.cis;
+package com.cis.email.component;
 
 import com.cis.email.dto.EmailFileDTO;
 import org.springframework.core.io.Resource;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class FileUtils {
+public class EmailFileUtils {
     // 파일을 저장할 경로 지정
     private final String upload_path = Paths.get("C:", "UploadFiles").toString();
 
@@ -139,6 +139,5 @@ public class FileUtils {
             throw new RuntimeException("File Not Found : " + file_path.toString());
         }
     }
-
 
 }
