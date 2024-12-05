@@ -80,6 +80,34 @@
         order by board_num DESC
         LIMIT #{pagination.limitStart}, #{recordSize}
     </select>
+    <!--amd 모든 게시판 조회 -->
+    <select id="findAll_admo" parameterType="com.cis.board.vo.searchDTO" resultType="com.cis.board.vo.boardVO">
+        select *
+        from board_table a
+        <include refid="search"/>
+        order by create_at DESC
+        LIMIT #{pagination.limitStart}, #{recordSize}
+    </select>
+    <select id="findAll_adm" parameterType="com.cis.board.vo.searchDTO" resultType="com.cis.board.vo.boardVO">
+        select
+        a.category,
+        a.emp_id,
+        a.board_num,
+        a.board_title,
+        a.board_content,
+        a.create_at,
+        a.boardHits,
+        m.emp_name
+        from board_table a
+        join employee e
+        on a.emp_id = e.emp_id
+        join manager m
+        on e.resident_num = m.resident_num
+        <include refid="search_adm"/>
+        order by create_at DESC
+        LIMIT #{pagination.limitStart}, #{recordSize}
+    </select>
+
     <!--공지사항 게시글 카운트 -->
     <select id="count" parameterType="com.cis.board.vo.searchDTO" resultType="int">
         select count(*)
@@ -97,7 +125,42 @@
         <include refid="search"/>
     </select>
 
-    <!--게시글 검색-->
+    <!-- adm - 모든 게시판 게시글 카운트 -->
+    <select id="count_allAdm" parameterType="com.cis.board.vo.searchDTO" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+            board_table
+--         board_table a
+--         JOIN
+--         employee e ON a.emp_id = e.emp_id
+--         JOIN
+--         manager m ON e.resident_num = m.resident_num
+<!--        <trim prefix="WHERE" prefixOverrides="AND |OR">-->
+<!--            &lt;!&ndash; 검색 키워드 있을 때 &ndash;&gt;-->
+<!--            <if test="keyword != null and keyword != ''">-->
+<!--                <choose>-->
+<!--                    <when test="searchType == 'board_title'">-->
+<!--                        AND a.board_title LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                    </when>-->
+<!--                    <when test="searchType == 'board_content'">-->
+<!--                        AND a.board_content LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                    </when>-->
+<!--                    <when test="searchType == 'emp_id'">-->
+<!--                        AND m.emp_name LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                    </when>-->
+<!--                    <otherwise>-->
+<!--                        AND (-->
+<!--                        a.board_title LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                        OR a.board_content LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                        OR m.emp_name LIKE CONCAT('%', #{keyword}, '%')-->
+<!--                        )-->
+<!--                    </otherwise>-->
+<!--                </choose>-->
+<!--            </if>-->
+<!--        </trim>-->
+    </select>
+    <!-- 공지 자유-->
     <sql id="search">
             <!-- 검색 키워드 있을때 -->
               <if test="keyword != null and keyword !=''">
@@ -127,7 +190,48 @@
                 </choose>
               </if>
     </sql>
-        <!-- 게시판 파일 첨부-->
+
+    <!--adm 게시글 검색-->
+    <sql id="search_adm">
+        <trim prefix="WHERE" prefixOverrides="AND |OR">
+            <!-- 검색 키워드 있을 때 -->
+            <if test="keyword != null and keyword != ''">
+                <choose>
+                    <!-- 검색 카테고리 있을 때 -->
+                    <when test="searchCategory != null and searchCategory != ''">
+                        AND a.category = #{searchCategory}
+                    </when>
+                </choose>
+                <choose>
+                    <!-- 검색 유형 있을 때 -->
+                    <when test="searchType != null and searchType != ''">
+                        <choose>
+                            <when test="searchType == 'board_title'">
+                                AND a.board_title LIKE CONCAT('%', #{keyword}, '%')
+                            </when>
+                            <when test="searchType == 'board_content'">
+                                AND a.board_content LIKE CONCAT('%', #{keyword}, '%')
+                            </when>
+                            <when test="searchType == 'emp_id'">
+                              AND m.emp_name LIKE CONCAT('%', #{keyword}, '%')
+                               </when>
+                        </choose>
+                    </when>
+                    <!-- 검색 유형 없을 때 -->
+                    <otherwise>
+                        AND (
+                        a.board_title LIKE CONCAT('%', #{keyword}, '%')
+                        OR a.board_content LIKE CONCAT('%', #{keyword}, '%')
+                        OR m.emp_name LIKE CONCAT('%', #{keyword}, '%')
+                        )
+                    </otherwise>
+                </choose>
+            </if>
+        </trim>
+    </sql>
+
+
+    <!-- 게시판 파일 첨부-->
     <insert id="insertFile" parameterType="com.cis.board.vo.fileVO">
         INSERT INTO board_file
         (category, board_num, original_name, save_name, file_size, created_date)

@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface IF_board_service {
+
+
     //게시글 작성
 //   public void writeOne(boardVO boardvo)throws Exception;
     //게시글에 작성된 id를 보내고 name을 리턴받음
@@ -45,6 +47,8 @@ public interface IF_board_service {
 
     // 자유게시판 게시글 리스트 조회 // param - searchDTO // return- 게시글 리스트(boardVO)
     public PagingResponse<boardVO> findAllPost_fr(searchDTO params)throws Exception;
+    //모든 게시글 보기
+    public PagingResponse<boardVO> findAllPost_adm(searchDTO params)throws Exception;
 
     //자유 게시판 파일 수정(추가)
     public void modfile(List<fileVO> filevoList)throws Exception;

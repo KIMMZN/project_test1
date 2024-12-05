@@ -57,3 +57,126 @@ emp_id varchar(12),
 boardHits int default 0,
 fileAttached int default 0
 );
+
+
+
+
+
+--진호
+-- auto-generated definition
+create table manager
+(
+    resident_num char(14)    not null
+        primary key,
+    emp_name     varchar(8)  not null,
+    emp_dept     varchar(10) not null,
+    emp_rank     varchar(5)  not null,
+    join_date    date        not null,
+    work_status  varchar(20) not null
+        check (`work_status` in ('재직중', '퇴사'))
+);
+
+-- auto-generated definition
+create table employee
+(
+    emp_id       varchar(12)  not null
+        primary key,
+    resident_num char(14)     not null,
+    emp_pass     varchar(20)  not null,
+    emp_email    varchar(30)  not null,
+    post_addr    varchar(20)  not null,
+    road_addr    varchar(100) null,
+    detail_addr  varchar(30)  not null
+);
+
+
+
+
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('hong', '970812-1172325', '1234', 'hong59@gmail.com', '13480', '경기 성남시 분당구 대왕판교로 477', '101호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_01', '000000-2222222', '1234', 'yuanzhenhao59@gmail.com', '16410', '수원시 인계동', '102호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_02', '000001-1111112', 'abcd1234@!', 'yuanzhenhao02@gmail.com', '17540', '수원시 권선동', '201호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_03', '000002-1111113', 'qwerty!@#', 'yuanzhenhao03@gmail.com', '18450', '수원시 팔달구', '305호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_04', '000003-1111114', 'hello@2024', 'yuanzhenhao04@gmail.com', '19200', '수원시 장안구', '401호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_05', '000004-1111115', 'secure!234', 'yuanzhenhao05@gmail.com', '17800', '수원시 매교동', '101호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_06', '000005-1111116', '!passkey12', 'yuanzhenhao06@gmail.com', '16500', '수원시 고등동', '103호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_07', '000006-1111117', 'safe@#123', 'yuanzhenhao07@gmail.com', '16200', '수원시 세류동', '202호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_08', '000007-1111118', 'lock@123!', 'yuanzhenhao08@gmail.com', '16300', '수원시 화서동', '304호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_09', '000008-1111119', 'key123!@#', 'yuanzhenhao09@gmail.com', '18000', '수원시 우만동', '403호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_10', '000009-1111120', 'my!secure', 'yuanzhenhao10@gmail.com', '17750', '수원시 권선동', '110호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_11', '000010-1111121', 'unique@123', 'yuanzhenhao11@gmail.com', '16450', '수원시 인계동', '502호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_12', '000011-1111122', 'random@pass', 'yuanzhenhao12@gmail.com', '17600', '수원시 매산동', '303호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_13', '000012-1111123', 'myCode!123', 'yuanzhenhao13@gmail.com', '16700', '수원시 팔달동', '408호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_14', '000013-1111124', 'alpha@1234', 'yuanzhenhao14@gmail.com', '16900', '수원시 영통구', '204호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_15', '000014-1111125', 'bravo@5678', 'yuanzhenhao15@gmail.com', '18200', '수원시 광교동', '309호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_16', '000015-1111126', 'charlie@!89', 'yuanzhenhao16@gmail.com', '16650', '수원시 정자동', '507호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_17', '000016-1111127', 'delta#7890', 'yuanzhenhao17@gmail.com', '17050', '수원시 파장동', '606호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_18', '000017-1111128', 'echo$0123', 'yuanzhenhao18@gmail.com', '18300', '수원시 매탄동', '205호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('id_19', '000018-1111129', 'foxtrot@098', 'yuanzhenhao19@gmail.com', '16100', '수원시 신동', '304호');
+INSERT INTO employee (emp_id, resident_num, emp_pass, emp_email, post_addr, road_addr, detail_addr) VALUES ('jinho0812', '990012-1112222', 'yuanzhenhao123!@#', 'yuanzhenhao59@gmail.com', '13529', '경기 성남시 분당구 분당내곡로 117', '102호');
+
+select * from employee;
+
+
+
+
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000000-2222222', '원진호', '영업팀', '인턴', '2024-12-20', '퇴사');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000001-1111112', '김지훈', '개발팀', '사원', '2024-12-15', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000002-1111113', '박민수', '인사팀', '과장', '2024-11-30', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000003-1111114', '이서연', '영업팀', '대리', '2025-01-10', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000004-1111115', '정예린', '회계팀', '팀장', '2024-12-01', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000005-1111116', '최동훈', '영업팀', '사원', '2024-10-20', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000006-1111117', '윤정민', '개발팀', '대리', '2025-03-05', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000007-1111118', '조윤아', '영업팀', '과장', '2024-08-12', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000008-1111119', '한수진', '인사팀', '사원', '2024-07-07', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000009-1111120', '임도현', '회계팀', '대리', '2025-02-25', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000010-1111121', '김영훈', '영업팀', '팀장', '2025-04-18', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000011-1111122', '송지우', '개발팀', '사원', '2024-09-10', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000012-1111123', '권민아', '인사팀', '과장', '2024-06-15', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000013-1111124', '이하윤', '영업팀', '대리', '2025-01-01', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000014-1111125', '정시우', '회계팀', '사원', '2024-12-22', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000015-1111126', '황준호', '영업팀', '팀장', '2024-11-01', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000016-1111127', '강민준', '개발팀', '사원', '2024-08-20', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000017-1111128', '이수진', '영업팀', '과장', '2025-02-15', '재직중');
+INSERT INTO manager (resident_num, emp_name, emp_dept, emp_rank, join_date, work_status) VALUES ('000018-1111129', '박서현', '인사팀', '대리', '2024-05-30', '재직중');
+
+1205
+
+ALTER TABLE board_table
+ADD CONSTRAINT fk_board_employee
+FOREIGN KEY (emp_id)
+REFERENCES employee (emp_id)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+pk fk 설정추가함
+
+SELECT
+    TABLE_NAME,
+    COLUMN_NAME,
+    CONSTRAINT_NAME,
+    REFERENCED_TABLE_NAME,
+    REFERENCED_COLUMN_NAME
+FROM
+    INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE
+    TABLE_NAME = 'board_table';
+
+--------------------------------------
+
+--관리자 아이디 employee에 삽입 --
+
+insert into employee
+value ('admin', '111111-3333333','1234','admin@gmail.com','13480', '경기 성남시 분당구 대왕판교로 477','103호');
+
+insert into manager
+    value ('111111-3333333','김진호','인사팀','과장', '2024-12-05','재직중');
+
+   
+   select *
+  from employee e inner join manager m
+    on e.resident_num = m.resident_num
+where emp_id='admin';
+
+-------------------------------------------
+
+

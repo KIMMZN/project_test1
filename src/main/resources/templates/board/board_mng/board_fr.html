@@ -18,30 +18,30 @@
       <div class="mail_btn">
         <!-- <a href="email_delete"> -->
         <!-- <a href=""> -->
-
-        <a href="/board_gj">
-          <input type="button" value="공지사항" class="mail_delete">
+        <a href="/board/manager">
+          <input type="button" value="게시판 관리" class="mail_delete">
         </a>
-        <a href="/board_fr">
-          <input type="button" value="자유게시판" class="mail_delete">
-        </a>
-
-
         <!-- </a> -->
       </div>
-      <div id="board_select_title">
-        <span class="board_select_title_1">자유게시판</span>
-      </div>
+<!--      <div id="board_select_title">-->
+<!--        <span class="board_select_title_1">자유게시판</span>-->
+<!--      </div>-->
 
       <div id="search_div">
         <div id="search_div_2">
-          <form id="searchForm" method="get" action="/board_fr">
+          <form id="searchForm" method="get" action="/board/manager">
             <div id="search_optin">
+              <select name="searchCategory" id="searchCategory" title="검색 카테고리 선택">
+                <option value="">전체 카테고리</option>
+                <option value="공지사항">공지사항</option>
+                <option value="자유게시판">자유게시판</option>
+              </select>
               <select name="searchType" id="searchType" title="검색 유형 선택">
                 <option value="" th:selected="${searchType == ''}">전체 검색</option>
                 <option value="board_title" th:selected="${searchType == 'board_title'}">제목</option>
                 <option value="board_content" th:selected="${searchType == 'board_content'}">내용</option>
                 <option value="emp_id" th:selected="${searchType == 'emp_id'}">작성자</option>
+<!--                <option value="emp_id" th:selected="${searchType == 'emp_name'}">작성자</option>-->
               </select>
               <input type="text" name="keyword" id="keyword" class="searchBox" placeholder="검색어를 입력하시오" th:value="${keyword}">
               <button class="search-btn" type="submit">
@@ -55,21 +55,28 @@
       <div class="mail_list">
         <table class="mail_table">
           <tr>
-            <th>번호</th>
-            <th class="th2">제목</th>
-            <th>글쓴이</th>
-            <th>조회수</th>
-            <th>등록일자</th>
+            <th style="width: 10%">카테고리</th>
+            <th style="width: 7%">번호</th>
+            <th style="width: 60%">제목</th>
+
+<!--            <th class="th2">제목</th>-->
+            <th style="width: 7%">글쓴이</th>
+            <th style="width: 7%">수정</th>
+            <th style="width: 7%">삭제</th>
           </tr>
           <tr th:each="m: ${boardvolist.list}" th:if="${boardvolist.list != null}">
+            <td th:text="${m.category}"></td>
             <td th:text="${m.board_num}"></td>
             <td>
               <a th:href="@{/fr_preview/{board_num}(board_num=${m.board_num})}" th:text="${m.board_title}"></a>
+<!--              <a th:href="@{/th:if="${m.}"/{board_num}(board_num=${m.board_num})}" th:text="${m.board_title}"></a>-->
             </td>
             <td th:text="${m.emp_id}"></td>
 <!--            <td th:text="${emp_name}"></td>-->
-            <td th:text="${m.boardHits}"></td>
-            <td th:text="${m.getCreate_at()}"></td>
+<!--            <td th:text="${m.boardHits}"></td>-->
+<!--            <td th:text="${m.getCreate_at()}"></td>-->
+            <td><input type="button" value="수정"></td>
+            <td><input type="button" value="삭제"></td>
           </tr>
           <tr th:if="${boardvolist.list == null || #lists.isEmpty(boardvolist.list)}">
             <td colspan="5">게시글이 없습니다.</td>

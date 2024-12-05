@@ -12,32 +12,8 @@
 </head>
 <body>
 <div class="main">
-    <header>
-        <div class="header_left">
-            <a href="emp_main">
-                <img src="/img/logo.png" alt="Logo" class="logo_img">
-                <div>
-                    <span class="logo_text">○○○ Company</span>
-                </div>
-            </a>
-        </div>
-        <div class="header_right">
-            <div>
-                <span class="login_user">○○○ 님</span>
-            </div>
-            <form action="" method="">
-                <input type="button" value="로그아웃" class="logout_btn">
-            </form>
-        </div>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="email"><span>이메일</span></a></li>
-            <li><a href=""><span>게시판</span></a></li>
-            <li><a href=""><span>근태관리</span></a></li>
-            <li><a href=""><span>개인업무</span></a></li>
-        </ul>
-    </nav>
+    <header th:replace="~{layout/header::header}"></header>
+    <nav th:replace="~{layout/nav::nav}"></nav>
     <section>
         <div class="mail_container">
             <div id="write">
@@ -90,16 +66,9 @@
                                 </a>
                             </li>
                         </ul>
-
-
-
-
                     </div>
                     <!-- 파일 업로드 컨테이너 -->
-
-
                 </div>
-
                 <div class="update_delete_container">
                     <div class="update_delete_div" th:if="${loginFlag}">
                         <input type="button" value="목록" onclick="btnlist()">
@@ -118,11 +87,10 @@
                     <div class="modal-content">
                         <span id="closeModal" class="close">&times;</span>
                         <h2>댓글</h2>
-<!--                        댓글 리스트-->
                         <div id="modalCommentList">
-<!--                             자바 스크립트로 댓글 추가-->
+                            <!-- 댓글 리스트-->
                         </div>
-                        <form id="modalCommentForm">
+                        <form id="modalCommentForm"><!--이름 보이게하고 id hidden -->
                             <input type="text" id="modalCommentWriterH" name="emp_id" hidden="hidden" th:value="${loggedId}">
                             <input type="text" id="modalCommentWriter" name="emp_name" required th:value="${loggedNanme}" readonly>
                             <textarea name="comment_content" id="modalCommentArea" placeholder="댓글을 입력하세요." required></textarea>

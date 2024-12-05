@@ -77,13 +77,14 @@
               where emp_name=#{emp_name}
         </update>
 
-        <!-- 재직상태 & 부서 & 직급 정보가 없는 사원 정보 조회. -->
-        <select id="select_manager_add_info" resultType="com.cis.member.dto.ManagerEmployeeDTO">
-            select *
-              from employee e left outer join manager m
-                on e.resident_num = m.resident_num
-             where m.emp_dept is null
-        </select>
+    <!-- 재직상태 & 부서 & 직급 정보가 없는 사원 정보 조회. -->
+    <select id="select_manager_add_info" resultType="com.cis.member.dto.ManagerEmployeeDTO" parameterType="int">
+        select *
+        from employee e left outer join manager m
+                                        on e.resident_num = m.resident_num
+        where m.emp_dept is null
+            LIMIT #{startIndex},#{pageSize}
+    </select>
 
         <!-- 관리자_사원등록(사원정보 complete) -->
 <!--        <update id="complete_employee_info" parameterType="com.cis.member.dto.ManagerEmployeeDTO">-->

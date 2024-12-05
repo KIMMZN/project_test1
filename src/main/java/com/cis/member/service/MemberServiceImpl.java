@@ -147,9 +147,9 @@ public class MemberServiceImpl implements IF_MemberService{
     }
 
     @Override
-    public List<ManagerEmployeeDTO> get_need_complete_employee_list() throws Exception {
+    public List<ManagerEmployeeDTO> get_need_complete_employee_list(int startIndex, int pageSize) throws Exception {
 
-        List<ManagerEmployeeDTO> list = memberdao.select_manager_add_info();
+        List<ManagerEmployeeDTO> list = memberdao.select_manager_add_info(startIndex, pageSize);
         for(ManagerEmployeeDTO member : list){
             if (member.getEmp_name()== null){
                 member.setEmp_name("null");

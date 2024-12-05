@@ -54,7 +54,7 @@ public interface IF_MemberDao {
     public void modify_employee_info(ManagerEmployeeDTO managerEmployeeDTO) throws Exception;
 
     // 관리자가 정보를 추가할 사원에 리스트.
-    public List<ManagerEmployeeDTO>select_manager_add_info() throws Exception;
+    public List<ManagerEmployeeDTO>select_manager_add_info(int startIndex, int pageSize) throws Exception;
 
     // 관리자가 정보를 추가할 한명에 사원에 정보를 조회.
     public ManagerEmployeeDTO select_one_employee_info_need_complete(String id) throws Exception;

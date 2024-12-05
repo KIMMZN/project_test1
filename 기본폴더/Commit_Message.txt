@@ -1,4 +1,4 @@
-기능 구현/수정/삭제 (Server)
+ c기능 구현/수정/삭제 (Server)
 　- Add : 무슨 기능 추가 241126
 　- Mod : 무슨 기능 수정 241126
 　- Del : 무슨 기능 삭제 241126
@@ -23,3 +23,15 @@ Mapper
 Mybatis
 　- ORM : Mybatis 뭐 추가/수정/삭제 241126
 
+
+
+
+
+
+
+
+
+#파일 업로드 설정
+spring.servlet.multipart.max-file-size=5MB
+spring.servlet.multipart.max-request-size=15MB
+spring.servlet.multipart.enabled=true

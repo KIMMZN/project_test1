@@ -45,7 +45,7 @@ public interface IF_Reopository {
     // return 게시글 리스트 - boardVO//
     List<boardVO> fiandAll_fr(searchDTO parmas) throws Exception;
 
-
+    List<boardVO> findAll_adm(searchDTO parmas) throws Exception;
 
     // 게시글 수 카운팅
     //return 게시글수, 타입 int
@@ -56,6 +56,8 @@ public interface IF_Reopository {
     //return 게시글수, 타입 int
     //파라미터는 searchDTO
      int count_fr(searchDTO parmas)throws Exception;
+     //관리자게시판 모든 게시글 카운트
+     int count_allAdm(searchDTO parmas)throws Exception;
 
      //파일 저장
       public void insertFile(fileVO file)throws Exception;

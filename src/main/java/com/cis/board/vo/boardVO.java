@@ -13,6 +13,7 @@ public class boardVO {
    private String emp_id;
    private int boardHits;
    private int fileAttached;
+   private String emp_name;
 
 
 }

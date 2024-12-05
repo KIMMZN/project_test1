@@ -57,7 +57,7 @@ public class CommentController {
 //        }
 //
 //        //응답
-////        boolean success = false; // 초기값 설정
+    ////        boolean success = false; // 초기값 설정
 //        Map<String, Object> response = new HashMap<>();
 //        response.put("success", success);
 //        System.out.println(response+ "response확인");
@@ -90,7 +90,7 @@ public class CommentController {
             String emp_name = ifboardservice.getNameById(commentvo.getEmp_id());
         }
 
-      //  String emp_name = ifboardservice.getNameById();
+        //  String emp_name = ifboardservice.getNameById();
 
 
 
@@ -105,7 +105,7 @@ public class CommentController {
             System.out.println(loggedID + " 로그인된 아이디 디버그");
         }
 
-        
+
         if (loggedID != null) {
             response.put("current_user_id", loggedID);
             System.out.println(loggedID + "logedd id 2차 확인");
@@ -118,7 +118,7 @@ public class CommentController {
 
         return response;
     }
-    
+
     //댓글 삭제
     @DeleteMapping(value = "/board/deleteComment/{category}/{commentId}")
     public Map<String, Object> deleteComment(@PathVariable String category,

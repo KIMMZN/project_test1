@@ -64,6 +64,15 @@
 #namebox1:hover {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.50);
 }
+#namebox { /* 작성자 input box*/
+    width:200px;
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 90%;
+}
+#namebox:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.50);
+}
 
 /* title style*/
 .write_title {

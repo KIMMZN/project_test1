@@ -39,10 +39,10 @@ document.querySelector("#delbtn").addEventListener("click", ()=> {
 
     });
 
-    // 디버깅용 출력
-    for (let [key, value] of formdata.entries()) {
-        console.log(`${key}: ${value}`);
-    }
+    // // 디버깅용 출력
+    // for (let [key, value] of formdata.entries()) {
+    //     console.log(`${key}: ${value}`);
+    // }
 
     fetch(`/fr_preview/delOne/${num}`, {
         method: "POST",
@@ -215,10 +215,10 @@ function handleSave() {
         }
     });
 
-    // FormData 내용 확인
-    for (let [key, value] of formData.entries()) {
-        console.log(key, value);
-    }
+    // // FormData 내용 확인
+    // for (let [key, value] of formData.entries()) {
+    //     console.log(key, value);
+    // }
 
     // 서버로 데이터 전송
     fetch(`/fr_preview/modifyOne/${num}`, {

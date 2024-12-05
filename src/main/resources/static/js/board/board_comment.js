@@ -35,9 +35,9 @@ document.addEventListener("DOMContentLoaded", ()=> {
         formData.forEach((value, key) => {
             requestData[key] = value;
         });
-             //추가 데이터 삽입
-            requestData["category"] = categoryIdbox.value;
-            requestData["board_num"] = num;
+        //추가 데이터 삽입
+        requestData["category"] = categoryIdbox.value;
+        requestData["board_num"] = num;
 
         fetch(`/board/addComment/${num}`, {
             method:"POST",
@@ -112,12 +112,13 @@ document.addEventListener("DOMContentLoaded", ()=> {
                             ${
                             comment.emp_id === currentUserId
                                 ? `<button class="delete-btn" data-comment-id="${comment.comment_num}">삭제</button>
-                                    <button class="edit-btn" data-comment-id="${comment.comment_num}">수정</button>`
+                                    `
                                 : ""
                         }
                         `;
                         modalCommentList.appendChild(commentItem);
                     });
+                    // <button className="edit-btn" data-comment-id="${comment.comment_num}">수정</button>
 
                     // 삭제 버튼 이벤트 추가
                     document.querySelectorAll(".delete-btn").forEach((button) => {
@@ -127,23 +128,23 @@ document.addEventListener("DOMContentLoaded", ()=> {
                         });
                     });
                     //수정 버튼 이벤트 추가
-                    document.querySelectorAll(".edit-btn").forEach((button)=> {
+                    document.querySelectorAll(".edit-btn").forEach((button) => {
                         button.addEventListener("click", (e) => {
                             const commentId = e.target.dataset.commentId;
                             const commentItem = e.target.closest(".comment_item")
                             //[data-cmment-id]가 있는 p태그
                             const commentContentEl = commentItem.querySelector(`p[data-comment-id="${commentId}"]`);
-                            if(!commentContentEl) {
+                            if (!commentContentEl) {
                                 console.log(commentContentEl.textContent);
                                 console.error("엘레먼트 없음")
                                 return;
-                            }else {
+                            } else {
                                 console.log(commentContentEl.textContent);
                             }
                             const commentContent = commentContentEl.textContent.trim()//댓글내용
                             alert(commentContent);
                             //버튼 클릭시 data-comment-id, .commet_item(div), (p태그의 댓글내용)
-                            editComment(commentId,commentItem,commentContent,commentContentEl);
+                            editComment(commentId, commentItem, commentContent, commentContentEl);
                         });
                     });
                 } else {
@@ -169,74 +170,74 @@ document.addEventListener("DOMContentLoaded", ()=> {
             .catch((error) => console.error("Error:", error));
     }
 
-    //대글 수정
-    function editComment(commentId,commentItem,commentContent,commentContentEl) {
-        alert("수정function")
-        commentContentEl.innerHTML="";
-        const category = categoryIdbox.value;
-
-
-        const inputbtnDiv = document.createElement("div");
-
-
-        const input = document.createElement("input");
-        input.setAttribute("type", "text");
-        input.value = commentContent; // 기존 댓글 내용을 기본값으로 설정
-        inputbtnDiv.append(input);
-
-        alert("저장텍스트생성")
-        const submit = document.createElement("input");
-        submit.setAttribute("type", "button");
-        submit.setAttribute("value", "저장");
-        inputbtnDiv.append(submit);
-        alert("수정버튼생성")
-
-        const cancel = document.createElement("input");
-        cancel.setAttribute("type", "button");
-        cancel.setAttribute("value", "취소");
-        inputbtnDiv.append(cancel);
-        alert("취소버튼생성")
-        //
-        // document.querySelector(`button[]`)
-        //
-        //
-
-
-
-
-        commentContentEl.append(inputbtnDiv);
-
-
-
-
-        //
-        // comment.emp_id === currentUserId
-        //     ? `<button class="delete-btn" data-comment-id="${comment.comment_num}">삭제</button>
-        //                             <button class="edit-btn" data-comment-id="${comment.comment_num}">수정</button>`
-        //     : ""
-
-
-        // const input = document.createElement("input");
-        // input.setAttribute("type", "text");
-        // commentContentEl.append(input);
-        //
-        //
-        // const submit = document.createElement("button");
-        // submit.setAttribute("value", "저장");
-        // commentContentEl.append(submit);
-        // alert("확인")
-
-
-
-
-
-
-        //  alert(commentID)
-        //  alert(commentItem)
-        //  alert(commentContent)
-        //fetch(`/board/editComment/${category}/${commentId}`, {method: "update"})
-
-    }
+    // //대글 수정
+    // function editComment(commentId,commentItem,commentContent,commentContentEl) {
+    //     alert("수정function")
+    //     commentContentEl.innerHTML="";
+    //     const category = categoryIdbox.value;
+    //
+    //
+    //     const inputbtnDiv = document.createElement("div");
+    //
+    //
+    //     const input = document.createElement("input");
+    //     input.setAttribute("type", "text");
+    //     input.value = commentContent; // 기존 댓글 내용을 기본값으로 설정
+    //     inputbtnDiv.append(input);
+    //
+    //     alert("저장텍스트생성")
+    //     const submit = document.createElement("input");
+    //     submit.setAttribute("type", "button");
+    //     submit.setAttribute("value", "저장");
+    //     inputbtnDiv.append(submit);
+    //     alert("수정버튼생성")
+    //
+    //     const cancel = document.createElement("input");
+    //     cancel.setAttribute("type", "button");
+    //     cancel.setAttribute("value", "취소");
+    //     inputbtnDiv.append(cancel);
+    //     alert("취소버튼생성")
+    //     //
+    //     // document.querySelector(`button[]`)
+    //     //
+    //     //
+    //
+    //
+    //
+    //
+    //     commentContentEl.append(inputbtnDiv);
+    //
+    //
+    //
+    //
+    //     //
+    //     // comment.emp_id === currentUserId
+    //     //     ? `<button class="delete-btn" data-comment-id="${comment.comment_num}">삭제</button>
+    //     //                             <button class="edit-btn" data-comment-id="${comment.comment_num}">수정</button>`
+    //     //     : ""
+    //
+    //
+    //     // const input = document.createElement("input");
+    //     // input.setAttribute("type", "text");
+    //     // commentContentEl.append(input);
+    //     //
+    //     //
+    //     // const submit = document.createElement("button");
+    //     // submit.setAttribute("value", "저장");
+    //     // commentContentEl.append(submit);
+    //     // alert("확인")
+    //
+    //
+    //
+    //
+    //
+    //
+    //     //  alert(commentID)
+    //     //  alert(commentItem)
+    //     //  alert(commentContent)
+    //     //fetch(`/board/editComment/${category}/${commentId}`, {method: "update"})
+    //
+    // }
 
 
 

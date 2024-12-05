@@ -12,32 +12,8 @@
 </head>
 <body>
 <div class="main">
-    <header>
-        <div class="header_left">
-            <a href="emp_main">
-                <img src="/img/logo.png" alt="Logo" class="logo_img">
-                <div>
-                    <span class="logo_text">○○○ Company</span>
-                </div>
-            </a>
-        </div>
-        <div class="header_right">
-            <div>
-                <span class="login_user">○○○ 님</span>
-            </div>
-            <form action="" method="">
-                <input type="button" value="로그아웃" class="logout_btn">
-            </form>
-        </div>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="email"><span>이메일</span></a></li>
-            <li><a href=""><span>게시판</span></a></li>
-            <li><a href=""><span>근태관리</span></a></li>
-            <li><a href=""><span>개인업무</span></a></li>
-        </ul>
-    </nav>
+    <header th:replace="~{layout/header::header}"></header>
+    <nav th:replace="~{layout/nav::nav}"></nav>
     <section>
         <div class="mail_container">
             <div id="write">

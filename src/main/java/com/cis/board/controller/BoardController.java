@@ -46,14 +46,14 @@ public class BoardController {
 
 
         System.out.println("공지게시판");
-        System.out.println(session.getAttribute("employee_id"));
-        System.out.println(session.getAttribute("emp_name"));
+//        System.out.println(session.getAttribute("employee_id"));
+//        System.out.println(session.getAttribute("emp_name"));
         //세션 로그인 설정. 임시로
         boolean loginFlag = false;
-        if (session.getAttribute("employee_id") != null) {
-            System.out.println(session.getAttribute("emp_name") + "  //유저네임");
-            System.out.println(session.getAttribute("employee_id") + "   /아이디");
-            System.out.println(session.getAttribute("emp_rank") + "  //랭크");
+        if (session.getAttribute("adm_id") != null) {
+            System.out.println(session.getAttribute("adm_id") + "  //관리자 네임");
+//            System.out.println(session.getAttribute("employee_id") + "   /아이디");
+//            System.out.println(session.getAttribute("emp_rank") + "  //랭크");
             loginFlag = true;
 
         }else {
@@ -70,9 +70,6 @@ public class BoardController {
         model.addAttribute("keyword", params.getKeyword());
         model.addAttribute("searchType", params.getSearchType());
 
-        // model.addAttribute("boardvolist", boardvolist);
-        // System.out.println(boardvolist.size()+ boardvolist.toString());
-        //System.out.println(boardvolist);
         // 현재 페이지 추가
         model.addAttribute("currentPage", params.getPage());
         model.addAttribute("loginFlag", loginFlag);
@@ -88,17 +85,18 @@ public class BoardController {
 
         //세션 로그인 설정. 임시로
         String name = "";
-        if(session.getAttribute("admId") != null) {
-            System.out.println(session.getAttribute("Name")+"  //유저네임");
-            System.out.println(session.getAttribute("admId")+"   /아이디");
-            name = (String) session.getAttribute("Name");
-
+        String emp_id = "admin";
+        if(session.getAttribute("adm_id") != null) {
+//            System.out.println(session.getAttribute("Name")+"  //유저네임");
+            System.out.println(session.getAttribute("adm_id")+"   /아이디");
+            name = (String) session.getAttribute("adm_id");
 
         }else {
             System.out.println("로그인 실패");
         }
 
         //유저이름을 모델을 통해 뷰로
+        model.addAttribute("emp_id", emp_id);
         model.addAttribute("userName", name);
         return "/board/write_gj";
     }

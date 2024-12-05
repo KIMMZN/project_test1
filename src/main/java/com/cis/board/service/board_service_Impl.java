@@ -220,9 +220,6 @@ public class board_service_Impl implements IF_board_service {
     public PagingResponse<boardVO> findAllPost_fr(searchDTO params) throws Exception {
         //조건에 해당하는 데이터가 없는 경우, 응답 데이터에 비어있는 리스트와
         //null을 담아 반환
-
-
-
         int count = ifrepository.count_fr(params);
         if(count<1) {
             //데이터가 없는 경우에 pagination 객체 생성
@@ -250,6 +247,43 @@ public class board_service_Impl implements IF_board_service {
 
         return new PagingResponse<>(list, pagination);
 
+
+    }
+//    <관리자 - 모든게시판 글보기>
+    @Override
+    public PagingResponse<boardVO> findAllPost_adm(searchDTO params) throws Exception {
+        //조건에 해당하는 데이터가 없는 경우, 응답 데이터에 비어있는 리스트와
+        //null을 담아 반환
+        int count = ifrepository.count_allAdm(params);
+        if(count<1) {
+            //데이터가 없는 경우에 pagination 객체 생성
+            Pagination emtypagination = new Pagination(0,params);// totalrecordcount = 0;
+            params.setPagination(emtypagination);
+
+            //빈 pagination 객체 생성
+            return new PagingResponse<>(Collections.emptyList(), emtypagination);
+
+        }
+        //데이터가 있는 경우 Pagination 생성
+        // Paginaton 객체를 생성해서 페이지 정보 계산 후 searchDTO 타입의 객체인
+        // params에 계산된 페이지 정보 저장
+        Pagination pagination = new Pagination(count, params);
+        params.setPagination(pagination);
+
+        //조회
+        // 계산된 페이지 정보의 일부(limitStart, recordSize)를 기준으로
+        // 리스트 데이터 조회 후 응답 데이터 반환
+        List<boardVO> list = ifrepository.findAll_adm(params);
+//        for (boardVO boardVO : list) {
+//            System.out.println("//"  + boardVO.toString());
+//
+//
+//        }
+        if (list == null) {
+            list = new ArrayList<>();
+        }
+
+        return new PagingResponse<>(list, pagination);
 
     }
 

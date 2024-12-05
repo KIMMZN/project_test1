@@ -51,7 +51,7 @@ public interface IF_MemberService {
     public void modify_employee_info(ManagerEmployeeDTO employee) throws Exception;
 
     // 관리자가 정보를 추가할 필요가 있는 사원 리스트.
-    public List<ManagerEmployeeDTO> get_need_complete_employee_list() throws Exception;
+    public List<ManagerEmployeeDTO> get_need_complete_employee_list(int startIndex, int pageSize) throws Exception;
 
     // 관리자가 정보 추가를 필요한 사원 한명에 정보를 조회.
     public ManagerEmployeeDTO select_one_employee_info_need_complete(String id) throws Exception;
