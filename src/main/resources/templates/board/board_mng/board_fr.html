@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,10 +31,10 @@
         <div id="search_div_2">
           <form id="searchForm" method="get" action="/board/manager">
             <div id="search_optin">
-              <select name="searchCategory" id="searchCategory" title="검색 카테고리 선택">
-                <option value="">전체 카테고리</option>
-                <option value="공지사항">공지사항</option>
-                <option value="자유게시판">자유게시판</option>
+              <select name="searchCategory" title="검색 카테고리 선택" onchange="selectCategory()" id="selectCategoryO">
+                <option value="" th:selected="${searchCategory==''}">전체 카테고리</option>
+                <option value="공지사항" th:selected="${searchCategory =='category'}">공지사항</option>
+                <option value="자유게시판" th:selected="${searchCategory=='category'}">자유게시판</option>
               </select>
               <select name="searchType" id="searchType" title="검색 유형 선택">
                 <option value="" th:selected="${searchType == ''}">전체 검색</option>
@@ -44,7 +44,7 @@
 <!--                <option value="emp_id" th:selected="${searchType == 'emp_name'}">작성자</option>-->
               </select>
               <input type="text" name="keyword" id="keyword" class="searchBox" placeholder="검색어를 입력하시오" th:value="${keyword}">
-              <button class="search-btn" type="submit">
+              <button class="search-btn" type="submit" id="submitButton">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </button>
             </div>
@@ -53,67 +53,69 @@
       </div>
 
       <div class="mail_list">
-        <table class="mail_table">
-          <tr>
-            <th style="width: 10%">카테고리</th>
-            <th style="width: 7%">번호</th>
-            <th style="width: 60%">제목</th>
+          <table class="mail_table">
+              <tr>
+                <th style="width: 10%">카테고리</th>
+                <th style="width: 7%">번호</th>
+                <th style="width: 62%">제목</th>
 
-<!--            <th class="th2">제목</th>-->
-            <th style="width: 7%">글쓴이</th>
-            <th style="width: 7%">수정</th>
-            <th style="width: 7%">삭제</th>
-          </tr>
-          <tr th:each="m: ${boardvolist.list}" th:if="${boardvolist.list != null}">
-            <td th:text="${m.category}"></td>
-            <td th:text="${m.board_num}"></td>
-            <td>
-              <a th:href="@{/fr_preview/{board_num}(board_num=${m.board_num})}" th:text="${m.board_title}"></a>
-<!--              <a th:href="@{/th:if="${m.}"/{board_num}(board_num=${m.board_num})}" th:text="${m.board_title}"></a>-->
-            </td>
-            <td th:text="${m.emp_id}"></td>
-<!--            <td th:text="${emp_name}"></td>-->
-<!--            <td th:text="${m.boardHits}"></td>-->
-<!--            <td th:text="${m.getCreate_at()}"></td>-->
-            <td><input type="button" value="수정"></td>
-            <td><input type="button" value="삭제"></td>
-          </tr>
-          <tr th:if="${boardvolist.list == null || #lists.isEmpty(boardvolist.list)}">
-            <td colspan="5">게시글이 없습니다.</td>
-          </tr>
+    <!--            <th class="th2">제목</th>-->
+                <th style="width: 7%">글쓴이</th>
+                <th style="width: 7%">수정</th>
+                <th style="width: 7%">삭제</th>
+              </tr>
 
-        </table>
+            <tr th:each="m: ${boardvolist.list}" th:if="${boardvolist.list != null}">
+              <!-- 개별 폼 시작 -->
+                <td th:text="${m.category}">
+                  <input type="hidden" name="category" th:value="${m.category}">
+                </td>
+                <td th:text="${m.board_num}">
+                  <input type="hidden" name="board_num" th:value="${m.board_num}">
+                </td>
+                <td>
+                  <a th:href="@{/board/manager/{category}/{board_num}(category=${m.category}, board_num=${m.board_num})}"
+                     th:text="${m.board_title}">
+                  </a>
+                </td>
+                <td th:text="${m.emp_id}"></td>
+                <td><input type="button" value="수정"></td>
+                <td>
+                  <button data-category="공지사항" data-board-num="12" onclick="deletePost(this)">삭제</button>
+                </td>
+              </tr>
+              <tr th:if="${boardvolist.list == null || #lists.isEmpty(boardvolist.list)}">
+                <td colspan="6">게시글이 없습니다.</td>
+              </tr>
+          </table>
+
 
         <!-- 페이지네이션 -->
         <div class="paging">
           <!-- 첫 페이지 -->
-          <a th:href="@{/board_fr(page=1, keyword=${keyword}, searchType=${searchType})}">첫 페이지</a>
-
+          <a th:href="@{/board/manager(page=1, keyword=${keyword}, searchType=${searchType}, searchCategory=${searchCategory})}">첫 페이지</a>
           <!-- 이전 페이지 -->
-          <a th:href="@{/board_fr(page=${boardvolist.pagination.startPage - 1}, keyword=${keyword}, searchType=${searchType})}"
+          <a th:href="@{/board/manager(page=${boardvolist.pagination.startPage - 1}, keyword=${keyword}, searchType=${searchType}, searchCategory=${searchCategory})}"
              th:if="${boardvolist.pagination.existPrevPage}">이전 페이지</a>
-
           <!-- 페이지 번호 -->
           <span th:each="page : ${#numbers.sequence(boardvolist.pagination.startPage, boardvolist.pagination.endPage)}">
-      <a th:href="@{/board_fr(page=${page}, keyword=${keyword}, searchType=${searchType})}"
-         th:text="${page}"
-         th:classappend="${page == currentPage} ? 'on' : ''">
-      </a>
-    </span>
-
+            <a th:href="@{/board/manager(page=${page}, keyword=${keyword}, searchType=${searchType}, searchCategory=${searchCategory})}"
+               th:text="${page}"
+               th:classappend="${page == currentPage} ? 'on' : ''">
+            </a>
+          </span>
           <!-- 다음 페이지 -->
-          <a th:href="@{/board_fr(page=${boardvolist.pagination.endPage + 1}, keyword=${keyword}, searchType=${searchType})}"
+          <a th:href="@{/board/manager(page=${boardvolist.pagination.endPage + 1}, keyword=${keyword}, searchType=${searchType}, searchCategory=${searchCategory})}"
              th:if="${boardvolist.pagination.existNextPage}" class="page_bt next">다음 페이지</a>
-
           <!-- 마지막 페이지 -->
-          <a th:href="@{/board_fr(page=${boardvolist.pagination.totalPageCount}, keyword=${keyword}, searchType=${searchType})}"
+          <a th:href="@{/board/manager(page=${boardvolist.pagination.totalPageCount}, keyword=${keyword}, searchType=${searchType}, searchCategory=${searchCategory})}"
              th:if="${boardvolist.pagination.existNextPage}" class="page_bt last">마지막 페이지</a>
         </div>
       </div>
 
       <div id="table_write_div">
         <a href="/write_fr">
-          <button class="write_button" type="button">글쓰기 </button>
+          <button class="write_button" type="button" hidden="hidden">글쓰기 </button>
         </a>
       </div>
 
@@ -125,5 +127,6 @@
 
 </body>
 <script src="/js/board/board_main.js"></script>
+<script src="/js/board/board_adm_search.js"></script>
 
 </html>

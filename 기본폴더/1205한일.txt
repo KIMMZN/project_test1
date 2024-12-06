@@ -1,0 +1,12 @@
+1205
+board_comment .js
+commentcontroller.java
+모든 게시판 헤더 수정 (/layout에 있는 header html 파일의 fragment = header)
+모든 게시판 nav 수정 (/layout에 있는 nav html파일의 fragment = nav)
+nav 게시판에 게시판 경로 추가 /board_gj
+preview.css 수정
+
+templates
+Manager
+ - board_mng
+   안 관리자용 board 만드는중

@@ -105,7 +105,7 @@ public class EmployeeController {
         boolean check_result = memberService.check_manager_pass(pass);
         if (check_result) {
             HttpSession session = request.getSession();
-            session.setAttribute("adm_id","관리자"); // 관리자 세션 추가
+            session.setAttribute("admin","admin"); // 관리자 세션 추가
             return "main/manager_main"; // 비밀번호 참 : 관리자 메인화면으로 이동.
         } else {
             return "redirect:check_manager_pass"; // 비밀번호 거짓 : 관리자 비밀번호 입력창으로 이동.

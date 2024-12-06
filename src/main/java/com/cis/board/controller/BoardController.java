@@ -50,8 +50,13 @@ public class BoardController {
 //        System.out.println(session.getAttribute("emp_name"));
         //세션 로그인 설정. 임시로
         boolean loginFlag = false;
-        if (session.getAttribute("adm_id") != null) {
-            System.out.println(session.getAttribute("adm_id") + "  //관리자 네임");
+        String emp_id ="";
+        String name ="";
+        if (session.getAttribute("admin") != null) {
+            System.out.println(session.getAttribute("admin") + "  //관리자 id");
+            emp_id = String.valueOf(session.getAttribute("admin"));
+            name = ifboardservice.getNameById(emp_id);
+            System.out.println(name + " ///");
 //            System.out.println(session.getAttribute("employee_id") + "   /아이디");
 //            System.out.println(session.getAttribute("emp_rank") + "  //랭크");
             loginFlag = true;
@@ -63,6 +68,14 @@ public class BoardController {
         PagingResponse<boardVO> boardvolist = ifboardservice.findAllPost(params);
 
         //List<boardVO> boardvolist = ifboardservice.findAllPost(params);
+        //확인요망. 공지게시판에서는 viewone 메서드 써야될듯
+
+        for (boardVO boardvo : boardvolist.getList()) {
+//            boardVO boardvoo= ifboardservice.viewOne_fr(boardvo.getBoard_num());
+            //board테이블의 id를 param으로 보내고 멤버 테이블에서 이름을 return 받는다.
+            boardvo.setEmp_id(name);
+        }
+
 
         //boardvolist.getPagination().getStartPage()
         //현재 검색 조건과 페이징 정보 추가
@@ -85,12 +98,12 @@ public class BoardController {
 
         //세션 로그인 설정. 임시로
         String name = "";
-        String emp_id = "admin";
-        if(session.getAttribute("adm_id") != null) {
+        String emp_id = "";
+        if(session.getAttribute("admin") != null) {
 //            System.out.println(session.getAttribute("Name")+"  //유저네임");
+            emp_id = (String) session.getAttribute("admin");
             System.out.println(session.getAttribute("adm_id")+"   /아이디");
-            name = (String) session.getAttribute("adm_id");
-
+            name = ifboardservice.getNameById(emp_id);
         }else {
             System.out.println("로그인 실패");
         }
@@ -337,7 +350,6 @@ public class BoardController {
             System.out.println("삭제할 파일이 없음");
         }
 
-
         // 게시글 삭제
         boardVO boardvo = new boardVO();
         boardvo.setBoard_num(num);
@@ -347,18 +359,11 @@ public class BoardController {
         String categoryTemp = boardvo.getCategory();
         boardvo.setBoard_num(num);
 
-
-
-
         ifboardservice.deleteOne(boardvo); // 삭제 처리
-
-
-
 
         //System.out.println(boardvo.getCategory() + "카테고리");
         //System.out.println(num+"게시글넘버");
         System.out.println("삭제완료 ");
-
 
         //        System.out.println(boardvo.toString() + "boardvo");
 //

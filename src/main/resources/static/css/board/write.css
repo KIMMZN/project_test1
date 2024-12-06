@@ -77,6 +77,13 @@ table tr:hover {
     border: 1px solid black;
     border-radius: 10px;
 }
+#namebox1 { /* 작성자 input box*/
+    width:200px;
+
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
 
 
 .write_title {

@@ -17,8 +17,8 @@
     <section>
         <div class="mail_container">
             <div id="write">
-                <div class="write_main"><span>자유게시판</span></div>
-                <input type="text" value="자유게시판" readonly hidden="true" name="category" id="categoryId">
+                <div class="write_main"><span th:text="${category}"></span></div>
+                <input type="text" th:value="${category}" readonly hidden="true" name="category" id="categoryId">
                 <div class="write_writer">
                     <div class="write_writer_name">
                         <label for="namebox1">작성자</label>

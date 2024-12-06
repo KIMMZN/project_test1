@@ -130,12 +130,11 @@
         SELECT
         COUNT(*)
         FROM
-            board_table
---         board_table a
---         JOIN
---         employee e ON a.emp_id = e.emp_id
---         JOIN
---         manager m ON e.resident_num = m.resident_num
+        board_table a
+        inner JOIN
+        employee e ON a.emp_id = e.emp_id
+        inner JOIN
+        manager m ON e.resident_num = m.resident_num
 <!--        <trim prefix="WHERE" prefixOverrides="AND |OR">-->
 <!--            &lt;!&ndash; 검색 키워드 있을 때 &ndash;&gt;-->
 <!--            <if test="keyword != null and keyword != ''">-->
@@ -159,6 +158,7 @@
 <!--                </choose>-->
 <!--            </if>-->
 <!--        </trim>-->
+        <include refid="search_adm"/>
     </select>
     <!-- 공지 자유-->
     <sql id="search">
@@ -191,19 +191,18 @@
               </if>
     </sql>
 
-    <!--adm 게시글 검색-->
+     <!--adm 검색 sql -->
     <sql id="search_adm">
         <trim prefix="WHERE" prefixOverrides="AND |OR">
-            <!-- 검색 키워드 있을 때 -->
+            <!-- 검색 카테고리가 있을 때 -->
+            <if test="searchCategory != null and searchCategory != ''">
+                AND a.category = #{searchCategory}
+            </if>
+
+            <!-- 검색 키워드가 있을 때 -->
             <if test="keyword != null and keyword != ''">
                 <choose>
-                    <!-- 검색 카테고리 있을 때 -->
-                    <when test="searchCategory != null and searchCategory != ''">
-                        AND a.category = #{searchCategory}
-                    </when>
-                </choose>
-                <choose>
-                    <!-- 검색 유형 있을 때 -->
+                    <!-- 검색 유형이 있을 때 -->
                     <when test="searchType != null and searchType != ''">
                         <choose>
                             <when test="searchType == 'board_title'">
@@ -213,11 +212,11 @@
                                 AND a.board_content LIKE CONCAT('%', #{keyword}, '%')
                             </when>
                             <when test="searchType == 'emp_id'">
-                              AND m.emp_name LIKE CONCAT('%', #{keyword}, '%')
-                               </when>
+                                AND m.emp_name LIKE CONCAT('%', #{keyword}, '%')
+                            </when>
                         </choose>
                     </when>
-                    <!-- 검색 유형 없을 때 -->
+                    <!-- 검색 유형이 없을 때 -->
                     <otherwise>
                         AND (
                         a.board_title LIKE CONCAT('%', #{keyword}, '%')
@@ -229,6 +228,7 @@
             </if>
         </trim>
     </sql>
+
 
 
     <!-- 게시판 파일 첨부-->
