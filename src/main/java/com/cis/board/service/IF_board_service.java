@@ -42,6 +42,9 @@ public interface IF_board_service {
     public void modOne(boardVO boardvo)throws Exception;
     //자유게시판 게시글 수정시 파일삭제
     public void fileDel(List<String> delids, String categoryTemp)throws Exception;
+    //관리자 게시판에서 글삭제시 파일삭제
+//    ifboardservice.delfilesBybdNumCategory(params);
+    public void delfilesBybdNumCategory(Map<String,Object> params) throws Exception;
     // 공지사항 게시글 리스트 조회 // param - searchDTO // return- 게시글 리스트(boardVO)
     public PagingResponse<boardVO> findAllPost(searchDTO params)throws Exception;
 

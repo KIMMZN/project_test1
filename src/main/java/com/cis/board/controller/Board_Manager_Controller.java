@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -70,7 +72,7 @@ public class Board_Manager_Controller {
         }
 
         for(boardVO boardvo : boardvolist.getList()) {
-            System.out.println(boardvo.toString());
+            System.out.println("관리자글보기: "+ boardvo.toString());
         }
 
         //boardvolist.getPagination().getStartPage()
@@ -162,49 +164,86 @@ public class Board_Manager_Controller {
 
     //자유게시판 글 삭제 (num,category) + 파일삭제
     @PostMapping(value = "/board/manager/delOne/")
-    public String bord_manager_delOne(@RequestParam(value = "category") String category,
-                                    @RequestParam(value = "board_num") Integer num,
-                                    @RequestParam(value = "delfileIds",required = false) List<String> deleteFileIds) throws Exception {
+    @ResponseBody
+    public Map<String, Object> bord_manager_delOne(@RequestParam(value = "category") String category,
+                                                   @RequestParam(value = "board_num") Integer num,
+                                                   @RequestParam(value = "fileAttached") Integer fileAttached) throws Exception {
 
         System.out.println("게시글 번호: " + num);
         System.out.println("카테고리: " + category);
-        System.out.println("삭제할 파일 IDs: " + deleteFileIds);
+        System.out.println("파일첨부여부: " + fileAttached);
+//
+////        System.out.println("삭제할 파일 IDs: " + deleteFileIds);
+//        if (fileAttached != 0) {
+//            Map<String, Object> params = new HashMap<>();
+//            params.put("category", category);
+//            params.put("board_num", num);
+//            //params = 게시판 번호, 카테고리
+//            ifboardservice.delfilesBybdNumCategory(params);
+//        }
+//
+//        /*
+//        ifboardservice.delfilesBybdNumCategory(params);
+//
+//        // deleteFileIds null 체크 추가
+//        if (deleteFileIds == null) {
+//            deleteFileIds = new ArrayList<>();
+//        }
+//
+//        System.out.println("삭제할 파일 IDs: " + deleteFileIds);
+//
+//        // 파일 삭제 처리
+//        if (!deleteFileIds.isEmpty()) {
+//            System.out.println("삭제할 파일 IDs: " + deleteFileIds);
+//            ifboardservice.fileDel(deleteFileIds, category);
+//        } else {
+//            System.out.println("삭제할 파일이 없음");
+//        }*/
+//
+//
+//        // 게시글 삭제
+//        boardVO boardvo = new boardVO();
+//        boardvo.setBoard_num(num);
+//        boardvo.setCategory(category);
+////        System.out.println(boardvo.toString() + "boardvo");
+//        boardvo.setBoard_num(num);
+//        ifboardservice.deleteOne(boardvo); // 삭제 처리
+//
+//        //System.out.println(boardvo.getCategory() + "카테고리");
+//        //System.out.println(num+"게시글넘버");
+//        System.out.println("삭제완료 ");
+//
+//        return "redirect:/board/manager";
 
-        // deleteFileIds null 체크 추가
-        if (deleteFileIds == null) {
-            deleteFileIds = new ArrayList<>();
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            // 파일 삭제 로직
+            if (fileAttached != 0) {
+                Map<String, Object> params = new HashMap<>();
+                params.put("category", category);
+                params.put("board_num", num);
+                ifboardservice.delfilesBybdNumCategory(params);
+            }
+
+            // 게시글 삭제 로직
+            boardVO boardvo = new boardVO();
+            boardvo.setBoard_num(num);
+            boardvo.setCategory(category);
+            ifboardservice.deleteOne(boardvo);
+
+            System.out.println("삭제 완료");
+
+            // 성공 응답 데이터 작성
+            response.put("status", "success");
+            response.put("redirectUrl", "/board/manager"); // 리다이렉트할 URL
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("status", "error");
+            response.put("message", "게시글 삭제 중 오류가 발생했습니다.");
         }
 
-        System.out.println("삭제할 파일 IDs: " + deleteFileIds);
-
-        // 파일 삭제 처리
-        if (!deleteFileIds.isEmpty()) {
-            System.out.println("삭제할 파일 IDs: " + deleteFileIds);
-            ifboardservice.fileDel(deleteFileIds, category);
-        } else {
-            System.out.println("삭제할 파일이 없음");
-        }
-
-
-        // 게시글 삭제
-        boardVO boardvo = new boardVO();
-        boardvo.setBoard_num(num);
-        boardvo.setCategory(category);
-        System.out.println(boardvo.toString() + "boardvo");
-
-        String categoryTemp = boardvo.getCategory();
-        boardvo.setBoard_num(num);
-
-
-
-
-        ifboardservice.deleteOne(boardvo); // 삭제 처리
-
-        //System.out.println(boardvo.getCategory() + "카테고리");
-        //System.out.println(num+"게시글넘버");
-        System.out.println("삭제완료 ");
-
-        return "redirect:/board/manager";
+        return response; // JSON 응답
     }
 
 

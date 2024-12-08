@@ -97,6 +97,7 @@
         a.board_content,
         a.create_at,
         a.boardHits,
+        a.fileAttached,
         m.emp_name
         from board_table a
         join employee e
@@ -270,6 +271,11 @@
     <select id="selectFileById" parameterType="map" resultType="com.cis.board.vo.fileVO">
         SELECT * FROM board_file
         WHERE file_id = #{num} AND category = #{category}
+    </select>
+    <!-- 관리자게시판 파일 삭제시 파일 정보 가져오기;-->
+    <select id="selectFileBybdNumCategory" parameterType="map" resultType="com.cis.board.vo.fileVO">
+        select * from board_file
+        where board_num = #{board_num} AND category = #{category}
     </select>
 
 <!--    댓글 입력하기  insertComentOne(commentVO commentvo)t-->

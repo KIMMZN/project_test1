@@ -181,6 +181,24 @@ public class board_service_Impl implements IF_board_service {
 
     }
 
+    @Override
+    public void delfilesBybdNumCategory(Map<String, Object> params) throws Exception {
+
+        List<fileVO> file = ifrepository.selectFileBybdNumCategory(params);
+        for (fileVO fileList: file) {
+            System.out.println(fileList.getSave_name());
+            System.out.println("파일삭제전");
+            boolean isDeleted = fileDataUtil.deleteFile(fileList.getSave_name());
+            if (isDeleted) {
+                System.out.println("파일삭제 완료: "+ fileList.getSave_name());
+            }else {
+                System.out.println("파일삭제 실패: "+ fileList.getSave_name());
+            }
+        }
+
+
+    }
+
     //공지사항 게시글 리스트 조회
     // param - searchDTO
     // return - 게시글 리스트(List<boardVO>)

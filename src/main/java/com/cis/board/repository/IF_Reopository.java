@@ -69,6 +69,8 @@ public interface IF_Reopository {
 
         //파일정보 가져오기, parameter = num과 category , return = fileVo
         fileVO selectFileById(Map<String, Object> params) throws Exception;
+        //관리자 게시판 삭제시 파일정보 가져오기 , params - board_num과 category; retunr = fileVo
+        List<fileVO> selectFileBybdNumCategory(Map<String, Object> params)throws Exception; // DB 조회 확인
 
         //comment 하나 insert
          boolean insertCommentOne(commentVO commentvo)throws Exception;
