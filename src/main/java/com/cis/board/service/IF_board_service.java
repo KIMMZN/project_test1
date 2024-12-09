@@ -59,7 +59,7 @@ public interface IF_board_service {
     //댓글 글쓰기;
     public boolean addCommentOne(commentVO commentvo)throws Exception;
     //댓글 가져오기;
-   //List<commentVO> returunList = ifboardservice.(params);
+    //List<commentVO> returunList = ifboardservice.(params);
     public List<commentVO> viewComment(Map<String, Object> params )throws Exception;
 
     boolean deleteCommentByCategoryAndId(Map<String, Object> params) throws Exception;

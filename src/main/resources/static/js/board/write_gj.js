@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
         //새로운 파일 입력 요소 추가
         let newfile = document.createElement("div");
         newfile.classList.add('file_add',);
-        newfile.innerHTML = '<input type="file" name="file" id="formFile"><input type="button" value="x" id="file_cancelbtn">';
+        newfile.innerHTML = '<input type="file" name="file" id="formFile"><input type="button" value="취소" id="file_cancelbtn">';
         fileList.appendChild(newfile);
 
         //파일 개수 증가 및 버튼 비활성화

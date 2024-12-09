@@ -83,10 +83,14 @@ document.addEventListener("DOMContentLoaded", ()=> {
                 if (data.success) {
                     //임시아이디 설정. 나중에 확인할것 // 서버에서 받음
                     const currentUserId = data.current_user_id;
+                    console.log("current user id : /// " + currentUserId);
+                    const adminFlag = data.admin_flag;
+                    console.log("  admin flag :  " + adminFlag);
                     modalCommentList.innerHTML = ""; // 기존 댓글 초기화
                     data.comments.forEach((comment) => {
                         const commentItem = document.createElement("div");
                         commentItem.className = "comment_item";
+                        console.log("커렌트 유저 아이디: "+ currentUserId + "  어드민 플래그 :  " + adminFlag + "댓글 emp id : " + comment.emp_id);
                         //
                         // commentItem.innerHTML = `
                         //       <table>
@@ -110,7 +114,7 @@ document.addEventListener("DOMContentLoaded", ()=> {
                              <p>${comment.create_at}</p>
                              <p hidden="hidden"><strong>${comment.emp_id}</strong> :</p>
                             ${
-                            comment.emp_id === currentUserId
+                            comment.emp_id === currentUserId || adminFlag === true
                                 ? `<button class="delete-btn" data-comment-id="${comment.comment_num}">삭제</button>
                                     `
                                 : ""

@@ -98,17 +98,23 @@ public class CommentController {
         response.put("comments", comments);
         response.put("success", true);
 //        -----------------------------------
-        // 로그인된 사용자 ID 가져오기 (예시: 세션 사용)
+        // 로그인된 사용자 ID 가져오기
         String loggedID = "";
+        boolean adminflag;
         if(session.getAttribute("employee_id") != null) {
             loggedID = (String) session.getAttribute("employee_id");
             System.out.println(loggedID + " 로그인된 아이디 디버그");
+        } else if (session.getAttribute("admin") != null) {
+            loggedID = (String) session.getAttribute("admin");
+            System.out.println(loggedID + " 로그인된 관리자 아이디");
+            adminflag = true;
+            response.put("admin_flag", adminflag);
         }
-
 
         if (loggedID != null) {
             response.put("current_user_id", loggedID);
             System.out.println(loggedID + "logedd id 2차 확인");
+
         }
 
 
@@ -125,9 +131,6 @@ public class CommentController {
                                              @PathVariable Integer commentId, HttpSession session)throws Exception {
         boolean success = false;
         // 카테고리와 댓글 comment_num과 category로 삭제 처리
-
-        //임시 아디 부여 .. 세션 활욯애야됨
-        String currentUserId = "asd";
 
         try {
             //댓글 가져오기
@@ -148,13 +151,22 @@ public class CommentController {
 
                 success = ifboardservice.deleteCommentByCategoryAndId(params);
 
-            }else {
+            } else if (session.getAttribute("admin") != null) {
+                System.out.println("3");
+                Map<String, Object> params = new HashMap<>();
+                params.put("category", category);
+                params.put("comment_num", commentId);
+                System.out.println("4");
+
+                success = ifboardservice.deleteCommentByCategoryAndId(params);
+
+            } else {
                 System.out.println("삭제 권한 없음");
             }
 
 
         } catch (Exception e) {
-            System.out.println("3");
+            System.out.println("5");
             e.printStackTrace();
             success = false;
         }

@@ -6,6 +6,7 @@
     <title>CIS : 자유게시판 글쓰기</title>
     <link rel="stylesheet" href="/css/layout/base.css"/>
     <link rel="stylesheet" type="text/css" href="/css/board/write.css">
+    <script src="https://kit.fontawesome.com/ae15ba340d.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="main">
@@ -32,14 +33,14 @@
                     <div class="write_title">
                         <div class="write_title_name">
                             <label for="titlebox">제목</label>
-                            <input type="text" id="titlebox" placeholder="제목을 입력하시오" name="board_title">
+                            <input type="text" id="titlebox" placeholder="제목을 입력하시오" name="board_title" required>
                         </div>
 
                     </div>
                     <div class="write_text">
                         <div class="write_text_name">
                             <label for="contextbox">글내용</label>
-                            <textarea id="contextbox" name="board_content"></textarea>
+                            <textarea id="contextbox" name="board_content" required></textarea>
                         </div>
 
                     </div>
@@ -57,7 +58,10 @@
 
                     <div class="write_button">
                         <div class="fileadd_div">
-                            <input class="write_add_btn" type="submit" value="등록">
+                            <button class="write_add_btn" type="submit">
+                                <i class="fa-solid fa-pencil">등록</i>
+                            </button>
+<!--                            <input class="write_add_btn" type="submit" value="등록">-->
                         </div>
                     </div>
                 </form>

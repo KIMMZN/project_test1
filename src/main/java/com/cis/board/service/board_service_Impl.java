@@ -21,8 +21,8 @@ import java.util.*;
 public class board_service_Impl implements IF_board_service {
 
 
-     private final IF_Reopository ifrepository;
-     private final FIleDataUtil fileDataUtil;
+    private final IF_Reopository ifrepository;
+    private final FIleDataUtil fileDataUtil;
 
     //게시글 작성, 공지사항글 자유게시판글 분리 //+file
 //    @Override
@@ -56,18 +56,18 @@ public class board_service_Impl implements IF_board_service {
         }
 
         //table에 insert된 board의 id가져오기
-       String categoryTemp = boardvo.getCategory();
+        String categoryTemp = boardvo.getCategory();
         int board_num_temp = ifrepository.getBoardNum(categoryTemp);
         System.out.println("보드넘 가져온 값 확인:  "+ board_num_temp);
 
         //file첨부, 게시판 id와 게시판 카테고리 추가하여
         if (!fileList.isEmpty() && fileList != null && boardvo.getFileAttached() != 0) {
-                for (fileVO file : fileList) {
-                    file.setBoard_num(board_num_temp);// 생성된 board_num 설정
-                    file.setCategory(boardvo.getCategory()); // 카테고리 설정
-                    ifrepository.insertFile(file);
+            for (fileVO file : fileList) {
+                file.setBoard_num(board_num_temp);// 생성된 board_num 설정
+                file.setCategory(boardvo.getCategory()); // 카테고리 설정
+                ifrepository.insertFile(file);
 //                }
-                }
+            }
         }
 
 
@@ -84,7 +84,7 @@ public class board_service_Impl implements IF_board_service {
         return lista;
     }
     //자유게시판 all
-    
+
     //하나보기
     @Override
     public void readBoard(int num) throws Exception {
@@ -109,10 +109,10 @@ public class board_service_Impl implements IF_board_service {
 
     @Override
     public List<fileVO> getAttach(int num,String category) throws Exception {
-                //Map에 파일 파라미터 설정
-                Map<String, Object> params = new HashMap<>();
-                params.put("category", category);
-                params.put("num", num);
+        //Map에 파일 파라미터 설정
+        Map<String, Object> params = new HashMap<>();
+        params.put("category", category);
+        params.put("num", num);
 
 
         return ifrepository.selectFile(params);
@@ -211,18 +211,18 @@ public class board_service_Impl implements IF_board_service {
             //데이터가 없는 경우에 pagination 객체 생성
             Pagination emtypagination = new Pagination(0,params);// totalrecordcount = 0;
             params.setPagination(emtypagination);
-            
+
             //빈 pagination 객체 생성
             return new PagingResponse<>(Collections.emptyList(), emtypagination);
-            
+
         }
-        
+
         //데이터가 있는 경우 Pagination 생성
         // Paginaton 객체를 생성해서 페이지 정보 계산 후 searchDTO 타입의 객체인
         // params에 계산된 페이지 정보 저장
         Pagination pagination = new Pagination(count, params);
         params.setPagination(pagination);
-        
+
         //조회
         // 계산된 페이지 정보의 일부(limitStart, recordSize)를 기준으로
         // 리스트 데이터 조회 후 응답 데이터 반환
@@ -267,7 +267,7 @@ public class board_service_Impl implements IF_board_service {
 
 
     }
-//    <관리자 - 모든게시판 글보기>
+    //    <관리자 - 모든게시판 글보기>
     @Override
     public PagingResponse<boardVO> findAllPost_adm(searchDTO params) throws Exception {
         //조건에 해당하는 데이터가 없는 경우, 응답 데이터에 비어있는 리스트와

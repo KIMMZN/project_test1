@@ -53,27 +53,29 @@
 
     <!-- 게시글 삭제 new version-->
     <delete id="deleteOnE" parameterType="com.cis.board.vo.boardVO">
-            delete from board_table
-            where board_num = #{board_num} and category = #{category}
+        delete from board_table
+        where board_num = #{board_num} and category = #{category}
     </delete>
     <!-- 게시글 하나 수정 -->
     <update id="updateOne" parameterType="com.cis.board.vo.boardVO">
-            update board_table
-            set board_title = #{board_title}, board_content=#{board_content}
-            where board_num =#{board_num} and category = #{category}
+        update board_table
+        set board_title = #{board_title}, board_content=#{board_content}
+        where board_num =#{board_num} and category = #{category}
     </update>
     <!-- 공지사항 게시글 조회  -->
     <select id="fiandAll" parameterType="com.cis.board.vo.searchDTO" resultType="com.cis.board.vo.boardVO">
-            select *
-            from board_table
-            where category = '공지사항'
-            <include refid="search"/>
-            order by board_num DESC
-            LIMIT #{pagination.limitStart}, #{recordSize}
+        SELECT  board_num,board_title,emp_id, boardHits,
+        DATE_FORMAT(create_at, "%y-%m-%d") AS create_at
+        from board_table
+        where category = '공지사항'
+        <include refid="search"/>
+        order by board_num DESC
+        LIMIT #{pagination.limitStart}, #{recordSize}
     </select>
     <!--자유게시판 게시글 조회 -->
     <select id="fiandAll_fr" parameterType="com.cis.board.vo.searchDTO" resultType="com.cis.board.vo.boardVO">
-        select *
+        SELECT  board_num,board_title,emp_id, boardHits,
+        DATE_FORMAT(create_at, "%y-%m-%d") AS create_at
         from board_table
         where category = '자유게시판'
         <include refid="search"/>
@@ -83,7 +85,7 @@
     <!--amd 모든 게시판 조회 -->
     <select id="findAll_admo" parameterType="com.cis.board.vo.searchDTO" resultType="com.cis.board.vo.boardVO">
         select *
-        from board_table a
+        from board_table
         <include refid="search"/>
         order by create_at DESC
         LIMIT #{pagination.limitStart}, #{recordSize}
@@ -95,7 +97,7 @@
         a.board_num,
         a.board_title,
         a.board_content,
-        a.create_at,
+        DATE_FORMAT(a.create_at, '%Y-%m-%d') as create_at,
         a.boardHits,
         a.fileAttached,
         m.emp_name
@@ -136,63 +138,63 @@
         employee e ON a.emp_id = e.emp_id
         inner JOIN
         manager m ON e.resident_num = m.resident_num
-<!--        <trim prefix="WHERE" prefixOverrides="AND |OR">-->
-<!--            &lt;!&ndash; 검색 키워드 있을 때 &ndash;&gt;-->
-<!--            <if test="keyword != null and keyword != ''">-->
-<!--                <choose>-->
-<!--                    <when test="searchType == 'board_title'">-->
-<!--                        AND a.board_title LIKE CONCAT('%', #{keyword}, '%')-->
-<!--                    </when>-->
-<!--                    <when test="searchType == 'board_content'">-->
-<!--                        AND a.board_content LIKE CONCAT('%', #{keyword}, '%')-->
-<!--                    </when>-->
-<!--                    <when test="searchType == 'emp_id'">-->
-<!--                        AND m.emp_name LIKE CONCAT('%', #{keyword}, '%')-->
-<!--                    </when>-->
-<!--                    <otherwise>-->
-<!--                        AND (-->
-<!--                        a.board_title LIKE CONCAT('%', #{keyword}, '%')-->
-<!--                        OR a.board_content LIKE CONCAT('%', #{keyword}, '%')-->
-<!--                        OR m.emp_name LIKE CONCAT('%', #{keyword}, '%')-->
-<!--                        )-->
-<!--                    </otherwise>-->
-<!--                </choose>-->
-<!--            </if>-->
-<!--        </trim>-->
+        <!--        <trim prefix="WHERE" prefixOverrides="AND |OR">-->
+        <!--            &lt;!&ndash; 검색 키워드 있을 때 &ndash;&gt;-->
+        <!--            <if test="keyword != null and keyword != ''">-->
+        <!--                <choose>-->
+        <!--                    <when test="searchType == 'board_title'">-->
+        <!--                        AND a.board_title LIKE CONCAT('%', #{keyword}, '%')-->
+        <!--                    </when>-->
+        <!--                    <when test="searchType == 'board_content'">-->
+        <!--                        AND a.board_content LIKE CONCAT('%', #{keyword}, '%')-->
+        <!--                    </when>-->
+        <!--                    <when test="searchType == 'emp_id'">-->
+        <!--                        AND m.emp_name LIKE CONCAT('%', #{keyword}, '%')-->
+        <!--                    </when>-->
+        <!--                    <otherwise>-->
+        <!--                        AND (-->
+        <!--                        a.board_title LIKE CONCAT('%', #{keyword}, '%')-->
+        <!--                        OR a.board_content LIKE CONCAT('%', #{keyword}, '%')-->
+        <!--                        OR m.emp_name LIKE CONCAT('%', #{keyword}, '%')-->
+        <!--                        )-->
+        <!--                    </otherwise>-->
+        <!--                </choose>-->
+        <!--            </if>-->
+        <!--        </trim>-->
         <include refid="search_adm"/>
     </select>
     <!-- 공지 자유-->
     <sql id="search">
-            <!-- 검색 키워드 있을때 -->
-              <if test="keyword != null and keyword !=''">
-                <choose>
-                  <!-- 검색 유형이 있을 때-->
-                    <when test="searchType != null and searchType !=''">
-                       <choose>
-                           <when test="'board_title'.equals(searchType)">
-                                AND board_title like concat('%', #{keyword}, '%')
-                           </when>
-                           <when test="'board_content'.equals(searchType)">
-                               AND board_content like concat('%', #{keyword}, '%')
-                           </when>
-                           <when test="'emp_id'.equals(searchType)">
-                               AND emp_id like concat('%', #{keyword}, '%')
-                           </when>
-                       </choose>
-                    </when>
-                    <!-- 검색 유형이 없을때 때(전체검색일때)-->
-                    <otherwise>
-                        AND (
-                            board_title like concat('%', #{keyword}, '%')
-                            OR board_content like concat('%', #{keyword}, '%')
-                            OR emp_id like concat('%', #{keyword}, '%')
-                        )
-                    </otherwise>
-                </choose>
-              </if>
+        <!-- 검색 키워드 있을때 -->
+        <if test="keyword != null and keyword !=''">
+            <choose>
+                <!-- 검색 유형이 있을 때-->
+                <when test="searchType != null and searchType !=''">
+                    <choose>
+                        <when test="'board_title'.equals(searchType)">
+                            AND board_title like concat('%', #{keyword}, '%')
+                        </when>
+                        <when test="'board_content'.equals(searchType)">
+                            AND board_content like concat('%', #{keyword}, '%')
+                        </when>
+                        <when test="'emp_id'.equals(searchType)">
+                            AND emp_id like concat('%', #{keyword}, '%')
+                        </when>
+                    </choose>
+                </when>
+                <!-- 검색 유형이 없을때 때(전체검색일때)-->
+                <otherwise>
+                    AND (
+                    board_title like concat('%', #{keyword}, '%')
+                    OR board_content like concat('%', #{keyword}, '%')
+                    OR emp_id like concat('%', #{keyword}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
     </sql>
 
-     <!--adm 검색 sql -->
+    <!--adm 검색 sql -->
     <sql id="search_adm">
         <trim prefix="WHERE" prefixOverrides="AND |OR">
             <!-- 검색 카테고리가 있을 때 -->
@@ -254,20 +256,20 @@
         select board_num from board_table
         where category = #{categoryTemp}
         order by board_num DESC
-        Limit 1;
+            Limit 1;
     </select>
     <!-- 파일 정보 가져오기 selectFile-->
     <select id="selectFile" parameterType="map" resultType="com.cis.board.vo.fileVO">
         select * from board_file
         where board_num = #{num} AND category =#{category};
     </select>
-<!--    deleteFile(String fileId)-->
+    <!--    deleteFile(String fileId)-->
     <delete id="deleteFile" parameterType="map">
         delete from board_file
         where file_id = #{num} AND category = #{category}
     </delete>
 
-<!--    파일 정보 가져오기-->
+    <!--    파일 정보 가져오기-->
     <select id="selectFileById" parameterType="map" resultType="com.cis.board.vo.fileVO">
         SELECT * FROM board_file
         WHERE file_id = #{num} AND category = #{category}
@@ -278,32 +280,32 @@
         where board_num = #{board_num} AND category = #{category}
     </select>
 
-<!--    댓글 입력하기  insertComentOne(commentVO commentvo)t-->
+    <!--    댓글 입력하기  insertComentOne(commentVO commentvo)t-->
     <insert id="insertCommentOne" parameterType="com.cis.board.vo.commentVO">
         INSERT INTO comment
-        (category, board_num, comment_num, comment_content,emp_id)
+            (category, board_num, comment_num, comment_content,emp_id)
         values (#{category},#{board_num},(SELECT nextval3('comment_seq') FROM DUAL),#{comment_content},#{emp_id})
     </insert>
 
-<!-- 댓글 가져오기  List<commentVO> selectAllCmt(Map<String, Object> params)throws Exception;-->
+    <!-- 댓글 가져오기  List<commentVO> selectAllCmt(Map<String, Object> params)throws Exception;-->
     <select id="selectAllCmt" parameterType="Map" resultType="com.cis.board.vo.commentVO">
-                    select * FROM comment c
-                    join employee a
-                    on c.emp_id = a.emp_id
-                    join manager b
-                    on a.resident_num = b.resident_num
-                    where c.category = #{category} AND c.board_num = #{board_num}
+        select * FROM comment c
+                          join employee a
+                               on c.emp_id = a.emp_id
+                          join manager b
+                               on a.resident_num = b.resident_num
+        where c.category = #{category} AND c.board_num = #{board_num}
     </select>
-<!--                select * from comment-->
-<!--                where category = #{category} AND board_num = #{board_num}-->
+    <!--                select * from comment-->
+    <!--                where category = #{category} AND board_num = #{board_num}-->
 
-<!--    boolean deleteCommentByCategoryAndId(Map<String, Object> params)-->
+    <!--    boolean deleteCommentByCategoryAndId(Map<String, Object> params)-->
 
     <delete id="deleteComment" parameterType="Map">
         DELETE FROM comment WHERE category = #{category} AND comment_num = #{comment_num}
     </delete>
 
-<!--    getCmtByparamsOne 삭제시 파일 정보 확인-->
+    <!--    getCmtByparamsOne 삭제시 파일 정보 확인-->
     <select id="getCmtByparamsOne" parameterType="map" resultType="com.cis.board.vo.commentVO">
         SELECT *
         FROM comment
@@ -311,12 +313,12 @@
           AND comment_num = #{comment_num}
     </select>
 
-<!-- employee테이블의 emp_id를 넘기고 manager 테이블에서 name 리턴;-->
+    <!-- employee테이블의 emp_id를 넘기고 manager 테이블에서 name 리턴;-->
     <select id="getNameById" parameterType="String" resultType="String">
         SELECT m.emp_name
         FROM employee e
-        JOIN manager m
-        on e.resident_num = m.resident_num
+                 JOIN manager m
+                      on e.resident_num = m.resident_num
         WHERE e.emp_id = #{emp_id}
     </select>
 

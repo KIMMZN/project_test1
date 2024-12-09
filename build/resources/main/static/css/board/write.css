@@ -159,24 +159,40 @@ table tr:hover {
 }
 
 .write_add_btn {
-    border: 1px solid black;
-    background-color: rgb(13, 110, 253);
+    background-color: #007bff;
     border-radius: 10px;
     height: 100%;
     width: 7%;
+    font-size: 18px;
+    color: white;
+    border: 1px solid darkblue;
+}
+.write_add_btn:hover {
+    background-color: white;
+    border-radius: 10px;
+    height: 100%;
+    width: 7%;
+    font-size: 18px;
+    color: black;
+    border: 1px solid #007bff;
+    cursor: pointer;
 
 
 }
 .write_files{
-    position: relative; /* 요소의 기준 설정 */
-    width: 100%; /* 부모의 전체 크기 차지 */
+    /*position: relative; !* 요소의 기준 설정 *!*/
+    /*width: 100%; !* 부모의 전체 크기 차지 *!*/
     min-height: 50px; /* 최소 높이 설정 */
     box-sizing: border-box;
     border: 1px solid black;
     border-radius: 10px;
-    padding: 10px; /* 내부 여백 추가 */
-    overflow: hidden; /* float 문제 해결 */
-
+    /*padding: 10px; !* 내부 여백 추가 *!*/
+    /*overflow: hidden; !* float 문제 해결 *!*/
+    width: 100%; /* 부모의 전체 크기 차지 */
+    display: flex; /* 전체를 가로로 정렬 */
+    flex-wrap: wrap; /* 파일이 많아지면 줄 바꿈 */
+    gap: 10px; /* 요소 간 간격 */
+    margin-top: 10px;
 
 }
 .write_files_btn_div {
@@ -186,16 +202,20 @@ table tr:hover {
     border-radius: 10px;
     height: 100%;
     width: 100%;  */
-    display: flex;
-    align-items: center;
-    justify-content: start; /* 버튼을 왼쪽 정렬 */
-    height: auto; /* 내부 콘텐츠에 따라 높이 조정 */
-    width: 100%;
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: start; !* 버튼을 왼쪽 정렬 *!*/
+    /*height: auto; !* 내부 콘텐츠에 따라 높이 조정 *!*/
+    /*width: 100%;*/
+    display: inline-block;
+    height: auto;
+
 
 
 }
 
 #filebtn {
+    float: left;
     border-radius: 10px;
     height: 30px; /* 고정 크기로 설정 */
     width: auto; /* 고정 크기로 설정 */
@@ -203,19 +223,27 @@ table tr:hover {
     cursor: pointer; /* 클릭 가능한 버튼임을 표시 */
     margin-top: 5px; /* 버튼과 상단 간격 */
 
-
 }
 
 .file_add {
     display: flex; /* 자식 요소를 수평으로 배치 */
     align-items: center; /* 세로 중앙 정렬 */
-    gap: 10px; /* 요소 간 간격 */
+    gap: 20px; /* 요소 간 간격 */
     margin-top: 10px; /* 상단 간격 */
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-left: 20px;
+
 
 }
 
 #file_cancelbtn {
-    background-color: red;
+    background-color: #dc3545;
+    border-radius: 10px;
+    border: 1px solid white;
+    cursor: pointer;
+    color: white;
+    padding: 5px 10px; /* 여백 추가 */
 }
 
 footer{

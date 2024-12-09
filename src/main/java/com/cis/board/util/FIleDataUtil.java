@@ -25,8 +25,7 @@ public class FIleDataUtil {
 
 
     // 파일 저장 경로 설정
-//    private final String uploadDir ="C:/Users/13/Desktop/folder/파이널프로젝트자료/filefolder";
-    private final String uploadDir ="C:/Users/AdministraorK/OneDrive/바탕 화면/새 폴더/programing/프로젝트/파이널프로젝트/testsave";
+    private final String uploadDir ="C:/Users/13/Desktop/folder/파이널프로젝트자료/filefolder";
     private final Path uploadDirPath = Paths.get(uploadDir); // Path 객체 생성
 
 

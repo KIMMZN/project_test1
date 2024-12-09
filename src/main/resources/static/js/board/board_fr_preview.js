@@ -14,7 +14,8 @@ let deletedFileIds = [];
 
 // 목록 버튼 클릭
 function btnlist() {
-    location.href = "/board_gj";
+    // location.href = "/board_gj";
+    history.back();
 }
 
 
@@ -60,52 +61,6 @@ document.querySelector("#delbtn").addEventListener("click", ()=> {
         .catch((error) => {
             alert("에러가 발생했습니다. 다시 시도해주세요")
         })
-
-    // 서버로 데이터 전송
-    // fetch(`/fr_preview/modifyOne/${num}`, {
-    //     method: "POST",
-    //     body: formData,
-    // })
-    //     .then((response) => {
-    //         if (response.ok) {
-    //             alert("수정이 완료되었습니다.");
-    //             location.reload();
-    //         } else {
-    //             alert("수정에 실패했습니다.");
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.error("Error:", error);
-    //         alert("에러가 발생했습니다. 다시 시도해주세요.");
-    //     });
-
-
-
-
-
-
-    // alert("무슨일")
-    // if(confirm("삭제?")){
-    //     let form = document.createElement("form");
-    //     form.setAttribute("method", 'post');
-    //     form.setAttribute("action", `/gj_preview/delOne/${num}`);
-    //
-    //     let categoryField = document.createElement("input");
-    //     categoryField.setAttribute("type", 'hidden');
-    //     categoryField.setAttribute("name",'category');
-    //     categoryField.setAttribute("value", categoryIdbox.value);
-    //     form.appendChild(categoryField);
-    //
-    //     document.body.appendChild(form);
-    //     form.submit();
-    //
-    //     /* 템플릿 리터럴을 사용 하려면 문자열을 ``(백틱)으로 감싸야함 */
-    //
-    //     alert("삭제함");
-    // }else {
-    //     alert("취소함");
-    // }
-
 
 });
 

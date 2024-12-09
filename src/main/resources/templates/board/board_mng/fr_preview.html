@@ -70,10 +70,10 @@
                     <!-- 파일 업로드 컨테이너 -->
                 </div>
                 <div class="update_delete_container">
-                    <div class="update_delete_div" th:if="${loginFlag}">
+                    <div class="update_delete_div">
                         <input type="button" value="목록" onclick="btnlist()">
-                        <input type="submit" value="수정" id="modifybtn">
-                        <input type="submit" value="삭제" id="delbtn">
+                        <input type="submit" value="수정" id="modifybtn" th:if="${loginFlag}">
+                        <input type="submit" value="삭제" id="delbtn" th:if="${loginFlag}">
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@
                         <form id="modalCommentForm"><!--이름 보이게하고 id hidden -->
                             <input type="text" id="modalCommentWriterH" name="emp_id" hidden="hidden" th:value="${loggedId}">
                             <input type="text" id="modalCommentWriter" name="emp_name" required th:value="${loggedNanme}" readonly>
-                            <textarea name="comment_content" id="modalCommentArea" placeholder="댓글을 입력하세요." required></textarea>
+                            <textarea name="comment_content" id="modalCommentArea" placeholder="댓글은 최대 50글자" maxlength="50" required></textarea>
                             <input type="submit" value="댓글 등록" class="modal-comment-btn">
                         </form>
                     </div>

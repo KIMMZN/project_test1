@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CIS : 메일</title>
+  <title>CIS : 게시판 관리</title>
   <link rel="stylesheet" href="/css/layout/base.css"/>
   <link rel="stylesheet" href="/css/board/board_base.css"/>
   <link rel="stylesheet" href="/css/board/board_main.css">
@@ -25,9 +25,9 @@
         </a>
         <!-- </a> -->
       </div>
-<!--      <div id="board_select_title">-->
-<!--        <span class="board_select_title_1">자유게시판</span>-->
-<!--      </div>-->
+      <!--      <div id="board_select_title">-->
+      <!--        <span class="board_select_title_1">자유게시판</span>-->
+      <!--      </div>-->
 
       <div id="search_div">
         <div id="search_div_2">
@@ -43,7 +43,7 @@
                 <option value="board_title" th:selected="${searchType == 'board_title'}">제목</option>
                 <option value="board_content" th:selected="${searchType == 'board_content'}">내용</option>
                 <option value="emp_id" th:selected="${searchType == 'emp_id'}">작성자</option>
-<!--                <option value="emp_id" th:selected="${searchType == 'emp_name'}">작성자</option>-->
+                <!--                <option value="emp_id" th:selected="${searchType == 'emp_name'}">작성자</option>-->
               </select>
               <input type="text" name="keyword" id="keyword" class="searchBox" placeholder="검색어를 입력하시오" th:value="${keyword}">
               <button class="search-btn" type="submit" id="submitButton">
@@ -55,43 +55,45 @@
       </div>
 
       <div class="mail_list">
-          <table class="mail_table">
-              <tr>
-                <th style="width: 10%">카테고리</th>
-                <th style="width: 7%">번호</th>
-                <th style="width: 62%">제목</th>
+        <table class="mail_table">
+          <tr>
+            <th style="width: 10%">카테고리</th>
+            <th style="width: 7%">번호</th>
+            <th style="width: 62%">제목</th>
 
-    <!--            <th class="th2">제목</th>-->
-                <th style="width: 7%">글쓴이</th>
-                <th style="width: 7%">수정</th>
-                <th style="width: 7%">삭제</th>
-              </tr>
+            <!--            <th class="th2">제목</th>-->
+            <th style="width: 7%">글쓴이</th>
+            <th style="width: 7%">수정</th>
+            <th style="width: 7%">삭제</th>
+          </tr>
 
-            <tr th:each="m: ${boardvolist.list}" th:if="${boardvolist.list != null}">
-              <!-- 개별 폼 시작 -->
-                <td th:text="${m.category}">
-                  <input type="hidden" name="category" th:value="${m.category}">
-                </td>
-                <td th:text="${m.board_num}">
-                  <input type="hidden" name="board_num" th:value="${m.board_num}">
-                </td>
-                <td>
-                  <a th:href="@{/board/manager/{category}/{board_num}(category=${m.category}, board_num=${m.board_num})}"
-                     th:text="${m.board_title}">
-                  </a>
-                </td>
-                <td th:text="${m.emp_id}"></td>
-                <td><input type="button" value="수정"></td>
-                <td>
-                  <button th:attr="data-category=${m.category}, data-board-num=${m.board_num}, data-file-attached=${m.fileAttached}"
-                          onclick="deletePost(this)">삭제
-                  </button>
-                </td>
-              </tr>
-              <tr th:if="${boardvolist.list == null || #lists.isEmpty(boardvolist.list)}">
-                <td colspan="6">게시글이 없습니다.</td>
-              </tr>
-          </table>
+          <tr th:each="m: ${boardvolist.list}" th:if="${boardvolist.list != null}">
+            <!-- 개별 폼 시작 -->
+            <td th:text="${m.category}">
+              <input type="hidden" name="category" th:value="${m.category}">
+            </td>
+            <td th:text="${m.board_num}">
+              <input type="hidden" name="board_num" th:value="${m.board_num}">
+            </td>
+            <td>
+              <a th:href="@{/board/manager/{category}/{board_num}(category=${m.category}, board_num=${m.board_num})}"
+                 th:text="${m.board_title}">
+              </a>
+            </td>
+            <td th:text="${m.emp_id}"></td>
+            <td><a th:href="@{/board/manager/{category}/{board_num}(category=${m.category}, board_num=${m.board_num})}">
+              <button id="modbtn"><i class="fa-solid fa-pen-nib">수정</i></button></a>
+            </td>
+            <td>
+              <button id="delbtn" th:attr="data-category=${m.category}, data-board-num=${m.board_num}, data-file-attached=${m.fileAttached}"
+                      onclick="deletePost(this)"><i class="fa-solid fa-trash">삭제</i>
+              </button>
+            </td>
+          </tr>
+          <tr th:if="${boardvolist.list == null || #lists.isEmpty(boardvolist.list)}">
+            <td colspan="6">게시글이 없습니다.</td>
+          </tr>
+        </table>
 
 
         <!-- 페이지네이션 -->
@@ -119,7 +121,7 @@
 
       <div id="table_write_div">
         <a href="/write_fr">
-          <button class="write_button" type="button" hidden="hidden">글쓰기 </button>
+          <button class="write_button" type="button" hidden="hidden"><i class="fa-solid fa-pen">글쓰기</i></button>
         </a>
       </div>
 

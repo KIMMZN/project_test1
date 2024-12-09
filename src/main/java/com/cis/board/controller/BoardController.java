@@ -52,16 +52,32 @@ public class BoardController {
         boolean loginFlag = false;
         String emp_id ="";
         String name ="";
+        String emp_name = "";
         if (session.getAttribute("admin") != null) {
             System.out.println(session.getAttribute("admin") + "  //관리자 id");
-            emp_id = String.valueOf(session.getAttribute("admin"));
+            emp_id = (String) session.getAttribute("admin");
             name = ifboardservice.getNameById(emp_id);
             System.out.println(name + " ///");
 //            System.out.println(session.getAttribute("employee_id") + "   /아이디");
 //            System.out.println(session.getAttribute("emp_rank") + "  //랭크");
             loginFlag = true;
 
-        }else {
+        } else if (session.getAttribute("employee_id") != null) {
+            System.out.println("자유게시판!!");
+            System.out.println(session.getAttribute("emp_name") + "  //유저네임");
+            System.out.println(session.getAttribute("employee_id") + "   /아이디");
+            System.out.println(session.getAttribute("emp_rank") + "  //랭크");
+
+            emp_id = (String) session.getAttribute("employee_id");
+            emp_name = (String) session.getAttribute("emp_name");
+            String rank = (String) session.getAttribute("emp_rank");
+
+            model.addAttribute("emp_id", emp_id);
+            model.addAttribute("emp_name", emp_name);
+            model.addAttribute("rank", rank);
+
+            
+        } else {
             System.out.println("로그인 실패");
         }
         
@@ -70,10 +86,24 @@ public class BoardController {
         //List<boardVO> boardvolist = ifboardservice.findAllPost(params);
         //확인요망. 공지게시판에서는 viewone 메서드 써야될듯
 
+//        for (boardVO boardvo : boardvolist.getList()) {
+////            boardVO boardvoo= ifboardservice.viewOne_fr(boardvo.getBoard_num());
+//            //board테이블의 id를 param으로 보내고 멤버 테이블에서 이름을 return 받는다.
+//            System.out.println(boardvo.getEmp_name());
+//            boardvo.setEmp_id(name);
+//        }
+        //확인요망. 공지게시판에서는 viewone 메서드 써야될듯
         for (boardVO boardvo : boardvolist.getList()) {
 //            boardVO boardvoo= ifboardservice.viewOne_fr(boardvo.getBoard_num());
             //board테이블의 id를 param으로 보내고 멤버 테이블에서 이름을 return 받는다.
-            boardvo.setEmp_id(name);
+            emp_name = ifboardservice.getNameById(boardvo.getEmp_id());
+            System.out.println(ifboardservice.getNameById(boardvo.getEmp_id()));
+            //예외 처리
+            if (emp_name == null){
+                emp_name = "";
+            }
+            boardvo.setEmp_id(emp_name);
+
         }
 
 
@@ -203,7 +233,7 @@ public class BoardController {
 
     //자유게시판 글쓰기 클릭했을시 + id확인하고 이름 불러오기 + session 추가
     @GetMapping(value = "/write_fr")
-    public String write_fr(Model model, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
+    public String write_fr(Model model, HttpSession session) throws Exception {
 
         //세션 로그인 설정. 임시로
         boolean loginFlag = false;
@@ -225,9 +255,24 @@ public class BoardController {
 
             return "/board/write_fr";
 
-        }else {
+        } else if (session.getAttribute("admin") != null) {
+            System.out.println("자유게시판 글쓰기!");
+            System.out.println(session.getAttribute("emp_name")+"  //유저네임");
+            System.out.println(session.getAttribute("employee_id")+"   /아이디");
+            System.out.println(session.getAttribute("emp_rank")+"  //랭크");
+            loginFlag = true;
 
-            System.out.println("로그인 실패");
+//            String emp_id = (String) session.getAttribute("employee_id");
+            String emp_id = (String) session.getAttribute("admin");
+            String emp_name = (String) session.getAttribute("emp_name");
+            String rank = (String) session.getAttribute("emp_rank");
+            model.addAttribute("emp_id", emp_id);
+            model.addAttribute("emp_name", emp_name);
+            return "/board/write_fr";
+
+        } else {
+
+            System.out.println("로그인 실패1");
             return "redirect:/board_fr";
         }
 
@@ -239,36 +284,7 @@ public class BoardController {
 
     //공지사항 글 하나 보기
     @GetMapping(value = "/gj_preview/{board_num}")
-    public String gj_preview(@PathVariable("board_num") int num, Model model) throws Exception {
-        System.out.println(num + "  게시글넘버");
-        //조회수
-        ifboardservice.readBoard(num);
-        //내용 옮기기 //
-        boardVO boardvo = ifboardservice.viewOne(num);
-        //파일 테이블에서 사용할 카테고리 파라미터
-        String categoryTemp = boardvo.getCategory();
-        System.out.println("카테고리 테스트:  " + categoryTemp);
-        //file board 가져오기
-        List<fileVO> fileList = ifboardservice.getAttach(num, categoryTemp);
-        //db에서 가져온값 확인
-        for (fileVO file : fileList) {
-            System.out.println(file.toString());
-        }
-
-
-        //model에 전송할 값들 추가
-        model.addAttribute("boardvo", boardvo);
-        model.addAttribute("fileList", fileList);
-        System.out.println(boardvo.toString() + "boardvo");
-
-        return "/board/gj_preview";
-    }
-
-
-    //자유게시판 글 보기 + file attached//
-    @GetMapping(value = "/fr_preview/{board_num}")
-    public String fr_preview(@PathVariable("board_num") int num,
-                             Model model, HttpSession session) throws Exception {
+    public String gj_preview(@PathVariable("board_num") int num, Model model, HttpSession session) throws Exception {
 
         //세션 로그인 확인
         boolean loginFlag = false;
@@ -283,10 +299,15 @@ public class BoardController {
             loggedNanme = (String) session.getAttribute("emp_name");
 //            String rank = (String) session.getAttribute("emp_rank");
 
+        } else if (session.getAttribute("admin") != null) {
+            sessionId = (String) session.getAttribute("admin");
+            loggedNanme = (String) session.getAttribute("emp_name");
+            System.out.println("관리자아이디 : "+sessionId + "// " + "관리자이름  :  "  + loggedNanme);
         }
 
+
+
         System.out.println(num + "  게시글넘버");
-        //조회수
         ifboardservice.readBoard(num);
         //내용 옮기기
         boardVO boardvo = ifboardservice.viewOne_fr(num);
@@ -299,6 +320,9 @@ public class BoardController {
             System.out.println("게시판 id와 로그인한 id 일치");
             loginFlag = true;
 
+        } else if (sessionId.equals("admin")) {
+            System.out.println("관리자 아이디임을 확인 ");
+            loginFlag = true;
         }
 
         //파일 테이블에서 사용할 카테고리 파라미터
@@ -319,9 +343,73 @@ public class BoardController {
         model.addAttribute("boardvo", boardvo);
         model.addAttribute("fileList", fileList);
         model.addAttribute("emp_name", emp_name);
+
+        return "/board/gj_preview";
+    }
+
+
+    //자유게시판 글 보기 + file attached//
+    @GetMapping(value = "/fr_preview/{board_num}")
+    public String fr_preview(@PathVariable("board_num") int num,
+                             Model model, HttpSession session) throws Exception {
+
+        //세션 로그인 확인
+        boolean loginFlag = false;
+        String sessionId = "";
+        String loggedNanme = "";
+        boolean adminFlag = false;
+        if(session.getAttribute("employee_id") != null) {
+            sessionId = (String) session.getAttribute("employee_id");
+            loggedNanme = (String) session.getAttribute("emp_name");
+
+        } else if (session.getAttribute("admin") != null) {
+            sessionId = (String) session.getAttribute("admin");
+            loggedNanme = (String) session.getAttribute("emp_name");
+            System.out.println("관리자아이디 : "+sessionId + "// " + "관리자이름  :  "  + loggedNanme);
+        }
+
+        System.out.println(num + "  게시글넘버");
+        //조회수
+        ifboardservice.readBoard(num);
+        //내용 옮기기
+        boardVO boardvo = ifboardservice.viewOne_fr(num);
+        //게시판 id를 param으로 이름 return
+        String emp_name = ifboardservice.getNameById(boardvo.getEmp_id());
+        //게시판 id와 세션 로그인한 아이디 비교
+
+        if (boardvo.getEmp_id().equals(sessionId)) {
+            System.out.println("게시판 id와 로그인한 id 일치");
+            loginFlag = true;
+
+        } else if (sessionId.equals("admin")) {
+            System.out.println("관리자 아이디임을 확인 ");
+            loginFlag = true;
+            adminFlag = true;
+        }
+
+        //파일 테이블에서 사용할 카테고리 파라미터
+        String categoryTemp = boardvo.getCategory();
+
+        System.out.println("카테고리 테스트:  " + categoryTemp);
+        //file board 가져오기
+        List<fileVO> fileList = ifboardservice.getAttach(num, categoryTemp);
+        //db에서 가져온값 확인
+        for (fileVO file : fileList) {
+            System.out.println(file.toString());
+        }
+
+        //model에 전송할 값들 추가
+        model.addAttribute("loggedId", sessionId); //로그인한 사용자 아이디
+        model.addAttribute("loggedNanme", loggedNanme); //로그인한 사용자이름
+        model.addAttribute("loginFlag", loginFlag);
+        model.addAttribute("adminFlag", adminFlag);
+        model.addAttribute("boardvo", boardvo);
+        model.addAttribute("fileList", fileList);
+        model.addAttribute("emp_name", emp_name);
         System.out.println(boardvo.toString() + "boardvo");
 
         return "/board/fr_preview";
+
 
 
     }
@@ -365,25 +453,6 @@ public class BoardController {
         //System.out.println(num+"게시글넘버");
         System.out.println("삭제완료 ");
 
-        //        System.out.println(boardvo.toString() + "boardvo");
-//
-//
-//        boardvo.setBoard_num(num);
-//        ifboardservice.deleteOne(boardvo);
-//        String categoryTemp = boardvo.getCategory();
-//
-//        // 파일 삭제 처리
-//        if (deleteFileIds != null && !deleteFileIds.isEmpty()) {
-//            System.out.println("삭제처리ㄱ: " + deleteFileIds);
-//            ifboardservice.fileDel(deleteFileIds, categoryTemp);
-//        } else {
-//            System.out.println("파일 없슴");
-//        }
-        //System.out.println(boardvo.getCategory() + "카테고리");
-        //System.out.println(num+"게시글넘버");
-        //삭제완
-
-
         return "redirect:/board_gj";
     }
 
@@ -421,16 +490,8 @@ public class BoardController {
         String categoryTemp = boardvo.getCategory();
         boardvo.setBoard_num(num);
 
-
-
-
         ifboardservice.deleteOne(boardvo); // 삭제 처리
 
-
-
-
-        //System.out.println(boardvo.getCategory() + "카테고리");
-        //System.out.println(num+"게시글넘버");
         System.out.println("삭제완료 ");
 
         return "redirect:/board_fr";
