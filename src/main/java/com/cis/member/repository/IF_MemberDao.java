@@ -5,6 +5,7 @@ import com.cis.member.dto.ManagerDTO;
 import com.cis.member.dto.ManagerEmployeeDTO;
 import com.cis.member.dto.PageDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,12 +15,12 @@ import java.util.List;
 @Mapper
 public interface IF_MemberDao {
 
+    // -------------------- 일반사원 --------------------
+
     // 전체 사원 리스트 조회.
-//    public List<ManagerEmployeeDTO> selectAll() throws Exception;
-//    public List<ManagerEmployeeDTO> selectAll(PageDTO pagedto) throws Exception;
     public List<ManagerEmployeeDTO> selectAll(int startIndex, int pageSize) throws Exception;
 
-    // 아이디 중복 체트.
+    // 아이디 중복 체크.
     public int check_id(String id) throws Exception;
 
     // 신규 사원 등록.
@@ -38,32 +39,60 @@ public interface IF_MemberDao {
     public int count_employee() throws Exception;
 
     // 부서 선택.
-    public List<ManagerEmployeeDTO> select_dept_list( String department) throws Exception;
+    public List<ManagerEmployeeDTO> select_dept_list( String department, int startIndex, int pageSize) throws Exception;
 
-    // 재직상태 선택.
-    public List<ManagerEmployeeDTO> select_work_status_list(String work_status) throws Exception;
+    // 재직상태 선택(select_all).
+    public List<ManagerEmployeeDTO> select_work_status_list(String work_status, int startIndex, int pageSize) throws Exception;
 
-    // 전체 사원 리스트에서 이름을 클릭해 한명에 사원에 모든 정보를 조회.
+    // 전체 사원 리스트에서 이름을 클릭해 한명에 사원에 모든 정보를 조회(select_one).
     public ManagerEmployeeDTO select_one_employee_info (String emp_name) throws Exception;
 
-    // 로그인한 사원에 전체정보 조회.
+    // -------------------- 관리자 --------------------
+    // 로그인한 사원에 전체정보 조회(select_all).
     public ManagerEmployeeDTO select_login_employee_info(String id) throws Exception;
 
-
-
+    // 관라자 사원정보 보충(insert).
     public void modify_employee_info(ManagerEmployeeDTO managerEmployeeDTO) throws Exception;
 
-    // 관리자가 정보를 추가할 사원에 리스트.
+    // 관리자가 정보를 추가할 사원들에 전체 리스트(select_all).
     public List<ManagerEmployeeDTO>select_manager_add_info(int startIndex, int pageSize) throws Exception;
 
-    // 관리자가 정보를 추가할 한명에 사원에 정보를 조회.
+    // 관리자가 정보를 추가할 한명에 사원에 정보를 조회(select_one).
     public ManagerEmployeeDTO select_one_employee_info_need_complete(String id) throws Exception;
 
-    // 관리자가 보충한 사원 정보를 update.
+    // 관리자가 보충한 사원 정보를 update(update).
     public void update_complete_employee_info(ManagerEmployeeDTO member) throws Exception;
 
-
-    // totalcount 가져오기.
+    // 등록된 전체 사원에 정보 가져오기(select_all).
     public int total_employee_count() throws Exception;
+
+    // 정보 추가가 필요한 사원의 전체 인원수
+    public int total_count_need_add_info_employee() throws Exception;
+
+    // 전체 사원리스트에서 콤보박스로 선택한 부서의 인원수
+    public int total_selected_dept_employee_count(String dept) throws Exception;
+
+    // 전체 사원리스트에서 콤보박스로 선택한 재직상태의 인원수
+    public int total_selected_work_status_employee_count(String work_status) throws Exception;
+
+    // ==================================
+    // 관리자 신규 사원 정보 등록
+    public void manager_insert_new_employee_info(ManagerDTO member) throws Exception;
+
+    // 관리자 신규 사원 정볼 등록시, employee 테이블에도 주민번호를 입력
+    public void insert_new_employee_rrn_in_employee(String rrn) throws Exception;
+
+    // 사원이 정보를 완성할 필요가 있는 사원의 정보 리스트
+    public List<ManagerEmployeeDTO> select_list_need_complete(int startIndex, int pageSize) throws Exception;
+
+    public int count_employee_need_complete() throws Exception;
+
+    // 부서, 직급, 이름으로 사원 정보 조회 -- JISOO
+    ManagerEmployeeDTO findEmployeeByDeptRankName(@Param("emp_dept") String emp_dept,
+                                                  @Param("emp_rank") String emp_rank,
+                                                  @Param("emp_name") String emp_name) throws Exception;
+
+    // emp_id로 직원 정보 조회 -- JISOO
+    ManagerEmployeeDTO findEmployeeById(@Param("emp_id") String emp_id) throws Exception;
 
 }

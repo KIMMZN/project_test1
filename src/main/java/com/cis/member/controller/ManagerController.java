@@ -17,13 +17,7 @@ public class ManagerController {
         int check_return = memberService.count_id(result);
         return check_return;
     }
-    @ResponseBody
-    @PostMapping(value="ajaxSearchEmployee")
-    public Object search_employee(@RequestParam("search") String emp_id) throws Exception{
-        System.out.println("from ajax : " + emp_id);
-        String[] b = {"aaaa","bbbb","vvvv"};
-        return b;
-    }
+
 
 
 

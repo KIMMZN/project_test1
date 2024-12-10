@@ -1,0 +1,40 @@
+MySQL 외부 접속
+
+▶ 사용자 확인
+1. SELECT host, user, plugin, autentication_string FROM mysql.user;
+
+▶ 사용자 생성 ( ※ 보안 상 root를 제외하고 다른 계정을 만들어서 사용할 것 )
+2. CREATE USER '유저명'@'호스트명' IDENTIFIED BY '패스워드';
+예시) CREATE USER 'root'@'%' IDENTIFIED BY 'test1234!';
+　- 호스트명 할당
+	: 특정 IP 접근 허용		예시) 192.168.0.63
+	: 특정 IP 대역 접근 허용	예시) 192.168.0.%
+	: 모든 IP 접근 허용		예시) %
+
+▶ 권한 할당
+3. GRANT ALL PRIVILEGES ON *.* TO '유저명'@'호스트명';
+
+▶ 새로고침
+4. FLUSH PRIVILEGES;
+
+▶ 생성된 사용자 확인
+5. SELECT host, user, plugin, autentication_string FROM mysql.user;
+
+▶ 외부 접속
+▷ 명령 프롬포트에서 접속
+경로 이동 : cd
+현재 경로의 디렉토리 확인 : dir
+　- C / Program Files / MySQL / MySQL Server 버전 / bin
+　- mysql -h 아이피번호 -u 유저명 -p;
+▷ DBeaver 접속
+6-1. 새 데이터베이스 연결 → MySQL 선택
+6-2. 호스트명, 유저명, 패스워드 입력 후 Finish
+
+
+
+▷ 권한 변경
+　- UPDATE user SET host='호스트명' WHERE user='유저명' AND host='호스트명';
+
+▷ 접근 제거
+　- DELETE FROM mysql.user WHERE user='유저명' AND host='호스트명';
+

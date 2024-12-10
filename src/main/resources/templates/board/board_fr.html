@@ -54,6 +54,7 @@
 
       <div class="mail_list">
         <table class="mail_table">
+          <thead>
           <tr>
             <th>번호</th>
             <th class="th2">제목</th>
@@ -61,6 +62,7 @@
             <th>조회수</th>
             <th>등록일자</th>
           </tr>
+          </thead>
           <tr th:each="m: ${boardvolist.list}" th:if="${boardvolist.list != null}">
             <td th:text="${m.board_num}"></td>
             <td>

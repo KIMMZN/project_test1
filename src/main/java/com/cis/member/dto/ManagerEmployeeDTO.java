@@ -1,9 +1,12 @@
 package com.cis.member.dto;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class ManagerEmployeeDTO {
     private String emp_id;      // 아이디
     private String emp_email;   // 이메일
-    private String emp_pass;
+    private String emp_pass;    // 비밀번호
     private String emp_name;    // 이름
     private String emp_dept;    // 부서명
     private String emp_rank;    // 직급

@@ -39,11 +39,6 @@
                                th:href="|@{email_detail/}${email_one.mail_num}@{/files/}${filesStat.count}@{/}${files.file_name}@{/download}|">
                             </a>
                         </th:block>
-                        <!--
-                        <a href="">파일 원본명으로 표시</a>
-                        <a href="">파일 원본명으로 표시</a>
-                        <a href="">파일 원본명으로 표시</a>
-                        -->
                     </div>
                     <div class="mail_delete">
                         <form th:action="@{email_delete(num=${email_one.mail_num})}" method="post">

@@ -13,7 +13,7 @@ section{
 }
 
 .employee_list div h1{
-    margin-right: 300px;
+    margin-right: 500px;
     width: 750px;
 }
 
@@ -29,49 +29,37 @@ section{
 
 /*이름*/
 #employee_name{
-    margin-right: 190px;
-    padding-left: 50px;
+    margin-left: 50px;
 }
 
 /*아이디*/
 #employee_id{
-    margin-right: 200px;
-    padding-left: 50px;
-}
-
-/*직급*/
-#employee_rank{
-    margin-right: 95px;
-    margin-left: 30px;
-    width: 170px;
-    height: 30px;
-    border-radius: 30px;
+    margin-left: 50px;
 }
 
 /*부서명*/
-#employee_dept{
-    margin-right: 95px;
-    margin-left: 30px;
-    width: 170px;
-    height: 30px;
-    border-radius: 30px;
+#departmentCode{
+    margin-right: 160px;
+    margin-left: 50px;
+    font-size: 20px;
 }
 
-/*전화번호*/
-#employee_tel{
-    margin-right: 145px;
+/*직급*/
+#work_rank{
+    margin-right: 178px;
+    margin-left: 55px;
+    font-size: 20px;
 }
+
 
 /*날짜*/
-#date{
-    margin-right: 95px;
-    margin-left: 25px;
-    width: 200px;
-    height: 30px;
-    border-radius: 30px;
+#dates{
+    margin-right: 65px;
+    margin-left: 50px;
     padding-left: 37px;
     padding-right: 37px;
     text-align: center;
+    font-size: 20px;
 }
 
 /*재직상태*/
@@ -82,19 +70,21 @@ section{
 
 .modify_input_content{
     font-size: 20px;
+    height: 400px;
+    padding-top:50px;
 }
 
-.modify_input_content div{
+.modify_input_content div:nth-of-type(1){
     margin-top: 45px;
+    margin-left: 200px;
 }
 
 .modify_input_content input{
-    text-align: center;
+    text-align: left;
 }
 
 .modify_btn div input{
-    margin-right: 50px;
-    margin-top: 10px;
+    margin-right: 60px;
 }
 
 #cancel_change_btn{

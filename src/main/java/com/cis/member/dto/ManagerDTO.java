@@ -4,12 +4,12 @@ package com.cis.member.dto;
 
 public class ManagerDTO {
     private String resident_num;    // 주민등록 번호
-    private String emp_name;    // 사원이름
-    private String emp_dept;    // 부서명
-    private String emp_tel;     // 전화번호
-    private String emp_rank;    // 직급
-    private String join_date;   // 입사날짜
-    private String work_status; // 재직상태
+    private String emp_name;        // 사원이름
+    private String emp_dept;        // 부서명
+    //    private String emp_tel;         // 전화번호
+    private String emp_rank;        // 직급
+    private String join_date;       // 입사날짜
+    private String work_status;     // 재직상태
 
 
 
@@ -41,13 +41,13 @@ public class ManagerDTO {
         this.emp_rank = emp_rank;
     }
 
-    public String getEmp_tel() {
-        return emp_tel;
-    }
-
-    public void setEmp_tel(String emp_tel) {
-        this.emp_tel = emp_tel;
-    }
+//    public String getEmp_tel() {
+//        return emp_tel;
+//    }
+//
+//    public void setEmp_tel(String emp_tel) {
+//        this.emp_tel = emp_tel;
+//    }
 
     public String getEmp_dept() {
         return emp_dept;
@@ -81,8 +81,6 @@ public class ManagerDTO {
         this.work_status = work_status;
     }
 
-
-    // ==========
     public String getEmp_id() {
         return emp_id;
     }
@@ -91,28 +89,13 @@ public class ManagerDTO {
         this.emp_id = emp_id;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public String toString() {
         return "ManagerDTO{" +
                 "resident_num='" + resident_num + '\'' +
                 ", emp_name='" + emp_name + '\'' +
                 ", emp_dept='" + emp_dept + '\'' +
-                ", emp_tel='" + emp_tel + '\'' +
+//                ", emp_tel='" + emp_tel + '\'' +
                 ", emp_rank='" + emp_rank + '\'' +
                 ", join_date='" + join_date + '\'' +
                 ", work_status='" + work_status + '\'' +

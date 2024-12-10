@@ -27,6 +27,9 @@
                     <a th:href="@{email(filter=read)}">
                         <input type="button" value="읽은메일보기" class="mail_view">
                     </a>
+                    <a th:href="@{email(filter=send)}">
+                        <input type="button" value="보낸메일보기" class="mail_view">
+                    </a>
                 </div>
                 <div class="mail_list">
                     <table class="mail_table">
@@ -42,21 +45,19 @@
                             </tr>
                         </thead>
                         <tbody id="mail_content">
-                            <!-- 한 페이지에 6개 제한 -->
                             <tr th:each="email : ${email_list}">
                                 <td><input type="checkbox" class="one_check" th:value="${email.mail_num}"></td>
-                                <td><a th:href="@{email_detail(num=${email.mail_num})}" class="mail_detail" th:text="${email.mail_title}"></a></td>
-                                <td><a th:href="@{email_detail(num=${email.mail_num})}" class="mail_detail" th:text="${email.sender_id}"></a></td>
-                                <td><a th:href="@{email_detail(num=${email.mail_num})}" class="mail_detail" th:text="${email.create_at.substring(0, 16)}"></a></td>
+                                <th:block th:if="${email.mail_check} == 'Y'">
+                                    <td><a th:href="@{email_detail(num=${email.mail_num})}" class="mail_detail_read" th:text="${email.mail_title}"></a></td>
+                                    <td><a th:href="@{email_detail(num=${email.mail_num})}" class="mail_detail_read" th:text="${email.sender_id}"></a></td>
+                                    <td><a th:href="@{email_detail(num=${email.mail_num})}" class="mail_detail_read" th:text="${email.create_at.substring(0, 16)}"></a></td>
+                                </th:block>
+                                <th:block th:unless="${email.mail_check} == 'Y'">
+                                    <td><a th:href="@{email_detail(num=${email.mail_num})}" class="mail_detail_unread" th:text="${email.mail_title}"></a></td>
+                                    <td><a th:href="@{email_detail(num=${email.mail_num})}" class="mail_detail_unread" th:text="${email.sender_id}"></a></td>
+                                    <td><a th:href="@{email_detail(num=${email.mail_num})}" class="mail_detail_unread" th:text="${email.create_at.substring(0, 16)}"></a></td>
+                                </th:block>
                             </tr>
-                            <!--
-                            <tr>
-                                <td><input type="checkbox" class="one_check"></td>
-                                <td><a href="mail_detail" class="mail_detail">이곳은 제목이 들어갑니다.</a></td>
-                                <td><a href="mail_detail" class="mail_detail">일이삼사오육칠팔</a></td>
-                                <td><a href="mail_detail" class="mail_detail">2024-11-21 00:00</a></td>
-                            </tr>
-                            -->
                         </tbody>
                         <tfoot>
                             <tr class="paging">

@@ -15,8 +15,6 @@ public interface IF_MemberService {
     public boolean check_manager_pass(String pass) throws Exception;
 
     // 전체 사원 리스트 조회.
-//    public List<ManagerEmployeeDTO> total_employee_list() throws Exception;
-//    public List<ManagerEmployeeDTO> total_employee_list(PageDTO pagedto) throws Exception;
     public List<ManagerEmployeeDTO> total_employee_list(int startIndex, int pageSize) throws Exception;
 
     // 아이디 중복 체크.
@@ -46,12 +44,11 @@ public interface IF_MemberService {
     // 전체 사원 리스트에서 사원에 이름을 클릭했을때, 그 사원에 모든 정보를 조회.
     public ManagerEmployeeDTO login_employee_info(String id) throws Exception;
 
-
     // 관리자가 추가한 사원에 정보.
     public void modify_employee_info(ManagerEmployeeDTO employee) throws Exception;
 
     // 관리자가 정보를 추가할 필요가 있는 사원 리스트.
-    public List<ManagerEmployeeDTO> get_need_complete_employee_list(int startIndex, int pageSize) throws Exception;
+    public List<ManagerEmployeeDTO> get_need_complete_employee_list( int startIndex, int pageSize) throws Exception;
 
     // 관리자가 정보 추가를 필요한 사원 한명에 정보를 조회.
     public ManagerEmployeeDTO select_one_employee_info_need_complete(String id) throws Exception;
@@ -59,8 +56,32 @@ public interface IF_MemberService {
     //  관리자가 보충한 데이터를 가공.
     public void complete_info(ManagerEmployeeDTO member) throws Exception;
 
-    // totalCount 가져옴
+    // *** 페이징 관련 ***
+    // 정보 추가가 필요없는 전체 사원들의 totalCount 가져옴
     public int total_count_number()throws Exception;
+
+    // 정보 추가가 필요한 사원들의 totalCount
+    public int total_count_number_need_add_info() throws Exception;
+
+    // 콤보박스에서 "부서"를 선택한 사원의 인원수
+    public int total_count_selected_dept_employee(String dept) throws Exception;
+
+    // 콤보박스에서 "재직상태"를 선택한 사원의 인원수
+    public int total_count_selected_work_status_employee(String work_status) throws Exception;
+
+    // =========================
+    // 관리자 신규 사원 등록
+    public void add_new_employee_info(ManagerDTO member) throws Exception;
+
+    // 사원테이블에 관리자가 입력한 rrn 삽입.
+    public void add_new_employee_rrn_in_employee(String rrn) throws Exception;
+
+    // 사원이 정보를 환성시킬 필욯가 있는 사원의 리스트
+    public List<ManagerEmployeeDTO> employee_need_complete(int startIndex, int pageSize) throws Exception;
+
+
+    public int total_count_employee_need_complete() throws Exception;
+
 
 
 }

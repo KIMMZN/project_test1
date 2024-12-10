@@ -179,4 +179,55 @@ where emp_id='admin';
 
 -------------------------------------------
 
+--게시판 테이블
+CREATE TABLE board_table (
+    category        VARCHAR(10) NOT NULL,
+    board_num       INT(11) NOT NULL,
+    board_title     VARCHAR(50),
+    board_content   VARCHAR(255),
+    create_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    emp_id          VARCHAR(12),
+    boardHits       INT(11) DEFAULT 0,
+    fileAttached    INT(11) DEFAULT 0,
+    PRIMARY KEY (category, board_num),
+    CONSTRAINT fk_board_employee FOREIGN KEY (emp_id)
+        REFERENCES employee(emp_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+
+--파일 테이블
+CREATE TABLE board_file (
+    file_id INT(11) NOT NULL AUTO_INCREMENT,
+    category VARCHAR(10) NOT NULL,
+    board_num INT(11) NOT NULL,
+    save_name VARCHAR(255) NOT NULL,
+    created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    file_size INT(11) DEFAULT NULL,
+    original_name VARCHAR(255) DEFAULT NULL,
+    PRIMARY KEY (file_id),
+    CONSTRAINT board_file_ibfk_1 FOREIGN KEY (category, board_num)
+        REFERENCES board_table (category, board_num)
+        ON DELETE CASCADE
+        ON UPDATE RESTRICT
+);
+
+--댓글 테이블
+CREATE TABLE comment (
+    category VARCHAR(10) DEFAULT NULL,
+    board_num INT(11) NOT NULL,
+    comment_num INT(11) NOT NULL PRIMARY KEY,
+    comment_content VARCHAR(255) NOT NULL,
+    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    emp_id VARCHAR(12) DEFAULT NULL,
+    CONSTRAINT fk_board_table FOREIGN KEY (category, board_num)
+        REFERENCES board_table (category, board_num)
+        ON DELETE CASCADE
+        ON UPDATE RESTRICT,
+    CONSTRAINT fk_employee FOREIGN KEY (emp_id)
+        REFERENCES employee (emp_id)
+        ON DELETE SET NULL
+        ON UPDATE RESTRICT
+);
 

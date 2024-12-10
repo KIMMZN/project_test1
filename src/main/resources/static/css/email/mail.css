@@ -65,13 +65,24 @@ section {
     font-size: 20px;
     font-weight: bold;
 }
-.mail_detail {
+.mail_detail_unread {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+
+    display: block;
+}
+.mail_detail_read {
     color: black;
     text-decoration: none;
 
     display: block;
 }
-.mail_table tbody tr:hover .mail_detail {
+.mail_table tbody tr:hover .mail_detail_unread {
+    color: #666666;
+    font-weight: bold;
+}
+.mail_table tbody tr:hover .mail_detail_read {
     color: #666666;
 }
 .all_check, .one_check {

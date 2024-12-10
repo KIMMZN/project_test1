@@ -56,6 +56,7 @@
 
       <div class="mail_list">
         <table class="mail_table">
+          <thead>
           <tr>
             <th style="width: 10%">카테고리</th>
             <th style="width: 7%">번호</th>
@@ -66,7 +67,7 @@
             <th style="width: 7%">수정</th>
             <th style="width: 7%">삭제</th>
           </tr>
-
+          </thead>
           <tr th:each="m: ${boardvolist.list}" th:if="${boardvolist.list != null}">
             <!-- 개별 폼 시작 -->
             <td th:text="${m.category}">

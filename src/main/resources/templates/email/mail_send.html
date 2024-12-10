@@ -16,12 +16,19 @@
                 <form action="email_insert"  method="post" enctype="multipart/form-data" id="email_send">
                     <div class="mail_content_top">
                         <div class="mail_title">
-                            <span>제목</span>
-                            <input type="text" placeholder="제목" name="mail_title">
+                            <div class="mail_title_input">
+                                <span>제목</span>
+                                <input type="text" placeholder="제목" name="mail_title">
+                            </div>
                         </div>
                         <div class="mail_recipient">
-                            <span>받는 사람</span>
-                            <input type="text" placeholder="받는 사람" name="recipient_id">
+                            <div class="mail_recipient_input">
+                                <span>받는 사람</span>
+                                <input type="text" placeholder="받는 사람" name="recipient_id">
+                            </div>
+                            <div class="mail_recipient_check">
+                                <span class="mail_recipient_check_name">받는 사람의 아이디를 입력해주세요.</span>
+                            </div>
                         </div>
                     </div>
                     <div class="mail_content_middle">

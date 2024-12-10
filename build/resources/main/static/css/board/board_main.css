@@ -31,8 +31,6 @@ table tr:hover {
     margin-top: 1%;
     font-size: 20px;
     font-weight: bold;
-
-
 }
 
 input[type="submit"] {
@@ -118,12 +116,16 @@ table {
     border-radius: 10px;
     border: 1px solid black;
 }
+table thead {
+    background-color: lightslategrey;
+    border-radius: 10px;
+    height: 40px;
+}
 
 
 .th2 {
     width: 70%;
 }
-
 
 
 #table_write_div {
@@ -247,20 +249,6 @@ footer{
     background-color: #fff; /* 버튼 배경색 */
     transition: background-color 0.3s, color 0.3s; /* 효과 추가 */
 }
-
-/* 버튼 호버 효과 */
-/*.page_bt:hover {*/
-/*    background-color: #007bff; !* 호버 시 배경색 *!*/
-/*    color: #fff; !* 호버 시 텍스트 색상 *!*/
-/*    border-color: white; !* 호버 시 외곽선 색상 *!*/
-/*}*/
-
-/*.paging:hover {*/
-/*    background-color: #007bff; !* 호버 시 배경색 *!*/
-/*        color: #fff; !* 호버 시 텍스트 색상 *!*/
-/*        border-color: white; !* 호버 시 외곽선 색상 *!*/
-/*}*/
-
 
 /* 현재 활성화된 페이지 번호 */
 .paging span a:focus {

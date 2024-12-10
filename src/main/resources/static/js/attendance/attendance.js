@@ -13,7 +13,6 @@ let work_end = document.getElementsByClassName("work_end")[0];
 let significant_btn = document.getElementsByClassName("significant_btn")[0];
 let significant_select_box = document.getElementById("significant");
 
-// 퇴근 버튼 클릭 시 출근 기록이 없거나, 이미 퇴근 처리가 된 경우
 let check_val = false;
 
 window.onload = () => {
@@ -73,11 +72,6 @@ work_start.addEventListener("click", () => {
     form.setAttribute("method", "post");
     form.setAttribute("action", "go_to_work");
 
-    // const emp_id_input = document.createElement("input");
-    // emp_id_input.setAttribute("type", "hidden");
-    // emp_id_input.setAttribute("name", "emp_id");
-    // emp_id_input.setAttribute("value", emp_id);
-
     let hour = today.getHours();
     let minute = today.getMinutes();
     let late_check = "N";
@@ -89,7 +83,6 @@ work_start.addEventListener("click", () => {
     late_check_input.setAttribute("name", "late_check");
     late_check_input.setAttribute("value", late_check);
 
-    // form.appendChild(emp_id_input);
     form.appendChild(late_check_input);
     document.body.appendChild(form);
     form.submit();

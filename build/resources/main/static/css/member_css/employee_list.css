@@ -51,3 +51,18 @@ section{
     text-decoration: none;
 }
 
+/* 페이징 CSS */
+.paging {
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    gap: 10px; /* 요소 간 간격 */
+}
+.paging div {
+    display: inline-block;
+    text-align: center;
+}
+.paging a {
+    text-decoration: none; /* 링크 밑줄 제거 */
+    font-weight: bold;
+}

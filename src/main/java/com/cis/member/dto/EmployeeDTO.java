@@ -1,13 +1,13 @@
 package com.cis.member.dto;
 
 public class EmployeeDTO {
-    private String emp_id;      // 아이디
+    private String emp_id;          // 아이디
     private String resident_num;    // 주민등록번호
-    private String emp_pass;    // 비밀번호
-    private String emp_email; // 사원 이메일 주소
-    private String post_addr;   // 우편주소
-    private String road_addr;   //  도로명 주소
-    private String detail_addr; // 상세주소
+    private String emp_pass;        // 비밀번호
+    private String emp_email;       // 사원 이메일 주소
+    private String post_addr;       // 우편주소
+    private String road_addr;       //  도로명 주소
+    private String detail_addr;     // 상세주소
 
 
     public String getEmp_id() {
@@ -25,7 +25,6 @@ public class EmployeeDTO {
     public void setResident_num(String resident_num) {
         this.resident_num = resident_num;
     }
-
 
     public String getEmp_pass() {
         return emp_pass;
@@ -66,7 +65,6 @@ public class EmployeeDTO {
     public void setDetail_addr(String detail_addr) {
         this.detail_addr = detail_addr;
     }
-
 
     @Override
     public String toString() {

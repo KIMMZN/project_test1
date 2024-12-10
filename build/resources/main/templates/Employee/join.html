@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="main">
-    <header th:replace="layout/header::header"></header>
+    <header th:replace="~{layout/header::header}"></header>
     <section>
         <div id="add_new_employee">
             <h1>사원등록_사원용</h1>
@@ -53,10 +53,6 @@
                         <input type="button" id="find_post_addr" style="width: 120px" value="우편번호 찾기" onclick="road_btn()"><br/>
                         <input type="text" id="road_name_addr" name="road_addr" value="도로명 주소" style="width: 250px;"><br/>
                         <input type="text" id="detail_addr" name="detail_addr" value="상세주소" style="width: 250px;"><br/>
-
-                        <label for="show_post_addr" id="show_post_addr" ></label>
-                        <label for="show_road_addr" id="show_road_addr" ></label>
-                        <label for="show_road_addr" id="show_detail_addr" ></label>
                     </div>
 
                     <div id="add_employee_btn_set">
@@ -67,18 +63,16 @@
             </form>
         </div>
     </section>
-    <footer th:replace="layout/footer::footer"></footer>
+    <footer th:replace="~{layout/footer::footer}"></footer>
 </div>
 
 <script>
-
     // 주민등록 번호 체크 boolean
     let check_rrn_boolean = false;
     // 아이디 유효성 체크 boolean
     let check_id_boolean = false;
     // 비밀번호 유효성 체크 boolean
     let check_pass_boolean = false;
-
 
     function check_rrn(){
         let input_rrn = document.getElementById('employee_rrn').value;
@@ -102,10 +96,8 @@
     // 아이디 중복 체크.
     document.getElementById('dulicate_id_check').addEventListener("click",()=>{
         let id = document.getElementById('employee_id').value;
-        alert(id)
         const id_regExp = /^[a-z0-9]{1,12}$/;
         if(id_regExp.test(id)){
-            alert("111");
             $.ajax({
                 async : true,
                 url : 'ajaxStr',
@@ -145,14 +137,38 @@
         }
     }
 
+    // 비밀번호 유효성 체크
     document.getElementById('employee_pass_check').addEventListener('keyup',(e) => {
         let input_pass = document.getElementById('employee_pass').value;
         let check_pass = document.getElementById('employee_pass_check').value;
-        if(input_pass == check_pass){
+        if(input_pass === check_pass){
             document.getElementById('pass_not_match').innerHTML = "<span id='pass_not_match' style='color: green;'>사용가능한 비밀번호입니다.</span>";
         }else{
             document.getElementById('pass_not_match').innerHTML = "<span id='pass_not_match' style='color: red;'>비밀번호 불일치입니다.</span>";
         }
+    })
+
+
+    // 이메일 인증
+    document.getElementById('verify_email').addEventListener("click", ()=>{
+        alert("email 111");
+        let email = document.getElementById('employee_email').value;
+        let email_data = {email:email};
+        alert(email);
+        $.ajax({
+            async: true,
+            url : 'mailSend',
+            type: 'post',
+            data : JSON.stringify(email_data),
+            dataType: 'json',
+            contentType : 'application/json',
+            success : function (data){
+                console.log("email 인증 연결 성공!!!");
+            },
+            error : function (e){
+                console.log("email 전송 실패 : " + e);
+            }
+        })
     })
 
 </script>
@@ -164,10 +180,8 @@
         new daum.Postcode({
             oncomplete: function(data) {
                 // 우편번호
-                // document.getElementById('post_num').value(data.zonecode);
                 document.getElementById('post_addr').value = data.zonecode;
                 // 도로명 및 지번주소
-                // document.getElementById("road_name_addr").value(data.roadAddress);
                 document.getElementById("road_name_addr").value = data.roadAddress;
                 // 상세 주소
                 document.getElementById("detail_addr").value = "";
@@ -175,40 +189,15 @@
             }
         }).open();
     }
-
-
     // "가입"버튼의 활성화 여부.
-    if(check_rrn_boolean || check_id_boolean || check_pass_boolean){
-        $('#submit_btn').attr("disable", true);
-    }else{
-        $('#submit_btn').attr("disable", false);
-    }
+    // if(check_rrn_boolean || check_id_boolean || check_pass_boolean){
+    //     $('#submit_btn').attr("disable", true);
+    // }else{
+    //     $('#submit_btn').attr("disable", false);
+    // }
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
