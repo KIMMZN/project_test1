@@ -1,58 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>personal_task: 메인 화면</title>
-  <link rel="stylesheet" href="/CIS/personal_task/base.css">
-  <link rel="stylesheet" href="/CIS/personal_task/task_main.css">
+  <link rel="stylesheet" href="/css/layout/base.css">
+  <link rel="stylesheet" href="/css/personal_task_css/task_main.css">
 </head>
 <body>
 <div class="main">
-  <header>
-    <div class="header_left">
-      <a href="emp_main">
-        <img src="/CIS/image/회사 로고.jpg" alt="Logo" class="logo_img">
-        <div>
-          <span class="logo_text">○○○ Company</span>
-        </div>
-      </a>
-    </div>
-    <div class="header_right">
-      <div>
-        <span class="login_user">○○○ 님</span>
-      </div>
-      <form action="" method="">
-        <input type="button" value="로그아웃" class="logout_btn">
-      </form>
-    </div>
-  </header>
-  <nav>
-    <ul>
-      <li><a href="email"><span>이메일</span></a></li>
-      <li><a href=""><span>게시판</span></a></li>
-      <li><a href=""><span>근태관리</span></a></li>
-      <li><a href="personal_task"><span>개인업무</span></a></li>
-    </ul>
-  </nav>
+  <header th:replace="~{layout/header::header}"></header>
+  <nav th:replace="~{layout/nav::nav}"></nav>
   <section>
     <div class="task_container">
-      <div class="task_btn">
-        <form th:action="@{/tasks/{taskId}/complete(taskId=${task.taskId})}" method="post">
+      <div class="task_btn" th:each="task : ${tasks}">
+        <form th:action="@{/tasks/{task_num}/complete(task_num=${task.task_num})}" method="post">
           <input type="button" value="업무 완료 체크" class="task_check">
         </form>
         <form th:action="@{/tasks/send}" method="post">
-          <a href="task_send.html">
-            <input type="button" value="업무보내기" class="task_send">
-          </a>
+          <input type="button" value="업무보내기" class="task_send">
         </form>
-        <form th:action="@{/tasks(status=${'전체보기'})}" method="get">
+        <form th:action="@{/tasks(task_status=${'전체보기'})}" method="get">
           <input type="submit" value="전체보기" class="task_allread">
         </form>
-        <form th:action="@{/tasks(status=${'진행'})}" method="get">
+        <form th:action="@{/tasks(task_status=${'진행'})}" method="get">
           <input type="submit" value="진행중인 업무" class="task_progress">
         </form>
-        <form th:action="@{/tasks(status=${'완료'})}" method="get">
+        <form th:action="@{/tasks(task_status=${'완료'})}" method="get">
           <input type="submit" value="완료한 업무" class="task_complete">
         </form>
       </div>
@@ -68,12 +42,15 @@
           </tr>
           </thead>
           <tbody id="task_content">
+          <tr th:if="${tasks.isEmpty()}">
+            <td colspan="5" style="text-align: center;">받은 업무가 없습니다</td>
+          </tr>
           <tr th:each="task : ${tasks}">
             <td><input type="checkbox" class="one_check"></td>
-            <td><a th:href="@{/tasks/detail/{taskId}(taskId=${task.taskId})}" th:text="${task.taskTitle}"></a></td>
-            <td th:text="${task.senderId}"></td>
-            <td th:text="${task.createdAt}"></td>
-            <td th:text="${task.taskStatus}"></td>
+            <td><a th:href="@{/tasks/task_detail/{task_num}(task_num=${task.task_num})}" th:text="${task.task_title}"></a></td>
+            <td th:text="${task.directive_id}"></td>
+            <td th:text="${task.create_at}"></td>
+            <td th:text="${task.task_status}"></td>
           </tr>
           </tbody>
           <tfoot>
@@ -92,13 +69,8 @@
       </div>
     </div>
   </section>
-  <footer>
-    <div class="company_info">
-      <p style="font-size:12px">서울특별시 00구 00로 000</p>
-      <p style="font-size:12px">사업자등록번호: 000-00-00000</p>
-      <p style="font-size:12px">대표이사: 이개발</p>
-    </div>
-  </footer>
 </div>
+  <footer th:replace="~{layout/footer::footer}"></footer>
+<script src="/js/personal_task/task_main.js"></script>
 </body>
 </html>

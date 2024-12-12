@@ -1,5 +1,5 @@
 body{
-    background-color: pink;
+    background-color: #76ABDF;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,12 +26,13 @@ body{
 
 /* 일반사원 로그인 창 */
 #loginBase2{
-    background-color: #FF416C;
+    background-color: #224C98;
     width: 400px;
     height: 450px;
     margin-top: 100px;
     border-radius: 30px;
     margin-left: 300px;
+    color: white;
 }
 
 .back_btn2{

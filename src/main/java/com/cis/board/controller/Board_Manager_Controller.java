@@ -93,6 +93,9 @@ public class Board_Manager_Controller {
     public String fr_preview(@PathVariable("category") String category, @PathVariable("board_num") Integer num,
                              Model model, HttpSession session) throws Exception {
 
+        System.out.println(session.getAttribute("admin") + "   admin ?");
+        System.out.println(session.getAttribute("emp_id") + "emp id");
+        System.out.println(session.getAttribute("employee_id")+"   /임플로이 아이디");
             //세션 로그인 확인
             boolean loginFlag = false;
             String sessionId = "";
@@ -104,6 +107,7 @@ public class Board_Manager_Controller {
     //            System.out.println(session.getAttribute("emp_rank")+"  //랭크");
                 sessionId = (String) session.getAttribute("employee_id");
                 loggedNanme = (String) session.getAttribute("emp_name");
+                System.out.println("일반회원");
     //            String rank = (String) session.getAttribute("emp_rank");
 
             } else if (session.getAttribute("admin") != null) {

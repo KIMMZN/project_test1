@@ -2,7 +2,10 @@ package com.cis.personal_task.service;
 
 import com.cis.personal_task.dto.PersonalTaskDTO;
 import com.cis.personal_task.dto.TaskFileDTO;
+import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import java.util.List;
 
@@ -10,15 +13,22 @@ public interface PersonalTaskService {
 
       // 업무 전송
       void sendPersonalTask(PersonalTaskDTO taskDTO) throws Exception;
+//      void sendPersonalTask(PersonalTaskDTO personalTaskDTO);
 
       // 받은 업무 목록 조회
       List<PersonalTaskDTO> getReceivedTasks(String receive_id) throws Exception;
 
-      // 상태에 따른 업무 목록 조회 (페이징 포함)
-      List<PersonalTaskDTO> getTasksByStatus(String task_status, int page, int size);
+//      // 상태에 따른 업무 목록 조회 (페이징 포함)
+//      List<PersonalTaskDTO> getTasksByStatus(String task_status, int page, int size);
 
       // 전체 업무 목록 조회 (페이징 포함)
       List<PersonalTaskDTO> getAllTasks(int page, int size);
+
+      // 메인화면
+      List<PersonalTaskDTO> getTasksByStatus(String task_status);
+
+//      // 메인화면 업무 목록
+//      List<PersonalTaskDTO> getMainList(int page, int size);
 
 //      // 업무 상태 변경 (진행 -> 완료)
 //      void updateTaskStatus(int taskId);
@@ -41,4 +51,5 @@ public interface PersonalTaskService {
       // 업무 수행도 변경
       void updateTaskStatus(int task_num, String task_status);
 
+      List <PersonalTaskDTO> getMainTasks(String receive_id);
 }

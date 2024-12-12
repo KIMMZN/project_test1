@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>업무 전송</title>
-  <link rel="stylesheet" href="/CIS/personal_task/personal_task_base.css">
-  <link rel="stylesheet" href="/CIS/personal_task/task_send.css">
+  <link rel="stylesheet" href="/css/layout/base.css">
+  <link rel="stylesheet" href="/css/personal_task_css/task_send.css">
 </head>
 <body>
 <div class="main">
-  <header th:replace="layout/header.html::header"></header>
-  <nav th:replace="layout/nav.html::nav"></nav>
+  <header th:replace="~{layout/header::header}"></header>
+  <nav th:replace="~{layout/nav::nav}"></nav>
   <section>
     <form action="/tasks/send" method="post" enctype="multipart/form-data">
       <div class="container">
@@ -63,7 +63,8 @@
       </div>
     </form>
   </section>
-  <footer th:replace="layout/footer.html::footer"></footer>
 </div>
+<footer th:replace="~{layout/footer::footer}"></footer>
+<script src="/js/personal_task/task_send.js"></script>
 </body>
 </html>

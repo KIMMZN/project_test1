@@ -1,7 +1,7 @@
 section {
     width: 98%;
     height: 73%;
-    border: 1px solid black;
+    border: 1px solid #EBEBEB;
     border-radius: 15px;
     padding: 10px;
 
@@ -14,13 +14,14 @@ section {
     text-decoration: none;
     width: 30%;
     height: 50%;
-    border: 1px solid black;
+    border: 1px solid #EBEBEB;
     border-radius: 15px;
     margin: 10px 14px;
     padding: 15px 20px;
 }
 .select_one:hover {
-    background-color: skyblue;
+    background-color: #9AADEE;
+    color: #FFFFFF;
 }
 .select_one img {
     width: 150px;

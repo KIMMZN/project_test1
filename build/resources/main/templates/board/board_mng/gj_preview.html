@@ -13,7 +13,7 @@
 <body>
 <div class="main">
     <header th:replace="~{layout/header_manager::header}"></header>
-    <section>
+    <section style="margin-top: 20px">
         <div class="mail_container">
             <div id="write">
                 <div class="write_main"><span>공지사항</span></div>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="write_title">
                     <div class="write_title_name">
-                        <label for="titlebox" class="title_font">제목</label>
+                        <label for="titlebox" class="title_font" hidden="hidden">제목</label>
                         <input type="text" id="titlebox" placeholder="제목을 입력하시오" readonly
                                th:value="${boardvo.board_title}" name="board_title" required>
                         <!--  th:value="${boardvo.board_title}" -->
@@ -46,7 +46,7 @@
                 </div>
                 <div class="write_text">
                     <div class="write_text_name">
-                        <label for="contextbox" class="context_font">글내용</label>
+                        <label for="contextbox" class="context_font" hidden="hidden">글내용</label>
                         <textarea id="contextbox" placeholder="내용을 입력하시오 " readonly
                                   th:text="${boardvo.board_content}" name="board_content" required>
 
@@ -73,10 +73,10 @@
                 </div>
 
                 <div class="update_delete_container">
-                    <div class="update_delete_div" th:if="${loginFlag}">
+                    <div class="update_delete_div">
                         <input type="button" value="목록" onclick="btnlist()">
-                        <input type="submit" value="수정" id="modifybtn">
-                        <input type="submit" value="삭제" id="delbtn">
+                        <input type="submit" value="수정" id="modifybtn" th:if="${loginFlag}">
+                        <input type="submit" value="삭제" id="delbtn" th:if="${loginFlag}">
                     </div>
                 </div>
 

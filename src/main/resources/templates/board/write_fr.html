@@ -32,15 +32,15 @@
                     </div>
                     <div class="write_title">
                         <div class="write_title_name">
-                            <label for="titlebox">제목</label>
-                            <input type="text" id="titlebox" placeholder="제목을 입력하시오" name="board_title" required>
+                            <label for="titlebox" hidden="hidden"><span class="titleSpan">제목</span></label>
+                            <input type="text" id="titlebox" name="board_title" required maxlength="50" placeholder="제목을 입력하시오 / 50자 제한">
                         </div>
 
                     </div>
                     <div class="write_text">
                         <div class="write_text_name">
-                            <label for="contextbox">글내용</label>
-                            <textarea id="contextbox" name="board_content" required></textarea>
+                            <label for="contextbox" hidden="hidden"><span class="contextSpan">글내용</span></label>
+                            <textarea id="contextbox" name="board_content" required placeholder="내용을 입력하시오 / 200자 제한" maxlength="200"></textarea>
                         </div>
 
                     </div>
@@ -58,6 +58,9 @@
 
                     <div class="write_button">
                         <div class="fileadd_div">
+                            <button class="past" type="button" onclick="history.back()">
+                                <i class="fa-solid fa-arrow-rotate-left">뒤로</i>
+                            </button>
                             <button class="write_add_btn" type="submit">
                                 <i class="fa-solid fa-pencil">등록</i>
                             </button>

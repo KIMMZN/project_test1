@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CIS : 메일</title>
+  <title>CIS : 공지사항 관리</title>
   <link rel="stylesheet" href="/css/layout/base.css"/>
   <link rel="stylesheet" href="/css/board/board_base.css"/>
   <link rel="stylesheet" href="/css/board/board_main.css">
@@ -13,7 +13,7 @@
 <div class="main">
   <header th:replace="~{layout/header_manager::header}"></header>
 <!--  <nav th:replace="~{layout/nav::nav}"></nav>-->
-  <section>
+  <section style="margin-top: 20px">
     <div class="mail_container">
       <div class="mail_btn">
         <a href="/board/manager/gj">
@@ -28,6 +28,7 @@
         <div id="search_div_2">
           <form id="searchForm" method="get" action="/board/manager/gj">
             <div id="search_optin">
+              <button class="past" type="button"><a href="/manager_main">뒤로</a></button>
               <select name="searchType" id="searchType" title="검색 유형 선택">
                 <option value="" th:selected="${searchType == ''}">전체 검색</option>
                 <option value="board_title" th:selected="${searchType == 'board_title'}">제목</option>

@@ -14,7 +14,7 @@
 <div class="main">
     <header th:replace="~{layout/header_manager::header}"></header>
 <!--    <nav th:replace="~{layout/nav::nav}"></nav>-->
-    <section>
+    <section style="margin-top: 20px">
         <div class="mail_container">
             <div id="write">
                 <div class="write_main"><span th:text="${category}"></span></div>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="write_title">
                     <div class="write_title_name">
-                        <label for="titlebox" class="title_font">제목</label>
+                        <label for="titlebox" class="title_font" hidden="hidden">제목</label>
                         <input type="text" id="titlebox" placeholder="제목을 입력하시오" readonly
                                th:value="${boardvo.board_title}" name="board_title">
                         <!--  th:value="${boardvo.board_title}" -->
@@ -44,7 +44,7 @@
                 </div>
                 <div class="write_text">
                     <div class="write_text_name">
-                        <label for="contextbox" class="context_font">글내용</label>
+                        <label for="contextbox" class="context_font" hidden="hidden">글내용</label>
                         <textarea id="contextbox" placeholder="내용을 입력하시오 " readonly
                                   th:text="${boardvo.board_content}" name="board_content">
 

@@ -15,7 +15,7 @@
 <div class="main">
   <header th:replace="~{layout/header_manager::header}"></header>
 <!--  <nav th:replace="~{layout/nav::nav}"></nav>-->
-  <section>
+  <section style="margin-top: 20px">
     <div class="mail_container">
       <div class="mail_btn">
         <!-- <a href="email_delete"> -->
@@ -36,6 +36,7 @@
         <div id="search_div_2">
           <form id="searchForm" method="get" action="/board/manager">
             <div id="search_optin">
+              <button class="past" type="button"><a href="/manager_main">뒤로</a></button>
               <select name="searchCategory" title="검색 카테고리 선택" onchange="selectCategory()" id="selectCategoryO">
                 <option value="" th:selected="${searchCategory==''}">전체 카테고리</option>
                 <option value="공지사항" th:selected="${searchCategory =='category'}">공지사항</option>

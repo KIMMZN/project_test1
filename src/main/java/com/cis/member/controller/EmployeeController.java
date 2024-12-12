@@ -130,6 +130,13 @@ public class EmployeeController {
         return "redirect:employee_login"; // 등록 후 로그인 화면으로 이동.
     }
 
+    // "일반사원 등록"에서 "취소"버튼 클릭.
+    @GetMapping(value="back_employee_login_page")
+    public String back_employee_login_page() throws Exception {
+        return "Employee/employee_login";
+    }
+
+
 
     // ========================= 관리자 ========================
 

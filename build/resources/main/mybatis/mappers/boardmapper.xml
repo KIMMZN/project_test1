@@ -138,6 +138,15 @@
         order by create_at DESC
         LIMIT #{pagination.limitStart}, #{recordSize}
     </select>
+    <!--  adm - 모든 게시판 게시글 카운트  -->
+    <select id="count_allAdm" parameterType="com.cis.board.vo.searchDTO" resultType="int">
+        SELECT COUNT(*) FROM board_table a
+            inner JOIN employee e ON
+                a.emp_id = e.emp_id inner JOIN manager m
+                    ON e.resident_num = m.resident_num
+        <include refid="search_adm"/>
+    </select>
+
 <!--    관리자 모든 게시판 조회-->
     <select id="findAll_adm" parameterType="com.cis.board.vo.searchDTO" resultType="com.cis.board.vo.boardVO">
         select

@@ -35,6 +35,7 @@ window.onload = () => {
         work_end.style.display = "none";
         significant_select_box.disabled = "disabled";
         significant_btn.disabled = "disabled";
+        significant_btn.style.display = "none";
     }
 }
 

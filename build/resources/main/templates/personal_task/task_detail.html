@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>개인 업무 상세화면</title>
-    <link rel="stylesheet" href="/static/css/layout/base.css">
-    <link rel="stylesheet" href="/static/css/personal_task_css/task_detail.css">
+    <link rel="stylesheet" href="/css/layout/base.css">
+    <link rel="stylesheet" href="/css/personal_task_css/task_detail.css">
 </head>
 <body>
 <div class="main">
-    <header th:replace="layout/header.html::header"></header>
-    <nav th:replace="layout/nav.html::nav"></nav>
+    <header th:replace="~{layout/header::header}"></header>
+    <nav th:replace="~{layout/nav::nav}"></nav>
     <section>
         <div class="container">
             <form>
@@ -29,26 +29,27 @@
                     <div style="height: 50px; overflow-y: scroll">
                         <ul>
                             <li th:each="file : ${taskFiles}">
-                                <a th:href="@{'/tasks/download/' + ${file.taskNum} + '/' + ${file.fileName}}" th:text="${file.originalFileName}"></a>
+                                <a th:href="@{'/tasks/download/' + ${file.task_num} + '/' + ${file.file_name}}" th:text="${file.file_originname}"></a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="task_receive_comment">
                     <div style="height: 300px; overflow-y: scroll">
-                        <p th:text="${taskDetail.content}"></p>
+                        <p th:text="${taskDetail.task_content}"></p>
                     </div>
                 </div>
                 <div class="back_button">
                     <button type="button">
-                        <a href="/tasks/task_main">
-                            <img src="/img/back.png" width="40" height="40" />
+                        <img src="/img/back.png" width="40" height="40" />
                         </a>
                     </button>
                 </div>
             </form> <!-- 폼 태그 닫기 -->
-        </section>
-    </div> <!-- container div 닫기 -->
-    <footer th:replace="layout/footer.html::footer"></footer>
+        </div>
+    </section>
+</div> <!-- container div 닫기 -->
+<footer th:replace="~{layout/footer::footer}"></footer>
+<script src="/js/personal_task/task_detail.js"></script>
 </body>
 </html>

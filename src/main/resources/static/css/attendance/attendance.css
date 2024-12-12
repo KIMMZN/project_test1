@@ -1,7 +1,7 @@
 section {
     width: 98%;
     height: 61%;
-    border: 1px solid black;
+    border: 1px solid #EBEBEB;
     border-radius: 15px;
     padding: 10px;
 
@@ -36,13 +36,14 @@ section {
     font-weight: bold;
     width: 50%;
     height: 50%;
-    border: 1px solid black;
+    border: 1px solid #666666;
     border-radius: 15px;
     padding: 15px;
 }
 .work_start:hover, .work_end:hover {
-    background-color: skyblue;
-    border: 1px solid skyblue;
+    background-color: #AAE0F8;
+    color: #FFFFFF;
+    border: 1px solid #AAE0F8;
 
     cursor: pointer;
 }
@@ -63,7 +64,7 @@ section {
     font-weight: bold;
     width: 30%;
     height: 50px;
-    border: 1px solid black;
+    border: 1px solid #666666;
     padding: 10px 15px;
 }
 .significant_btn {
@@ -71,28 +72,29 @@ section {
     font-weight: bold;
     width: 30%;
     height: 40px;
-    border: 1px solid black;
+    border: 1px solid #666666;
     border-radius: 15px;
     margin-left: 40px;
     padding: 5px 10px;
 }
 .significant_btn:hover {
-    background-color: skyblue;
-    border: 1px solid skyblue;
+    background-color: #AAE0F8;
+    color: #FFFFFF;
+    border: 1px solid #AAE0F8;
 
     cursor: pointer;
 }
 .attendance_list {
     width: 70%;
     height: 100%;
-    border: 1px solid black;
+    border: 1px solid #EBEBEB;
     border-radius: 15px;
     padding: 10px;
 }
 .attendance_table {
     width: 100%;
     margin-top: 30px;
-    border: 1px solid black;
+    border: 1px solid #EBEBEB;
 }
 .attendance_table thead, .attendance_table tbody, .attendance_table tfoot {
     text-align: center;
@@ -103,11 +105,11 @@ section {
 }
 .attendance_table tr td {
     height: 32px;
-    border: 1px solid black;
+    border: 1px solid #EBEBEB;
     padding: 10px;
 }
 .paging td a {
-    color: black;
+    color: #000000;
     text-decoration: none;
     width: auto;
     height: auto;
@@ -115,13 +117,14 @@ section {
 }
 .paging td a div {
     width: 45px;
-    border: 1px solid black;
+    border: 1px solid #666666;
     border-radius: 15px;
     padding: 5px 10px;
 
     display: inline-block;
 }
 .paging td div:hover {
-    background-color: skyblue;
-    border: 1px solid skyblue;
+    background-color: #AAE0F8;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
 }

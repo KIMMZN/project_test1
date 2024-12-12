@@ -1,5 +1,5 @@
 body{
-    background-color: pink;
+    background-color: #76ABDF;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,7 +22,7 @@ body{
 /* --------------------------------------------- */
 /* 관리자 비밀번호 확인 */
 #manager_pass_check{
-    background-color: #ff4b2b;
+    background-color: #7289DA;
     width: 400px;
     height: 350px;
     margin-top: 170px;

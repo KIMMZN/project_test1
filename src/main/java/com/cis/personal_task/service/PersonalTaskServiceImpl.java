@@ -6,10 +6,13 @@ import com.cis.personal_task.dto.PersonalTaskDTO;
 import com.cis.personal_task.dto.TaskFileDTO;
 import com.cis.personal_task.repository.PersonalTaskRepository;
 import com.cis.personal_task.repository.TaskFileRepository;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.data.domain.Pageable;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -127,17 +130,36 @@ public class PersonalTaskServiceImpl implements PersonalTaskService {
         personalTaskRepository.updateTaskStatus(task_num, task_status);
     }
 
-    // 상태에 따른 업무 목록 조회 (페이징 포함)
-    public List<PersonalTaskDTO> getTasksByStatus(String task_status, int page, int size) {
-        int offset = (page - 1) * size;
-        return personalTaskRepository.selectTasksByStatus(task_status, size, offset);
-    }
+//    // 상태에 따른 업무 목록 조회 (페이징 포함)
+//    public List<PersonalTaskDTO> getTasksByStatus(String task_status, int page, int size) {
+//        int offset = (page - 1) * size;
+//        return personalTaskRepository.selectTasksByStatus(task_status, size, offset);
+//    }
 
     // 전체 업무 목록 조회 (페이징 포함)
     public List<PersonalTaskDTO> getAllTasks(int page, int size) {
         int offset = (page - 1) * size;
         return personalTaskRepository.selectAllTasks(size, offset);
     }
+
+    @Override
+    public List<PersonalTaskDTO> getTasksByStatus(String task_status) {
+        if ("전체보기".equals(task_status)) {
+            return personalTaskRepository.findAllTasks();
+        } else {
+            return personalTaskRepository.findTasksByStatus(task_status);
+        }
+    }
+    // 메인 화면
+    public List<PersonalTaskDTO> getMainTasks(String receive_id) {
+        return personalTaskRepository.getMainTasks(receive_id);
+    }
+
+    // 메인화면 업무목록
+//    public List<PersonalTaskDTO> getMainList(int page, int size) {
+//        PageHelper.startPage(0, 3);
+//        return personalTaskRepository.getMainList(task_title, task_status);
+//    }
 
     // 업무 상태 변경 (진행 -> 완료)
     //public void updateTaskStatus(int task_num, String task_status) {

@@ -4,7 +4,7 @@ input:focus, textarea:focus {
 section {
     width: 98%;
     height: 61%;
-    border: 1px solid black;
+    border: 1px solid #EBEBEB;
     border-radius: 15px;
     padding: 10px;
 
@@ -46,7 +46,7 @@ section {
     font-size: 20px;
     width: 80%;
     height: 60%;
-    border: 1px solid black;
+    border: 1px solid #666666;
     border-radius: 15px;
     padding: 0 10px;
 }
@@ -75,7 +75,7 @@ section {
     font-size: 20px;
     width: 50%;
     height: 60%;
-    border: 1px solid black;
+    border: 1px solid #666666;
     border-radius: 15px;
     padding: 0 10px;
 
@@ -90,7 +90,7 @@ section {
     font-size: 22px;
     width: 94%;
     height: 78%;
-    border: 1px solid black;
+    border: 1px solid #666666;
     border-radius: 15px;
     padding: 30px;
 
@@ -102,7 +102,7 @@ section {
     padding: 15px 15px 15px 0;
 }
 .mail_content::-webkit-scrollbar-thumb {
-    background: #666;
+    background: #666666;
     border-radius: 20px;
 }
 .mail_content::-webkit-scrollbar-track {
@@ -125,15 +125,15 @@ section {
     align-items: center;
 }
 .mail_files a {
-    color: dodgerblue;
+    color: #1E90FF;
     text-decoration: none;
-    border: 1px solid black;
+    border: 1px solid #666666;
     border-radius: 10px;
     margin-right: 15px;
     padding: 10px 15px;
 }
 .mail_files a:hover {
-    color: cornflowerblue;
+    color: #6495ED;
 }
 .mail_delete {
     width: 10%;
@@ -143,19 +143,19 @@ section {
     align-items: center;
 }
 .delete_btn {
-    background-color: red;
-    color: white;
+    background-color: #FF0000;
+    color: #FFFFFF;
     font-size: 16px;
     font-weight: bold;
     width: 100px;
     height: 40px;
-    border: 1px solid red;
+    border: 1px solid #FF0000;
     border-radius: 15px;
     margin-right: 5px;
 
     cursor: pointer;
 }
 .delete_btn:hover {
-    background-color: tomato;
-    border: 1px solid tomato;
+    background-color: #FF6347;
+    border: 1px solid #FF6347;
 }

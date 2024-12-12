@@ -1,7 +1,7 @@
 section {
     width: 98%;
     height: 61%;
-    border: 1px solid black;
+    border: 1px solid #EBEBEB;
     border-radius: 15px;
     padding: 10px;
 
@@ -31,25 +31,29 @@ section {
     cursor: pointer;
 }
 .mail_delete {
-    background-color: red;
-    color: white;
-    border: 1px solid red;
+    background-color: #FF0000;
+    color: #FFFFFF;
+    border: 1px solid #FF0000;
 }
 .mail_delete:hover {
-    background-color: tomato;
-    border: 1px solid tomato;
+    background-color: #FF6347;
+    border: 1px solid #FF6347;
 }
 .mail_send {
-    background-color: dodgerblue;
-    color: white;
-    border: 1px solid dodgerblue;
+    background-color: #1E90FF;
+    color: #FFFFFF;
+    border: 1px solid #1E90FF;
+}
+.mail_view {
+    border: 1px solid #EBEBEB;
 }
 .mail_send:hover, .mail_view:hover {
-    background-color: skyblue;
-    border: 1px solid skyblue;
+    background-color: #AAE0F8;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
 }
 .mail_list {
-    border: 1px solid black;
+    border: 1px solid #EBEBEB;
 }
 .mail_table {
     width: 100%;
@@ -58,7 +62,7 @@ section {
     text-align: center;
 }
 .mail_table tr td {
-    border: 1px solid black;
+    border: 1px solid #EBEBEB;
     padding: 10px;
 }
 .mail_table thead tr td {
@@ -66,14 +70,14 @@ section {
     font-weight: bold;
 }
 .mail_detail_unread {
-    color: black;
+    color: #000000;
     font-weight: bold;
     text-decoration: none;
 
     display: block;
 }
 .mail_detail_read {
-    color: black;
+    color: #000000;
     text-decoration: none;
 
     display: block;
@@ -90,7 +94,7 @@ section {
     height: 30px;
 }
 .paging td a {
-    color: black;
+    color: #000000;
     text-decoration: none;
     width: auto;
     height: auto;
@@ -98,13 +102,14 @@ section {
 }
 .paging td a div {
     width: 50px;
-    border: 1px solid black;
+    border: 1px solid #666666;
     border-radius: 15px;
     padding: 5px 10px;
 
     display: inline-block;
 }
 .paging td div:hover {
-    background-color: skyblue;
-    border: 1px solid skyblue;
+    background-color: #AAE0F8;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
 }
