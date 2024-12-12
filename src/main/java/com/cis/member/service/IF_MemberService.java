@@ -74,7 +74,7 @@ public interface IF_MemberService {
     public void add_new_employee_info(ManagerDTO member) throws Exception;
 
     // 사원테이블에 관리자가 입력한 rrn 삽입.
-    public void add_new_employee_rrn_in_employee(String rrn) throws Exception;
+    public void add_new_employee_rrn_in_employee(String rrn,String r_num) throws Exception;
 
     // 사원이 정보를 환성시킬 필욯가 있는 사원의 리스트
     public List<ManagerEmployeeDTO> employee_need_complete(int startIndex, int pageSize) throws Exception;

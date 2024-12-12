@@ -32,6 +32,18 @@ public class MemberServiceImpl implements IF_MemberService{
     @Override
     public List<ManagerEmployeeDTO> total_employee_list(int startIndex, int pageSize) throws Exception {
         List<ManagerEmployeeDTO> list = memberdao.selectAll( startIndex,  pageSize);
+        for(ManagerEmployeeDTO member : list){
+            System.out.println("MemberServiceImpl_추가 필요한 사원들의 정보 전 : " + member.toString());
+        }
+        for(ManagerEmployeeDTO member : list){
+            if (member.getEmp_id().equals("111")){
+                member.setEmp_id("(정보 추가필요)");
+            }
+        }
+        for(ManagerEmployeeDTO member : list){
+            System.out.println("MemberServiceImpl_추가 필요한 사원들의 정보 후 : " + member.toString());
+        }
+
         return list;
     }
 
@@ -149,19 +161,19 @@ public class MemberServiceImpl implements IF_MemberService{
     public List<ManagerEmployeeDTO> get_need_complete_employee_list(int startIndex, int pageSize) throws Exception {
         List<ManagerEmployeeDTO> list = memberdao.select_manager_add_info(startIndex, pageSize);
         for(ManagerEmployeeDTO member : list){
-            if (member.getEmp_name()== null){
+            if (member.getEmp_name().equals("111")){
                 member.setEmp_name("(추가필요)");
             }
-            if(member.getEmp_rank() == null){
+            if(member.getEmp_rank().equals("111")){
                 member.setEmp_rank("(추가필요)");
             }
-            if(member.getEmp_dept() == null){
+            if(member.getEmp_dept().equals("111")){
                 member.setEmp_dept("(추가필요)");
             }
-            if(member.getJoin_date() == null){
+            if(member.getJoin_date().equals("111")){
                 member.setJoin_date("(추가필요)");
             }
-            if (member.getWork_status() == null){
+            if (member.getWork_status().equals("111")){
                 member.setWork_status("(추가필요)");
             }
         }
@@ -241,19 +253,31 @@ public class MemberServiceImpl implements IF_MemberService{
 
     @Override
     public void add_new_employee_info(ManagerDTO member) throws Exception {
-        System.out.println("MemberServiceImpl 진입확인 111 : ");
+        System.out.println("MemberServiceImpl 진입확인 111 : " + member.toString());
         memberdao.manager_insert_new_employee_info(member);
     }
 
     @Override
-    public void add_new_employee_rrn_in_employee(String rrn) throws Exception {
+    public void add_new_employee_rrn_in_employee(String rrn, String r_num) throws Exception {
         System.out.println("MemberServiceImpl_rrn_확인 : " + rrn);
-        memberdao.insert_new_employee_rrn_in_employee(rrn);
+        memberdao.insert_new_employee_rrn_in_employee(rrn, r_num);
     }
 
     @Override
     public List<ManagerEmployeeDTO> employee_need_complete(int startIndex, int pageSize) throws Exception {
-        return memberdao.select_list_need_complete(startIndex,pageSize);
+        List<ManagerEmployeeDTO> list = memberdao.select_list_need_complete(startIndex,pageSize);
+        for(ManagerEmployeeDTO member : list){
+            System.out.println("MemberServiceImpl_추가 필요한 사원들의 정보 전 : " + member.toString());
+        }
+        for(ManagerEmployeeDTO member : list){
+            if (member.getEmp_id().equals("111")){
+                member.setEmp_id("(사원측 추가필요)");
+            }
+        }
+        for(ManagerEmployeeDTO member : list){
+            System.out.println("MemberServiceImpl_추가 필요한 사원들의 정보 후 : " + member.toString());
+        }
+        return list;
     }
 
     @Override

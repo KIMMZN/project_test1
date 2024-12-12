@@ -1,5 +1,5 @@
 body{
-    background-color: pink;
+    background-color: #808080;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,7 +35,7 @@ body{
 .employee_login{
     width: 80%;
     height: 45%;
-    background-color: #FF416C;
+    background-color: #545454;
     text-align: center;
     border-radius: 30px;
     margin-top: 170px;
@@ -45,7 +45,7 @@ body{
 .manager_login{
     width: 80%;
     height: 45%;
-    background-color: #ff4b2b;
+    background-color: #3F3F3F;
     text-align: center;
     border-radius: 30px;
     margin-top: 170px;

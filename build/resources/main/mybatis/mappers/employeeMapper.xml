@@ -83,7 +83,7 @@
         select *
         from employee e left outer join manager m
                                         on e.resident_num = m.resident_num
-        where m.emp_dept is null
+        where m.emp_dept='111'
         LIMIT #{startIndex},#{pageSize}
     </select>
 
@@ -147,14 +147,14 @@
 
     <!-- 관리자가 등록한 사원에 주민번호를 employee 태이블에서 삽입. -->
     <insert id="insert_new_employee_rrn_in_employee" parameterType="String">
-        insert into employee values ('null',#{rrn},'null','null','null', 'null', 'null')
+        insert into employee values (#{r_num},#{rrn},'111','111','111', '111', '111')
     </insert>
 
     <select id="select_list_need_complete" resultType="com.cis.member.dto.ManagerEmployeeDTO" parameterType="int">
         select *
         from employee e left outer join manager m
                                         on e.resident_num = m.resident_num
-        where e.emp_id = 'null'
+        where e.emp_email = '111'
         LIMIT #{startIndex},#{pageSize}
     </select>
 
@@ -162,7 +162,7 @@
         select count(*)
         from employee e left outer join manager m
                                         on e.resident_num = m.resident_num
-        where e.emp_id = 'null'
+        where e.emp_email = '111'
     </select>
 
 

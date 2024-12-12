@@ -14,7 +14,7 @@ let deletedFileIds = [];
 
 // 목록 버튼 클릭
 function btnlist() {
-    location.href = "/board_gj";
+    history.back();
 }
 
 

@@ -28,7 +28,7 @@ public class EmployeeController {
 
     @Autowired
     IF_MemberService memberService;
-    private final IF_board_service  ifboardservice;
+    private final IF_board_service ifboardservice;
     private final IF_AttendanceService attendanceService;
 
     // 전체 로그인 (로그인 방식 선택.)
@@ -36,7 +36,6 @@ public class EmployeeController {
     public String start_page() throws Exception{
         System.out.println("시작화면");
         return "total_login";
-//        return "Manager/manager_add_new_employee_info";
     }
 
 
@@ -73,32 +72,23 @@ public class EmployeeController {
             params.setRecordSize(3);
             params.setPageSize(1);
             PagingResponse<boardVO> boardvolist = ifboardservice.findAllPost_fr(params);
-//            if (boardvolist == null || boardvolist.getList() == null) {
-//                boardvolist = new PagingResponse<>();
-//                boardvolist.setList(new ArrayList<>()); // 빈 리스트로 초기화
-//            }
-
-
             // 공지사항
             searchDTO paramsg = new searchDTO();
             paramsg.setPage(1);
             paramsg.setRecordSize(3);
             paramsg.setPageSize(1);
             PagingResponse<boardVO> boardvolistg = ifboardservice.findAllPost(paramsg);
-            //
-
             // 근태관리
             Pagination pagination = new Pagination(6, 3, 1);
             pagination.setStartIndex(0);
             pagination.setPageSize(3);
-
             List<AttendanceDTO> attendance_list = attendanceService.attendanceList(userId, pagination);
+            // 개인업무
+
 
             model.addAttribute("attendance_list", attendance_list);
             model.addAttribute("boardvolist", boardvolist);
             model.addAttribute("boardvolistg", boardvolistg);
-            // 개인업무
-
 
             return "main/emp_main";
         }
@@ -114,6 +104,15 @@ public class EmployeeController {
         return "Employee/employee_login";
 //        return "main/emp_main"; // 세션 비활성화 성공 여부 확인 코드.
     }
+
+    // 뒤로가기
+    @GetMapping(value="back_btn")
+    public String back_btn(HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "total_login";
+    }
+
 
 
     // 일반 사원 "사원가입" 화면으로 이동.
@@ -132,7 +131,6 @@ public class EmployeeController {
     }
 
 
-
     // ========================= 관리자 ========================
 
     // "관리자 로그인" 선택시.
@@ -149,8 +147,6 @@ public class EmployeeController {
         boolean check_result = memberService.check_manager_pass(pass);
         if (check_result) {
             HttpSession session = request.getSession();
-//            session.setAttribute("emp_name","관리자"); // 관리자 세션 추가.
-//            session.setAttribute("emp_name","admin"); // 관리자 세션 추가.
             session.setAttribute("admin","admin"); // 관리자 세션 추가
             String emp_id = (String) session.getAttribute("admin");
             String emp_name = ifboardservice.getNameById(emp_id);
@@ -275,27 +271,6 @@ public class EmployeeController {
         return departmentCodes;
     }
 
-    // 관리자 직원 정보 추가가 필요한 사원에 리스트 조회.(전체사원 리스트에서 "직원정보 추가"버튼 클릭.)
-//    @GetMapping(value="complete_employee_info")
-//    public String complete_employee_info(@RequestParam(defaultValue = "1") int page, Model model) throws Exception{
-//        System.out.println("$$$$$$$$");
-//        int totalCount = memberService.total_count_number_need_add_info();
-//        System.out.println("EmployeeController_정보 추가가 필요한 사원의 인원수 : " + totalCount + " / " + page);
-//        Pagination pagination = new Pagination(10, totalCount, page);
-//        int startIndex = pagination.getStartIndex();
-//        int pageSize = pagination.getPageSize();
-//        pagination.setSelectPage(page);
-//        List<ManagerEmployeeDTO> list = memberService.get_need_complete_employee_list(startIndex, pageSize);
-//        for(ManagerEmployeeDTO member : list){
-//            System.out.println("EmployeeController_추가 필요한 사원들의 정보 : " + member.toString());
-//        }
-//        System.out.println("EmployeeeController_페이징*** : " + pagination);
-//        model.addAttribute("pagination", pagination);
-//        model.addAttribute("need_complete_list", list);
-//        System.out.println("$$$$$$$$----");
-//        return "Manager/total_employee_list_need_add_info";
-//    }
-
     // 관리자가 직원 정보를 완성시킬 수 있게하는 정보 입력 화면으로 이동.
     @GetMapping(value="manager_complete_employee_info")
     public String add_complete_employee_info(@RequestParam("emp_id") String id, Model model) throws Exception{
@@ -337,8 +312,11 @@ public class EmployeeController {
         System.out.println("EmployeeController_관리자가 신규 등록한 사원의 정보 : " + member.toString());
         memberService.add_new_employee_info(member);
         System.out.println("EmployeeController_rrn : " + member.getResident_num());
+        int num = (int)(Math.random()*8999)+1000;
+        String r_num = String.valueOf(num);
+        System.out.println("생성한 랜덤 숫자 : " + r_num);
         String rrn = member.getResident_num();
-        memberService.add_new_employee_rrn_in_employee(rrn);
+        memberService.add_new_employee_rrn_in_employee(rrn,r_num);
         return "main/manager_main";
     }
 
@@ -349,8 +327,8 @@ public class EmployeeController {
         Pagination pagination = new Pagination(10,totalCount, page);
         int startIndex = pagination.getStartIndex();
         int pageSize = pagination.getPageSize();
-        pagination.setSelectPage(page);;
-        System.out.println("정보 보충이 필요한 사원의 인원수 : " + totalCount);
+        pagination.setSelectPage(page);
+        System.out.println("EmployeeController_정보 보충이 필요한 사원의 인원수 : " + totalCount);
         List<ManagerEmployeeDTO> list = memberService.employee_need_complete(startIndex, pageSize);
         for(ManagerEmployeeDTO member : list){
             System.out.println("EmployeeController_need_complete : " + member.toString());
@@ -366,6 +344,18 @@ public class EmployeeController {
     public String add()throws Exception{
         return "Manager/manager_add_new_employee_info";
     }
+
+    @GetMapping(value="manager_main_page")
+    public String manager_main() throws Exception{
+        return "redirect:manager_main";
+    }
+
+    // 일반사원 로그인 에서 "뒤로가기" 버튼 클릭.
+    @GetMapping(value="main_login")
+    public String main_login() throws Exception{
+        return "total_login";
+    }
+
 
 
 

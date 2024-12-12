@@ -61,6 +61,7 @@ public class BoardController {
 //            System.out.println(session.getAttribute("employee_id") + "   /아이디");
 //            System.out.println(session.getAttribute("emp_rank") + "  //랭크");
             loginFlag = true;
+            System.out.println(loginFlag+"관리자");
 
         } else if (session.getAttribute("employee_id") != null) {
             System.out.println("자유게시판!!");
@@ -75,6 +76,7 @@ public class BoardController {
             model.addAttribute("emp_id", emp_id);
             model.addAttribute("emp_name", emp_name);
             model.addAttribute("rank", rank);
+            System.out.println(loginFlag+"일반회원");
 
             
         } else {
@@ -113,6 +115,7 @@ public class BoardController {
         model.addAttribute("keyword", params.getKeyword());
         model.addAttribute("searchType", params.getSearchType());
 
+        System.out.println(loginFlag + "로근 플래그 확인");
         // 현재 페이지 추가
         model.addAttribute("currentPage", params.getPage());
         model.addAttribute("loginFlag", loginFlag);
@@ -303,6 +306,8 @@ public class BoardController {
             sessionId = (String) session.getAttribute("admin");
             loggedNanme = (String) session.getAttribute("emp_name");
             System.out.println("관리자아이디 : "+sessionId + "// " + "관리자이름  :  "  + loggedNanme);
+            loginFlag = true;
+            model.addAttribute("loginFlag", true);
         }
 
 
@@ -340,11 +345,10 @@ public class BoardController {
         //model에 전송할 값들 추가
         model.addAttribute("loggedId", sessionId); //로그인한 사용자 아이디
         model.addAttribute("loggedNanme", loggedNanme); //로그인한 사용자이름
-        model.addAttribute("loginFlag", loginFlag);
         model.addAttribute("boardvo", boardvo);
         model.addAttribute("fileList", fileList);
         model.addAttribute("emp_name", emp_name);
-
+        System.out.println(loginFlag+"로긴 플래그 관리자");
         return "/board/gj_preview";
     }
 

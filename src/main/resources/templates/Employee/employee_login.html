@@ -14,7 +14,7 @@
     <form action="employee_login_action" method="post">
         <div id="loginBase2">
             <div class="back_btn2">
-                <button id="backBtn"><i class="fa-solid fa-arrow-left"></i></button>
+                <button id="backBtn" onclick="location.href='/main_login'"><i class="fa-solid fa-arrow-left"></i></button>
             </div>
             <div class="content_set2">
                 <!-- 아이디 -->
@@ -39,7 +39,6 @@
             </div>
             <div id="new_employee_btn">
                     <span>
-<!--                        <input type="button" onclick="location.href='/join'" value="사원가입" id="eloginBtn" required>-->
                         <input type="button" onclick="location.href='/join'" value="사원가입" id="eloginBtn" required>
                     </span>
             </div>
@@ -51,20 +50,12 @@
 </div>
 </body>
 <script>
-    document.getElementById('backBtn').addEventListener("click",()=>{
-        // alert("'뒤로가기' 버튼 클릭.");
-        history.go(-1);
-    })
-
     document.getElementById('check_join2').addEventListener("click",()=>{
-        // alert("'로그인' 버튼 클릭.")
-
         // "아이디"입력창에 입력한 내용을 저장할 변수.
         let input_id = document.getElementById('emp_id').value;
 
         // "비밀번호"입력창에 입력한 내용을 저장할 변수.
         let input_pass = document.getElementById('emp_pass').value;
-        // alert(input_id + " / " + input_pass);
     })
 </script>
 </html>

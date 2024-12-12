@@ -13,13 +13,16 @@
 </head>
 <body>
 <div class="main">
-  <header th:replace="~{layout/header::header}"></header>
-  <nav th:replace="~{layout/nav::nav}"></nav>
+  <header th:replace="~{layout/header_manager::header}"></header>
+<!--  <nav th:replace="~{layout/nav::nav}"></nav>-->
   <section>
     <div class="mail_container">
       <div class="mail_btn">
         <!-- <a href="email_delete"> -->
         <!-- <a href=""> -->
+        <div>
+          <a href=""></a>
+        </div>
         <a href="/board/manager">
           <input type="button" value="게시판 관리" class="mail_delete">
         </a>

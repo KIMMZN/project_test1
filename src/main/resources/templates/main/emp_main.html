@@ -81,7 +81,7 @@
                     <table>
                         <thead>
                             <tr id="attendance_empty">
-                                <td class="empty" colspan="2">근무기록이 존재하지 않습니다.</td>
+                                <td class="empty" colspan="2" th:if="${#lists.isEmpty(attendance_list)}">근무기록이 존재하지 않습니다.</td>
                             </tr>
                         </thead>
                         <tbody id="attendance_list">
@@ -122,6 +122,6 @@
         </section>
         <footer th:replace="~{layout/footer::footer}"></footer>
     </div>
-    <script src="/js/main/emp_main.js"></script>
+    <!-- <script src="/js/main/emp_main.js"></script> -->
 </body>
 </html>
