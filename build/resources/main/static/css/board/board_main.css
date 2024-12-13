@@ -179,19 +179,20 @@ table thead {
 }
 /*수정 삭제 버튼*/
 .mail_table #delbtn:hover {
-    background-color: darkgray;          /* 호버 시 배경색 */
+    background-color: white;      /* 호버 시 배경색 */
     color: black; /* 호버 시 텍스트 색상 */
     /*border-color: #007bff; !* 호버 시 외곽선 색상 *!*/
     border: 2px solid #007bff;
 }
 .mail_table #modbtn:hover {
-    background-color: darkgray;            /* 호버 시 배경색 */
+    background-color: white;             /* 호버 시 배경색 */
     color: black; /* 호버 시 텍스트 색상 */
     /*border-color: #007bff; !* 호버 시 외곽선 색상 *!*/
     border: 2px solid #ff5e99;
 }
 .mail_table #modbtn {
-    /*background-color: #007bff;*/
+    background-color: #1E90FF;
+    color: white;
     border-radius: 10px;
     cursor: pointer;
     width: 60px;
@@ -203,7 +204,8 @@ table thead {
 }
 .mail_table #delbtn {
     border-radius: 10px;
-    /*background-color: #ff5e99; !* 핑크색 *!*/
+    color: white;
+    background-color: #FF0000; /* 핑크색 */
     cursor: pointer;
     width: 60px;
     height: 50px;

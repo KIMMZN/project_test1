@@ -13,9 +13,9 @@ function setQueryStringParams() {
     const form = document.getElementById('searchForm');
 
     // 쿼리 스트링이 없으면 종료
-  //  if (!location.search || !form) {
-  //      return;
-  //  }
+    //  if (!location.search || !form) {
+    //      return;
+    //  }
 
     // 쿼리 스트링 값을 폼 요소에 매핑
     params.forEach((value, key) => {

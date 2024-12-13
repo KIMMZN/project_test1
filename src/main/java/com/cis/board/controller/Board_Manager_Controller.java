@@ -30,11 +30,11 @@ public class Board_Manager_Controller {
     @GetMapping(value = "/board/manager")
     public String board_fr(@ModelAttribute searchDTO params, Model model,
                            HttpSession session) throws Exception {
-        System.out.println("--------------");
-        System.out.println(params.toString() + "   //search Dto확인");
-        System.out.println("--------------");
+//        System.out.println("--------------");
+//        System.out.println(params.toString() + "   //search Dto확인");
+//        System.out.println("--------------");
 
-
+        boolean admLoginFlag = false;
         String emp_name = "";
         if (session.getAttribute("admin") != null) {
             System.out.println("자유게시판!!");
@@ -48,6 +48,7 @@ public class Board_Manager_Controller {
 
             model.addAttribute("emp_id", emp_id);
             model.addAttribute("emp_name", emp_name);
+            admLoginFlag = true;
             //model.addAttribute("rank", rank);
         }
         //
@@ -84,6 +85,7 @@ public class Board_Manager_Controller {
         model.addAttribute("searchType", params.getSearchType());
         model.addAttribute("searchCategory", params.getSearchCategory());
         model.addAttribute("currentPage", params.getPage());
+        model.addAttribute("admLoginFlag", admLoginFlag);
 
         return "/board/board_mng/board_Admin";
     }
@@ -113,6 +115,7 @@ public class Board_Manager_Controller {
             } else if (session.getAttribute("admin") != null) {
                 sessionId = (String) session.getAttribute("admin");
                 loggedNanme = (String) session.getAttribute("emp_name");
+                loginFlag = true;
                 System.out.println("세션아이디 : " + sessionId + "// " + "이름  :  " + loggedNanme);
             }
 
@@ -169,18 +172,15 @@ public class Board_Manager_Controller {
     }
 
 
-        //자유게시판 글 삭제 (num,category) + 파일삭제
+        //게시판 글 삭제 (num,category) + 파일삭제
         @PostMapping(value = "/board/manager/delOne/")
         @ResponseBody
         public Map<String, Object> bord_manager_delOne(@RequestParam(value = "category") String category,
                                                         @RequestParam(value = "board_num") Integer num,
                                                         @RequestParam(value = "fileAttached") Integer fileAttached) throws Exception {
-
-
-            System.out.println("게시글 번호: " + num);
-            System.out.println("카테고리: " + category);
-            System.out.println("파일첨부여부: " + fileAttached);
-
+//            System.out.println("게시글 번호: " + num);
+//            System.out.println("카테고리: " + category);
+//            System.out.println("파일첨부여부: " + fileAttached);
             Map<String, Object> response = new HashMap<>();
 
             try {
@@ -219,7 +219,7 @@ public class Board_Manager_Controller {
                         HttpSession session) throws Exception {
 
 
-        System.out.println("공지게시판");
+//        System.out.println("공지게시판");
 //        System.out.println(session.getAttribute("employee_id"));
 //        System.out.println(session.getAttribute("emp_name"));
         //세션 로그인 설정. 임시로

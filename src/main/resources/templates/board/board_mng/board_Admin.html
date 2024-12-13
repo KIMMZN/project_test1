@@ -36,7 +36,7 @@
         <div id="search_div_2">
           <form id="searchForm" method="get" action="/board/manager">
             <div id="search_optin">
-              <button class="past" type="button"><a href="/manager_main">뒤로</a></button>
+              <button class="past" type="button"><a href="/manager_main"><i class="fa-solid fa-arrow-left"></i></a></button>
               <select name="searchCategory" title="검색 카테고리 선택" onchange="selectCategory()" id="selectCategoryO">
                 <option value="" th:selected="${searchCategory==''}">전체 카테고리</option>
                 <option value="공지사항" th:selected="${searchCategory =='category'}">공지사항</option>
@@ -87,10 +87,10 @@
             </td>
             <td th:text="${m.emp_id}"></td>
             <td><a th:href="@{/board/manager/{category}/{board_num}(category=${m.category}, board_num=${m.board_num})}">
-              <button id="modbtn"><i class="fa-solid fa-pen-nib">수정</i></button></a>
+              <button id="modbtn" th:if="${admLoginFlag == true}" ><i class="fa-solid fa-pen-nib">수정</i></button></a>
             </td>
             <td>
-              <button id="delbtn" th:attr="data-category=${m.category}, data-board-num=${m.board_num}, data-file-attached=${m.fileAttached}"
+              <button id="delbtn" th:if="${admLoginFlag == true}" th:attr="data-category=${m.category}, data-board-num=${m.board_num}, data-file-attached=${m.fileAttached}"
                       onclick="deletePost(this)"><i class="fa-solid fa-trash">삭제</i>
               </button>
             </td>
@@ -125,8 +125,8 @@
       </div>
 
       <div id="table_write_div">
-        <a href="/write_fr">
-          <button class="write_button" type="button" hidden="hidden"><i class="fa-solid fa-pen">글쓰기</i></button>
+        <a href="/board/manager/write_gj">
+          <button class="write_button" type="button" th:if="${admLoginFlag == true and admLoginFlag != null}"><i class="fa-solid fa-pen">글쓰기</i></button>
         </a>
       </div>
 

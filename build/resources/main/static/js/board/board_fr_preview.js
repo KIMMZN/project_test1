@@ -71,8 +71,9 @@ document.querySelector("#delbtn").addEventListener("click", ()=> {
 document.querySelector("#modifybtn").addEventListener("click", () => {
     titlebox.removeAttribute("readonly");
     contextbox.removeAttribute("readonly");
+    const firstli = document.querySelector(".add_1_li");
     addButton.hidden = false;
-
+    firstli.style.display = "block";
     // 기존 파일 목록에 삭제 버튼 추가
     const fileItems = fileListUl.querySelectorAll("li");
     fileItems.forEach((item) => {
@@ -170,10 +171,6 @@ function handleSave() {
         }
     });
 
-    // // FormData 내용 확인
-    // for (let [key, value] of formData.entries()) {
-    //     console.log(key, value);
-    // }
 
     // 서버로 데이터 전송
     fetch(`/fr_preview/modifyOne/${num}`, {

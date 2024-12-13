@@ -13,10 +13,11 @@ section {
     height: 94%;
     padding: 0 15px 15px 15px;
     overflow-y: auto; /* 스크롤 추가 */
+    /*box-sizing: border-box;*/
 }
 
 .mail_btn {
-    margin-left: 2%;
+    margin-left: 4%;
     padding: 3px 10px 10px 10px;
     display: flex;
     justify-content: center;
@@ -26,16 +27,22 @@ section {
 .mail_btn input {
     font-size: 20px;
     font-weight: bold;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     border-radius: 15px;
     margin-right: 25px;
     padding: 10px;
-
     cursor: pointer;
+    background-color: #1E90FF;
+    color: white;
 }
 
 .mail_btn input:hover {
     background-color: skyblue;
+}
+
+.mail_btn input.selected {
+    background-color: #FF4500; /* 선택된 버튼 색 */
+    color: white;
 }
 .mail_list {
     border: 1px solid black;

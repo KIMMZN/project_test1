@@ -56,9 +56,9 @@
                 <div class="files_container">
                     <div class="files_btn_div">
                         <ul id="fileListUl">
-                            <li>
-                                <label for="addbutton" hidden>파일 추가:</label>
-                                <input type="button" id="addbutton" value="파일추가" hidden>
+                            <li style="display: none" class="add_1_li">
+                                <label for="addbutton" hidden></label>
+                                <input type="button" id="addbutton" value="파일추가" hidden class="filebtn">
                             </li>
                             <li th:each="fList: ${fileList}" th:data-file-id="${fList.file_id}">
                                 <a th:href="@{/fr_preview/{board_num}/{file_num}/{category}(board_num=${fList.board_num}, file_num=${fList.file_id}, category=${fList.category})}"
@@ -71,7 +71,7 @@
                 </div>
                 <div class="update_delete_container">
                     <div class="update_delete_div" th:if="${loginFlag}">
-                        <input type="button" value="목록" onclick="btnlist()">
+                       <input type="button" value="목록" onclick="btnlist()">
                         <input type="submit" value="수정" id="modifybtn">
                         <input type="submit" value="삭제" id="delbtn">
                     </div>

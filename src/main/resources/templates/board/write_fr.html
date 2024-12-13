@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CIS : 자유게시판 글쓰기</title>
     <link rel="stylesheet" href="/css/layout/base.css"/>
+    <link rel="stylesheet" href="/css/board/board_base.css"/>
     <link rel="stylesheet" type="text/css" href="/css/board/write.css">
     <script src="https://kit.fontawesome.com/ae15ba340d.js" crossorigin="anonymous"></script>
 </head>
@@ -18,9 +19,7 @@
                 <form action="/board_write_one" method="post" enctype="multipart/form-data">
                     <div class="write_main"><span>자유게시판</span></div>
                     <input type="text" value="자유게시판" readonly hidden="true" name="category">
-                    <div class="write_writer">
-
-
+                    <div class="write_writer"> <!--작성자 div -->
                         <div class="write_writer_name">
                             <label for="namebox">작성자</label><!--name="emp_id"-->
                             <input type="text" id="namebox" placeholder="작성자이름" th:value="${emp_name}"
@@ -28,7 +27,6 @@
                             <label for="hidden_empid" hidden="hidden"></label>
                             <input type="text" id="hidden_empid" name="emp_id" th:value="${emp_id}" hidden="hidden" readonly>
                         </div>
-
                     </div>
                     <div class="write_title">
                         <div class="write_title_name">
@@ -47,13 +45,6 @@
 
                     <div class="write_files">
                         <div class="write_files_btn_div"><input type="button" value="파일추가" id="filebtn"> </div>
-                        <!--
-                        <input type="file" name="file" id="formFile">
-                        <input type="file" name="file" id="formFile">
-                        <input type="file" name="file" id="formFile">
-                        -->
-
-
                     </div>
 
                     <div class="write_button">

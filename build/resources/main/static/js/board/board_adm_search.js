@@ -54,24 +54,6 @@ function deletePost(button) {
                 alert("삭제실패")
             }
         })
-        // const form = document.createElement('form');
-        // form.method = 'POST';
-        // form.action = '/board/manager/delOne/';
-        //
-        // const categoryInput = document.createElement('input');
-        // categoryInput.type = 'hidden';
-        // categoryInput.name = 'category';
-        // categoryInput.value = categoryv;
-        //
-        // const boardNumInput = document.createElement('input');
-        // boardNumInput.type = 'hidden';
-        // boardNumInput.name = 'board_num';
-        // boardNumInput.value = boardNumv;
-        //
-        // form.appendChild(categoryInput);
-        // form.appendChild(boardNumInput);
-        //
-        // document.body.appendChild(form);
-        // form.submit();
+
     }
 }

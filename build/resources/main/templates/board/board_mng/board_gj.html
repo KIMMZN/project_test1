@@ -28,7 +28,7 @@
         <div id="search_div_2">
           <form id="searchForm" method="get" action="/board/manager/gj">
             <div id="search_optin">
-              <button class="past" type="button"><a href="/manager_main">뒤로</a></button>
+              <button class="past" type="button"><a href="/manager_main"><i class="fa-solid fa-arrow-left"></i></a></button>
               <select name="searchType" id="searchType" title="검색 유형 선택">
                 <option value="" th:selected="${searchType == ''}">전체 검색</option>
                 <option value="board_title" th:selected="${searchType == 'board_title'}">제목</option>
