@@ -71,7 +71,8 @@ public class AttendanceController {
     // 오늘 날짜의 근무 기록 검증
     @GetMapping(value = "attendance/work_start/check")
     @ResponseBody
-    public int attendanceWorkStartCheck(@RequestParam("now_date") String now_date, HttpSession httpSession) throws Exception {
+    public int attendanceWorkStartCheck(@RequestParam("now_date") String now_date,
+                                        HttpSession httpSession) throws Exception {
         Object login_emp = httpSession.getAttribute("employee_id");
         if (login_emp == null) return 0;
 
@@ -81,11 +82,23 @@ public class AttendanceController {
     // 오늘 날짜의 퇴근 기록 검증
     @GetMapping(value = "attendance/work_end/check")
     @ResponseBody
-    public int attendanceWorkEndCheck(@RequestParam("now_date") String now_date, HttpSession httpSession) throws Exception {
+    public int attendanceWorkEndCheck(@RequestParam("now_date") String now_date,
+                                      HttpSession httpSession) throws Exception {
         Object login_emp = httpSession.getAttribute("employee_id");
         if (login_emp == null) return 0;
 
         return attendanceService.attendanceWorkEndCheck(login_emp, now_date);
+    }
+
+    // 오늘 날짜의 출근 시간 조회
+    @GetMapping(value = "attendance/work_start/time")
+    @ResponseBody
+    public String attendanceWorkStartTime(@RequestParam("now_date") String now_date,
+                                          HttpSession httpSession) throws Exception {
+        Object login_emp = httpSession.getAttribute("employee_id");
+        if (login_emp == null) return "";
+
+        return attendanceService.attendanceWorkStartTime(login_emp, now_date);
     }
 
 }

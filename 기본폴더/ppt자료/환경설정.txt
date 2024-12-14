@@ -1,0 +1,41 @@
+개발 환경
+
+(1) IDE: intellij 
+
+(2) Gradle : Spring boot (3.3.5) JDK17    참고: https://start.spring.io/
+
+(3) DB: MySQL
+
+(4) DB Tool: DBeaver
+
+(5) 형상 관리: Git
+
+(6) view template: thymeleaf
+
+
+개발환경 
+ide: 인텔리제이
+사용 프로젝트: spring boot(3.3.5)
+language : java version 17
+database : MySQL
+DB Tool: DBeaver
+persistence framework : mybatis
+build tool : gradle
+view template: thymeleaf
+형상환리: Git
+-------------------
+
+IDE: IntelliJ IDEA
+개발 툴: Spring Boot (3.3.5)
+: Spring Boot는 스프링 프레임워크를 기반으로 간소화된 설정과 자동화를 제공하여 
+빠르고 효율적으로 애플리케이션을 개발할 수 있도록 도와주는 도구
+언어: Java 17
+(RDBMS)관계형 데이터베이스 관리 시스템 : MySQL
+(DMT)데이터베이스 관리 도구: DBeaver
+퍼시스턴스 프레임워크: MyBatis
+빌드 도구: Gradle
+뷰 템플릿 엔진: Thymeleaf
+형상관리 도구: Git
+
+
+

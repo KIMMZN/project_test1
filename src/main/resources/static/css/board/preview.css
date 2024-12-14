@@ -9,7 +9,7 @@
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    border: 1px solid black;
+    border: 1px solid gainsboro;
     border-radius: 10px;
 
 
@@ -43,8 +43,8 @@
 .write_writer {
     box-sizing: border-box;
     /*border: 1px solid black;*/
-    border-top: 1px solid lightslategrey;
-    border-bottom: 1px solid lightslategrey;
+    border-top: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
     /*border-radius: 10px;*/
     float: left;
     width: 100%;
@@ -157,7 +157,7 @@
 .title_font {
     font-size: 20px;
     height: 100%;
-    border: 1px solid black;
+    border: 1px solid gainsboro;
     border-radius: 10px;
     width: 100%;
     box-sizing: border-box;
@@ -519,13 +519,14 @@ footer{
 .files_btn_div li:nth-child(1){
     float: left;
     /*border: 1px solid black;*/
-    border-radius: 10px;
-    margin-right: 80px;
+    /*border-radius: 10px;*/
+    /*margin-right: 80px;*/
     /*list-style-position: inside;*/
 }
 
 #addbutton {
     border: none;
+
 }
 
 .files_btn_div li {

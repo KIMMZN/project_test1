@@ -7,8 +7,10 @@ import com.cis.board.util.FIleDataUtil;
 import com.cis.board.vo.boardVO;
 import com.cis.board.vo.fileVO;
 import com.cis.board.vo.searchDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -211,6 +213,106 @@ public class Board_Manager_Controller {
 
             return response; // JSON 응답
         }
+        //글 안 수정 삭제
+        //공지게시판 수정
+        @PostMapping(value = "/board/manager/modOne/")
+        public String gj_modifyOne(@ModelAttribute boardVO boardvo,
+                                   @RequestParam(value = "deleteFiles", required = false) List<String> deleteFileIds,
+                                   @RequestPart(value = "files", required = false) List<MultipartFile> file) throws Exception {
+
+//
+//        ifboardservice.modOne(boardvo);
+//        //System.out.println(num + "     a asdf");
+//        System.out.println(boardvo.toString() + "   boardvo테스트");
+            System.out.println(boardvo.toString());
+            System.out.println(file+ "files " );
+            System.out.println(deleteFileIds+ "deleteFileIds");
+            //카테고리를 parameter에 추가
+            String categoryTemp = boardvo.getCategory();
+            System.out.println(boardvo.getCategory());
+            //파일 삭제
+
+            // 파일 삭제 처리
+            if (deleteFileIds != null && !deleteFileIds.isEmpty()) {
+                System.out.println("del 파일: " + deleteFileIds);
+                ifboardservice.fileDel(deleteFileIds, categoryTemp);
+            } else {
+                System.out.println("노데이터 ");
+            }
+
+            //파일 추가
+            // 파일이 null이면 빈 리스트로 초기화
+            if (file == null) {
+                file = new ArrayList<>();
+            }
+
+            //파일 경로에 저장 하고 새로운 파일 이름 리턴
+            List<fileVO> fileVoList = filedatautil.savefiles(file);
+            //boardvo에 첨부된 파일 갯수를 저장
+            boardvo.setFileAttached(filedatautil.attaced(file));
+
+            //게시판 업데이트
+            ifboardservice.modOne(boardvo);
+
+            //파일 업데이트(추가)
+            for (fileVO fileone : fileVoList) {
+                fileone.setBoard_num(boardvo.getBoard_num());
+                fileone.setCategory(categoryTemp);
+            }
+            ifboardservice.modfile(fileVoList);
+
+
+
+            //System.out.println(num + "     a asdf");
+            System.out.println(boardvo.toString() + "  수정작업완료 ");
+
+            return "redirect:/board_gj";
+        }
+
+    //게시판 글 삭제 (num,category) + 파일삭제
+    @PostMapping(value = "/board/manager/category/delOne/{num}")
+    public String gj_preview_delOne(@PathVariable("num") int num,@RequestParam(value = "category", required = true) String category,
+                                    @RequestParam(value = "delfileIds",required = false) List<String> deleteFileIds) throws Exception {
+
+        System.out.println("게시글 번호: " + num);
+        System.out.println("카테고리: " + category);
+        System.out.println("삭제할 파일 IDs: " + deleteFileIds);
+
+        // deleteFileIds null 체크 추가
+        if (deleteFileIds == null) {
+            deleteFileIds = new ArrayList<>();
+        }
+
+        System.out.println("삭제할 파일 IDs: " + deleteFileIds);
+
+        // 파일 삭제 처리
+        if (!deleteFileIds.isEmpty()) {
+            System.out.println("삭제할 파일 IDs: " + deleteFileIds);
+            ifboardservice.fileDel(deleteFileIds, category);
+        } else {
+            System.out.println("삭제할 파일이 없음");
+        }
+
+        // 게시글 삭제
+        boardVO boardvo = new boardVO();
+        boardvo.setBoard_num(num);
+        boardvo.setCategory(category);
+        System.out.println(boardvo.toString() + "boardvo");
+
+        String categoryTemp = boardvo.getCategory();
+        boardvo.setBoard_num(num);
+
+        ifboardservice.deleteOne(boardvo); // 삭제 처리
+
+        //System.out.println(boardvo.getCategory() + "카테고리");
+        //System.out.println(num+"게시글넘버");
+        System.out.println("삭제완료 ");
+
+        return "redirect:/board_gj";
+    }
+
+
+    //
 
 
      //공지사항 관리
@@ -380,13 +482,14 @@ public class Board_Manager_Controller {
         //유저이름을 모델을 통해 뷰로
         model.addAttribute("emp_id", emp_id);
         model.addAttribute("userName", name);
+
         return "/board/board_mng/write_gj";
     }
 
     //글쓰기 자유 + 공지
     @PostMapping(value = "/board/manager/write_gj/board_write_one")
     public String board_write_one(@ModelAttribute boardVO boardvo,
-                                  @RequestParam(value = "file", required = false) List<MultipartFile> file) throws Exception {
+                                  @RequestParam(value = "file", required = false) List<MultipartFile> file, HttpServletRequest request) throws Exception {
 //
 
         // 파일이 null이면 빈 리스트로 초기화
@@ -403,12 +506,19 @@ public class Board_Manager_Controller {
 
         ifboardservice.writeOneF(boardvo, fileVoList);
         System.out.println("글쓰기 as");
-        //리다이렉트 처리
-        if (boardvo.getCategory().equals("공지사항")) {
-            return "redirect:/board/manager/gj";
-        } else {
-            return "redirect:/board/manager/gj";
-        }
+//        //리다이렉트 처리
+//        if (boardvo.getCategory().equals("공지사항")) {
+//            return "redirect:/board/manager/gj";
+//        } else {
+//            return "redirect:/board/manager/gj";
+//        }
+
+//        // 이전 페이지로 리다이렉트
+//        String referer = request.getHeader(HttpHeaders.REFERER);
+//        System.out.println("Referer URL: " + referer);
+////
+//        return "redirect:" + referer; // 이전 페이지가 없을 경우 기본 경로
+        return "redirect:/board/manager/gj";
 
     }
 

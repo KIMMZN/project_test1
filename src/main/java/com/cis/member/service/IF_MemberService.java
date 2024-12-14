@@ -82,6 +82,7 @@ public interface IF_MemberService {
 
     public int total_count_employee_need_complete() throws Exception;
 
-
+    // 관리자 사원 퇴사처리_원진호_1213
+    public void manager_modify_info(String rrn, String work_status) throws Exception;
 
 }

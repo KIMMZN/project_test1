@@ -1,10 +1,11 @@
 section{
     width: 98%;
     height: 67%;
-    border: 1px solid black;
+    border: 1px solid #EBEBEB;
     border-radius: 15px;
     padding: 10px;
     float: left;
+    margin-top: 30px;
 }
 
 .employee_list_container{
@@ -14,7 +15,7 @@ section{
 }
 
 .employee_list{
-    border: 1px solid black;
+    border: 1px solid #cccccc;
 }
 
 .employee_list_table{
@@ -26,14 +27,21 @@ section{
 }
 
 .employee_list_table tr td{
-    border: 1px solid black;
+    border: 1px solid #cccccc;
     padding: 10px;
 }
+
+.employee_list_table thead tr{
+    background-color: #0070BB;
+
+}
+
 
 
 .employee_list_table thead tr td{
     font-size: 20px;
     font-weight: bold;
+    color: white;
 }
 
 .employee_detail_info{
@@ -51,18 +59,50 @@ section{
     text-decoration: none;
 }
 
-/* 페이징 CSS */
-.paging {
-    display: flex;
-    justify-content: center; /* 가운데 정렬 */
-    align-items: center; /* 수직 가운데 정렬 */
-    gap: 10px; /* 요소 간 간격 */
+
+tfoot td{
+    width: 100px;
 }
-.paging div {
+
+
+.paging td a{
+    color: #000000;
+    text-decoration: none;
+    width: auto;
+    height: auto;
+    margin: 0 10px;
+}
+
+.paging td a div{
+    width: 50px;
+    border: 1px solid #666666;
+    border-radius: 15px;
+    padding: 5px 10px;
     display: inline-block;
-    text-align: center;
 }
-.paging a {
-    text-decoration: none; /* 링크 밑줄 제거 */
-    font-weight: bold;
+
+.paging td div:hover{
+    background-color: #AAE0F8;
+    color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+}
+
+
+#search_part form{
+    padding-top: 10px;
+}
+
+#employee_list_content tr:hover{
+    background-color: #76ABDF;
+    color: white;
+}
+
+#employee_list_content tr a:hover{
+    color: white;
+    font-size: 20px;
+}
+
+#employee_list_content tr a{
+    color: black;
+    text-decoration-line: none;
 }

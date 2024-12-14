@@ -93,4 +93,12 @@ public interface IF_MemberDao {
     // emp_id로 직원 정보 조회 -- JISOO
     ManagerEmployeeDTO findEmployeeById(@Param("emp_id") String emp_id) throws Exception;
 
+    // 관리자 사원 퇴사 처리_원진호_1213
+    public void modify_employee_info(String rrn, String work_status) throws Exception;
+
+
+
+
+
+
 }

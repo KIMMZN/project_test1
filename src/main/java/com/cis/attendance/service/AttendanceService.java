@@ -44,4 +44,9 @@ public class AttendanceService implements IF_AttendanceService {
         return attendanceRepository.attendanceWorkEndCheck(login_emp, now_date);
     }
 
+    @Override
+    public String attendanceWorkStartTime(Object login_emp, String now_date) throws Exception {
+        return attendanceRepository.attendanceWorkStartTime(login_emp, now_date);
+    }
+
 }

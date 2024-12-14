@@ -1,8 +1,9 @@
 section {
     width: 98%;
-    height: 73%;
+    height: 69%;
     border: 1px solid #EBEBEB;
     border-radius: 15px;
+    margin-top: 10px;
     padding: 10px;
 
     display: flex;

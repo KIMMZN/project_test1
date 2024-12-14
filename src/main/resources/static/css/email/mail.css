@@ -45,7 +45,7 @@ section {
     border: 1px solid #1E90FF;
 }
 .mail_view {
-    border: 1px solid #EBEBEB;
+    border: 1px solid #CCCCCC;
 }
 .mail_send:hover, .mail_view:hover {
     background-color: #AAE0F8;
@@ -53,7 +53,7 @@ section {
     border: 1px solid #FFFFFF;
 }
 .mail_list {
-    border: 1px solid #EBEBEB;
+    border: 1px solid #CCCCCC;
 }
 .mail_table {
     width: 100%;
@@ -62,7 +62,7 @@ section {
     text-align: center;
 }
 .mail_table tr td {
-    border: 1px solid #EBEBEB;
+    border: 1px solid #CCCCCC;
     padding: 10px;
 }
 .mail_table thead tr td {
@@ -102,7 +102,7 @@ section {
 }
 .paging td a div {
     width: 50px;
-    border: 1px solid #666666;
+    border: 1px solid #CCCCCC;
     border-radius: 15px;
     padding: 5px 10px;
 

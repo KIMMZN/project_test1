@@ -32,6 +32,7 @@
             border-radius: 30px;
             margin-left: 20px;
         }
+
         #add_new_employee{
             width: 150px;
             height: 50px;
@@ -39,8 +40,6 @@
             border-radius: 30px;
             margin-left: 20px;
         }
-
-
     </style>
 </head>
 <body>
@@ -48,38 +47,34 @@
     <header th:replace="~{layout/header::header}"></header>
     <section>
         <div>
-            <h1>관리자 신규사원 등록</h1>
+            <h1>관리자 사원 정보 수정</h1>
         </div>
-        <form action="manager_input_new_employe_info" method="post">
+<!--        <form action="manager_input_new_employe_info" method="post">-->
+        <form action="manager_complete_employee_info" method="post">
             <div>
                 <label for="manager_input_rrn">주민등록 번호</label>
-                <input type="text" id="manager_input_rrn" name="resident_num"><br/>
+                <input type="text" id="manager_input_rrn" name="resident_num" th:value="${one_employee_info.resident_num}" readonly><br/>
             </div>
 
             <div>
                 <label for="manager_input_emp_name">사원이름</label>
-                <input type="text" id="manager_input_emp_name" name="emp_name"><br/>
+                <input type="text" id="manager_input_emp_name" name="emp_name" th:value="${one_employee_info.emp_name}" readonly><br/>
             </div>
 
             <div>
                 <label for="manager_input_emp_dept">부서명</label>
-                <input type="text" id="manager_input_emp_dept" name="emp_dept"><br/>
+                <input type="text" id="manager_input_emp_dept" name="emp_dept" th:value="${one_employee_info.emp_dept}" readonly><br/>
             </div>
 
             <div>
                 <label for="manager_input_emp_rank">직급</label>
-                <input type="text" id="manager_input_emp_rank" name="emp_rank"><br/>
+                <input type="text" id="manager_input_emp_rank" name="emp_rank" th:value="${one_employee_info.emp_rank}" readonly><br/>
             </div>
 
             <div>
                 <label for="manager_input_join_date">입사날짜</label>
-                <input type="text" id="manager_input_join_date" name="join_date"><br/>
+                <input type="text" id="manager_input_join_date" name="join_date" th:value="${one_employee_info.join_date}" readonly><br/>
             </div>
-
-            <!--                <div>-->
-            <!--                    <label for="manager_input_work_status">재직상태</label>-->
-            <!--                    <input type="text" id="manager_input_work_status" name="work_status"><br/>-->
-            <!--                </div>-->
 
             <div id="work_status">
                 <span>제직상태</span>
@@ -88,7 +83,6 @@
                 <label for="leave_work"></label>
                 <input type="checkbox" name="work_status" class="work_status" id="leave_work" style="width: 105px" />퇴직
             </div>
-
 
             <div>
                 <input type="button" id="cancel_btn" onclick="location.href='/manager_page'" value="취소">

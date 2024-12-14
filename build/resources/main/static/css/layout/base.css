@@ -21,9 +21,8 @@ body {
 header {
     background-color: #0070BB;
     width: 98%;
-    height: 10%;
+    height: 11%;
     border-radius: 15px;
-    margin-bottom: 15px;
     padding: 10px;
 
     display: flex;
@@ -91,13 +90,15 @@ header {
 nav {
     background-color: #0070BB;
     width: 98%;
-    height: 8%;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    padding: 10px;
+    height: 7%;
+    border-radius: 0 0 15px 15px;
+    margin-bottom: 5px;
+    padding: 0 10px 10px 10px;
 
     display: flex;
     align-items: center;
+    position: relative;
+    top: -12px;
 }
 nav ul {
     padding-left: 20px;
@@ -142,8 +143,9 @@ footer {
 footer p {
     color: #888888;
     font-size: 12px;
-    margin: 10px auto;
+    margin: 20px auto;
 }
 footer p:hover {
     color: #000000;
 }
+

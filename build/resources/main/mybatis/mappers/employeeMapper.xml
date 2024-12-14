@@ -12,7 +12,7 @@
 
     <!-- 일반사원 등록(insert) -->
     <insert id="insert_employee" parameterType="com.cis.member.dto.EmployeeDTO">
-        insert into employee values (#{emp_id}, #{resident_num}, #{emp_pass}, #{emp_email} ,#{post_addr}, #{road_addr}, #{detail_addr})
+        insert into employee values (#{emp_id}, #{resident_num}, #{emp_pass}, #{emp_email} ,#{post_addr}, #{road_addr}, #{detail_addr}, 'USER')
     </insert>
 
     <!-- 페이지별로 모든 정보가 담겨있는 전체 사원 리스트 조회 -->
@@ -73,10 +73,18 @@
     </select>
 
     <!-- 관리자가 정보추가가 필요한 한명의 사원의 정보를 추가(update) -->
-    <update id="modify_employee_info" parameterType="com.cis.member.dto.ManagerEmployeeDTO">
-        update manager set emp_dept=#{emp_dept}, emp_rank=#{emp_rank}, work_status=#{work_status}
-        where emp_name=#{emp_name}
+<!--    <update id="modify_employee_info" parameterType="com.cis.member.dto.ManagerEmployeeDTO">-->
+<!--        update manager set emp_dept=#{emp_dept}, emp_rank=#{emp_rank}, work_status=#{work_status}-->
+<!--        where emp_name=#{emp_name}-->
+<!--    </update>-->
+
+    <!-- 관리자 사원 정보 수정(퇴사처리) -->
+    <update id="modify_employee_info" parameterType="String" >
+        update manager set  work_status=#{work_status}
+        where resident_num=#{rrn}
     </update>
+
+
 
     <!-- 관리자의 추가적인 정보등록이 필요한 사원들의 전체 리스트 -->
     <select id="select_manager_add_info" resultType="com.cis.member.dto.ManagerEmployeeDTO" parameterType="int">
@@ -147,7 +155,7 @@
 
     <!-- 관리자가 등록한 사원에 주민번호를 employee 태이블에서 삽입. -->
     <insert id="insert_new_employee_rrn_in_employee" parameterType="String">
-        insert into employee values (#{r_num},#{rrn},'111','111','111', '111', '111')
+        insert into employee values (#{r_num},#{rrn},'111','111','111', '111', '111', 'USER')
     </insert>
 
     <select id="select_list_need_complete" resultType="com.cis.member.dto.ManagerEmployeeDTO" parameterType="int">

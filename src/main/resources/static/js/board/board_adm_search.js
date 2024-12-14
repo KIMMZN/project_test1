@@ -14,7 +14,7 @@ function selectCategory() {
 }
 //삭제 function
 function deletePost(button) {
-    alert("sd");
+    // alert("sd");
     // <button th:attr="data-category=${m.category}, data-board-num=${m.board_num}"
     const categoryv = button.getAttribute('data-category')
     const boardNumv = button.getAttribute('data-board-num');

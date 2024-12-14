@@ -1,7 +1,7 @@
 section {
     width: 98%;
     height: 61%;
-    border: 1px solid black;
+    border: 1px solid #EBEBEB;
     border-radius: 15px;
     padding: 10px;
     display: flex;
@@ -23,29 +23,30 @@ section {
     justify-content: center;
     align-items: center;
 }
-
+/*게시판 메뉴*/
 .mail_btn input {
     font-size: 20px;
     font-weight: bold;
-    /*border: 1px solid black;*/
     border-radius: 15px;
     margin-right: 25px;
     padding: 10px;
     cursor: pointer;
-    background-color: #1E90FF;
+    background-color: #1E90FF; /* 기본 버튼 색 */
     color: white;
 }
 
 .mail_btn input:hover {
-    background-color: skyblue;
+    background-color: skyblue; /* 호버 색 */
 }
 
 .mail_btn input.selected {
-    background-color: #FF4500; /* 선택된 버튼 색 */
+    background-color: #9AADEE; /* 선택된 버튼 색 */
     color: white;
+    font-weight: bold;
 }
+
 .mail_list {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 .mail_table {
     width: 100%;

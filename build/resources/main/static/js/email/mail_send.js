@@ -66,8 +66,13 @@ recipient_id.addEventListener("keyup", () => {
                 recipient_name_box.style.color = "red"
                 recipient_name_box.innerText = "해당 아이디를 가진 유저는 존재하지 않습니다."
             } else {
-                recipient_name_box.style.color = "dodgerblue"
-                recipient_name_box.innerText = "받는 사람 : " + name;
+                if (recipient_id_text === 'admin') {
+                    recipient_name_box.style.color = "red"
+                    recipient_name_box.innerText = "관리자에게는 보낼 수 없습니다."
+                } else {
+                    recipient_name_box.style.color = "dodgerblue"
+                    recipient_name_box.innerText = "받는 사람 : " + name;
+                }
             }
         },
         error : function() {
@@ -100,6 +105,14 @@ send_btn.addEventListener("click", () => {
         return;
     }
 
+    if (recipient_id.value === 'admin') {
+        alert("관리자에게는 보낼 수 없습니다.");
+        recipient_id.value = null;
+        recipient_name_box.style.color = "#666666"
+        recipient_name_box.innerText = "받는 사람의 아이디를 입력해주세요.";
+        return;
+    }
+
     $.ajax({
         type : "POST",
         url : "/recipient_id/check",
@@ -110,6 +123,8 @@ send_btn.addEventListener("click", () => {
             if (check === 1) {
                 alert(recipient_id_text + "님은 존재하지 않습니다.\n아이디를 다시 확인해주세요.");
                 recipient_id.value = null;
+                recipient_name_box.style.color = "#666666"
+                recipient_name_box.innerText = "받는 사람의 아이디를 입력해주세요.";
             } else {
                 email_send.submit();
             }

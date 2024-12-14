@@ -13,5 +13,6 @@ public interface IF_AttendanceService {
     public int attendanceListCnt(Object login_emp) throws Exception;
     public int attendanceWorkStartCheck(Object login_emp, String now_date) throws Exception;
     public int attendanceWorkEndCheck(Object login_emp, String now_date) throws Exception;
+    public String attendanceWorkStartTime(Object login_emp, String now_date) throws Exception;
 
 }
