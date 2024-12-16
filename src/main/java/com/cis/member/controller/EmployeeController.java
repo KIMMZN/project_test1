@@ -34,7 +34,7 @@ public class EmployeeController {
     // 전체 로그인 (로그인 방식 선택.)
     @GetMapping(value="/")
     public String start_page() throws Exception{
-//        System.out.println("시작화면");
+        System.out.println("시작화면");
         return "total_login";
     }
 
@@ -44,14 +44,14 @@ public class EmployeeController {
     // 일반사원 로그인창으로 이동.
     @GetMapping(value="/employee_login")
     public String login() throws Exception {
-//        System.out.println("=== total_login 진입 ===");
+        System.out.println("=== total_login 진입 ===");
         return "Employee/employee_login";
     }
 
     // 일반사원 로그인.
     @RequestMapping(value="employee_login_action")
     public String employee_login_action(HttpServletRequest request, Model model) throws Exception {
-//        System.out.println("=== Employee/employee_login 진입 ===");
+        System.out.println("=== Employee/employee_login 진입 ===");
         String userId = request.getParameter("emp_id");
         String userPass = request.getParameter("emp_pass");
         ManagerEmployeeDTO managerEmployeeDTO = memberService.login_employee_info(userId);
@@ -124,8 +124,8 @@ public class EmployeeController {
     // 신규 사원 등록.
     @PostMapping(value="employee_join")
     public String add_new_employee(@ModelAttribute EmployeeDTO employeedto) throws Exception {
-//        System.out.println("=== Employee/join 진입 ===");
-//        System.out.println("입력받은 신규 사원의 정보 확인 : " + employeedto.toString());
+        System.out.println("=== Employee/join 진입 ===");
+        System.out.println("입력받은 신규 사원의 정보 확인 : " + employeedto.toString());
         memberService.add_new_employee(employeedto);
         return "redirect:employee_login"; // 등록 후 로그인 화면으로 이동.
     }
@@ -168,19 +168,18 @@ public class EmployeeController {
     //    public String manage_page(Model model, @ModelAttribute PageDTO pagedto) throws Exception{
     @GetMapping(value="manager_page")
     public String manage_page(@RequestParam(defaultValue = "1") int page, Model model) throws Exception{
-//        System.out.println("=== main/manager_main 진입 ===");
+        System.out.println("=== main/manager_main 진입 ===");
         int totalCount = memberService.total_count_number();
 //        System.out.println("totalcount : " + totalCount + " / " + page);
-//        Pagination pagination = new Pagination(10, totalCount, page);
         Pagination pagination = new Pagination(10, totalCount, page);
         int startIndex = pagination.getStartIndex();
         int pageSize = pagination.getPageSize();
         pagination.setSelectPage(page);
         // 전체 사원 리스트 받기.
         List<ManagerEmployeeDTO> total_employee_list = memberService.total_employee_list(startIndex, pageSize);
-//        for (ManagerEmployeeDTO member : total_employee_list) {
-//            System.out.println("사원 정보 : " + member.toString());
-//        }
+        for (ManagerEmployeeDTO member : total_employee_list) {
+            System.out.println("사원 정보 : " + member.toString());
+        }
         model.addAttribute("pagination", pagination);
         model.addAttribute("employee", total_employee_list);
 //        return "Manager/total_list";
@@ -220,27 +219,27 @@ public class EmployeeController {
             if(big_part.equals("select_dept") && work_status.equals("select_status")){
                 // 부서 선택.
                 list = memberService.total_dept_list( department, startIndex, pageSize);
-//                for(ManagerEmployeeDTO member : list){
-//                    System.out.println("EmployeeController_부서 선택한 사원 정보 : " + member.toString());
-//                }
+                for(ManagerEmployeeDTO member : list){
+                    System.out.println("EmployeeController_부서 선택한 사원 정보 : " + member.toString());
+                }
             }else if(big_part.equals("select_work_status") && department.equals("select_dept")){
                 // 재직상태 선택.
                 list = memberService.total_work_status_list( work_status,startIndex, pageSize);
-//                for(ManagerEmployeeDTO member : list){
-//                    System.out.println("EmployeeController_재직상태 선택한 사원 정보 : " + member.toString());
-//                }
+                for(ManagerEmployeeDTO member : list){
+                    System.out.println("EmployeeController_재직상태 선택한 사원 정보 : " + member.toString());
+                }
             }
         }else{
             // 검색창에 입력한 내용이 있을때.
             list = memberService.total_search_employee_list(input_name);
-//            for(ManagerEmployeeDTO member : list){
-//                System.out.println("EmployeeController_검색한 사원 정보 : " + member.toString());
-//            }
+            for(ManagerEmployeeDTO member : list){
+                System.out.println("EmployeeController_검색한 사원 정보 : " + member.toString());
+            }
         }
-//        System.out.println("EmployeeController_pagination 정보 : " + pagination);
-//        for(ManagerEmployeeDTO member : list){
-//            System.out.println("EmployeeController_화면에 출력할 리스트 내용 finall check : " + member.toString());
-//        }
+        System.out.println("EmployeeController_pagination 정보 : " + pagination);
+        for(ManagerEmployeeDTO member : list){
+            System.out.println("EmployeeController_화면에 출력할 리스트 내용 finall check : " + member.toString());
+        }
         model.addAttribute("pagination", pagination);
         model.addAttribute("employee",list);
         return "Manager/total_list";
@@ -250,7 +249,7 @@ public class EmployeeController {
     // 전체사원 리스트에서 사원이름 클릭시.
     @GetMapping(value="manager_modify_employee_info")
     public String employee_info(@RequestParam("emp_name") String click_id, Model model) throws Exception{
-//        System.out.println("@@@@@@@");
+        System.out.println("@@@@@@@");
         // 이름이 "click_id"인 사원에 모든 정보 조회.
         ManagerEmployeeDTO member = memberService.one_employee_info(click_id);
         if(member.getEmp_id().equals("111")){
@@ -263,7 +262,7 @@ public class EmployeeController {
     // "관리자-사원 정보 수정" 에서 "확인"클릭시.
     @PostMapping(value="send_modify_employee_info")
     public String changed_employee_info(@ModelAttribute ManagerEmployeeDTO member) throws Exception{
-//        System.out.println("#######");
+        System.out.println("#######");
         memberService.modify_employee_info(member);
         return "redirect:manager_page";
     }
@@ -298,8 +297,8 @@ public class EmployeeController {
     // 관리자 사원정보 수정후 "확인"클릭
     @PostMapping(value = "manager_complete_employee_info")
     public String manager_mod_info(@RequestParam("resident_num") String rrn, @RequestParam("work_status") String work_status) throws Exception{
-//        System.out.println("EmployeeController_rrn : " + rrn);
-//        System.out.println("EmployeeController_work_status : " + work_status);
+        System.out.println("EmployeeController_rrn : " + rrn);
+        System.out.println("EmployeeController_work_status : " + work_status);
         memberService.manager_modify_info(rrn,work_status);
         return "redirect:manager_page";
     }
@@ -308,7 +307,7 @@ public class EmployeeController {
     @PostMapping(value="add_new_employee")
     public String complete_info(@ModelAttribute ManagerEmployeeDTO member) throws Exception{
 //        System.out.println("^^^^^^^");
-//        System.out.println("관리자가 입력한 정보 : " + member.toString());
+        System.out.println("관리자가 입력한 정보 : " + member.toString());
         memberService.complete_info(member);
 //        System.out.println("^^^^^^^----");
         return "redirect:manager_page";
@@ -329,12 +328,12 @@ public class EmployeeController {
     // 관리자 신규 사원 등록
     @PostMapping(value="manager_input_new_employe_info")
     public String add_new_employee(@ModelAttribute ManagerDTO member) throws Exception{
-//        System.out.println("EmployeeController_관리자가 신규 등록한 사원의 정보 : " + member.toString());
+        System.out.println("EmployeeController_관리자가 신규 등록한 사원의 정보 : " + member.toString());
         memberService.add_new_employee_info(member);
-//        System.out.println("EmployeeController_rrn : " + member.getResident_num());
+        System.out.println("EmployeeController_rrn : " + member.getResident_num());
         int num = (int)(Math.random()*8999)+1000;
         String r_num = String.valueOf(num);
-//        System.out.println("생성한 랜덤 숫자 : " + r_num);
+        System.out.println("생성한 랜덤 숫자 : " + r_num);
         String rrn = member.getResident_num();
         memberService.add_new_employee_rrn_in_employee(rrn,r_num);
         return "main/manager_main";
@@ -348,12 +347,12 @@ public class EmployeeController {
         int startIndex = pagination.getStartIndex();
         int pageSize = pagination.getPageSize();
         pagination.setSelectPage(page);
-//        System.out.println("EmployeeController_정보 보충이 필요한 사원의 인원수 : " + totalCount);
+        System.out.println("EmployeeController_정보 보충이 필요한 사원의 인원수 : " + totalCount);
         List<ManagerEmployeeDTO> list = memberService.employee_need_complete(startIndex, pageSize);
-//        for(ManagerEmployeeDTO member : list){
-//            System.out.println("EmployeeController_need_complete : " + member.toString());
-//        }
-//        System.out.println("pagination : " + pagination);
+        for(ManagerEmployeeDTO member : list){
+            System.out.println("EmployeeController_need_complete : " + member.toString());
+        }
+        System.out.println("pagination : " + pagination);
         model.addAttribute("pagination", pagination);
         model.addAttribute("list", list);
         return "Manager/employee_list_info_need_complete"; // 미완성 사원 리스트 페이지.

@@ -64,30 +64,30 @@
                     </tr>
                     </thead>
                     <tbody id="employee_list_content">
-                        <tr th:each="employees : ${employee}">
-                            <td><a th:text="${employees.emp_name}" th:href="@{/manager_modify_employee_info(emp_name=${employees.emp_name})}"></a></td>
-                            <td th:text="${employees.emp_id}"></td>
-                            <td th:text="${employees.emp_rank}"></td>
-                            <td th:text="${employees.emp_dept}"></td>
-                            <td th:text="${employees.join_date}"></td>
-                            <td th:text="${employees.work_status}"></td>
-                        </tr>
+                    <tr th:each="employees : ${employee}">
+                        <td><a th:text="${employees.emp_name}" th:href="@{/manager_modify_employee_info(emp_name=${employees.emp_name})}"></a></td>
+                        <td th:text="${employees.emp_id}"></td>
+                        <td th:text="${employees.emp_rank}"></td>
+                        <td th:text="${employees.emp_dept}"></td>
+                        <td th:text="${employees.join_date}"></td>
+                        <td th:text="${employees.work_status}"></td>
+                    </tr>
                     </tbody>
                     <tfoot>
-                        <tr class="paging">
-                            <td colspan="6">
-                                <a th:href="@{manager_page(filter=${pagination.filter},page=1)}" style="font-weight: bold;"><div>처음</div></a>
-                                <a th:href="@{manager_page(filter=${pagination.filter},page=${pagination.prevBlock})}" style="font-weight: bold;"><div>이전</div></a>
-                                <th:block th:with="start=${pagination.startPage}, end=${pagination.endPage}">
-                                    <a th:each="pageButton : ${#numbers.sequence(start, end)}" th:href="@{manager_page(filter=${pagination.filter},page=${pageButton})}">
-                                        <div th:if="${pagination.selectPage == pageButton}" th:text="${pageButton}" style="color: skyblue; font-weight: bold;"></div>
-                                        <div th:unless="${pagination.selectPage == pageButton}" th:text="${pageButton}"></div>
-                                    </a>
-                                </th:block>
-                                <a th:href="@{manager_page(filter=${pagination.filter},page=${pagination.nextBlock})}" style="font-weight: bold;"><div>다음</div></a>
-                                <a th:href="@{manager_page(filter=${pagination.filter},page=${pagination.totalPageCnt})}" style="font-weight: bold;"><div>끝</div></a>
-                            </td>
-                        </tr>
+                    <tr class="paging">
+                        <td colspan="6">
+                            <a th:href="@{manager_page(filter=${pagination.filter},page=1)}" style="font-weight: bold;"><div>처음</div></a>
+                            <a th:href="@{manager_page(filter=${pagination.filter},page=${pagination.prevBlock})}" style="font-weight: bold;"><div>이전</div></a>
+                            <th:block th:with="start=${pagination.startPage}, end=${pagination.endPage}">
+                                <a th:each="pageButton : ${#numbers.sequence(start, end)}" th:href="@{manager_page(filter=${pagination.filter},page=${pageButton})}">
+                                    <div th:if="${pagination.selectPage == pageButton}" th:text="${pageButton}" style="color: skyblue; font-weight: bold;"></div>
+                                    <div th:unless="${pagination.selectPage == pageButton}" th:text="${pageButton}"></div>
+                                </a>
+                            </th:block>
+                            <a th:href="@{manager_page(filter=${pagination.filter},page=${pagination.nextBlock})}" style="font-weight: bold;"><div>다음</div></a>
+                            <a th:href="@{manager_page(filter=${pagination.filter},page=${pagination.totalPageCnt})}" style="font-weight: bold;"><div>끝</div></a>
+                        </td>
+                    </tr>
                     </tfoot>
                 </table>
             </div>

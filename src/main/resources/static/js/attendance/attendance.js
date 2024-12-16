@@ -198,6 +198,8 @@ function leaveWork(significant_value) {
     let start_hour = parseInt(work_start.substring(0, 2));
     let start_minute = parseInt(work_start.substring(3, 5));
 
+    if (work_end.length <= 4) work_end = "0" + work_end;
+
     let end_hour = parseInt(work_end.substring(0, 2));
     let end_minute = parseInt(work_end.substring(3, 5));
     let work_total_time = ((end_hour - start_hour) * 60) + (end_minute - start_minute);
